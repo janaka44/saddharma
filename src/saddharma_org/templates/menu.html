@@ -1,0 +1,156 @@
+{% load i18n %}
+{% load static %}
+<style>
+.dropbtn {
+  background-color: white;
+  color: black;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+  color:#ffcc00;;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
+<div class="main-header header-sticky" style="background-color: #ffcc00;">
+<div class="container-fluid" style="background-color: #ffcc00;">
+<div class="menu-wrapper" style="background-color: #ffcc00;">
+    <img src="{% static 'assets/img/menu/lotus.png' %}"  alt="lotus" width="80" height="80" class="hidden-sm-down">
+    <!-- Logo -->
+    <div class="logo">
+        
+        <a href="index.html"><img src="{% static 'assets/img/logo/logo_menu.png' %}" alt="logo" width="230" height="90"></a>
+    </div>
+    <!-- Main-menu -->
+    <div class="main-menu d-none d-lg-block">
+        <nav class="navbar navbar-light" style="background-color: #ffcc00;">                                                
+            <ul id="navigation">  
+                <li><a href="">{{navbar_menu_home}}</a></li>
+                <li><a href="about.html">{{navbar_menu_about}}</a></li>
+                <li><a href="books.html">{{navbar_menu_books}}</a>
+                    <ul class="submenu">
+                        <li><a href="books.html?title="> {{navbar_menu_books_title}}</a></li>
+                        <li><a href="books.html?author="> {{navbar_menu_books_author}}</a></li>
+                        <li><a href="books.html?library="> {{navbar_menu_books_library}}</a></li>
+                        <li><a href="upload_books.html"> {{navbar_menu_books_upload}}</a></li>
+                        <li><a href="books.html?review="> {{navbar_menu_books_review}}</a></li>
+                    </ul>
+                </li>
+                <li><a>{{navbar_menu_other}}</a>
+                    <ul class="submenu">
+                        <li><a href="authors.html">{{navbar_menu_other_authors}}</a></li>
+                        <li><a href="libraries.html">{{navbar_menu_other_libraries}}</a></li>
+                    </ul>
+                </li>
+                <li><a href="my_account.html">{{navbar_menu_myaccount}}</a>
+                    <ul class="submenu">
+                        <li><a href="bookmarks.html">{{navbar_menu_myaccount_bookmarks}}</a></li>
+                        <li><a href="wishlist.html">{{navbar_menu_myaccount_wishlist}}</a></li>
+                        <li><a href="books.html?uploaded_by="> {{navbar_menu_myaccount_mybooks}}</a></li>
+                    </ul>
+                </li>
+                <!-- <li><a href="#">Pages</a>
+                    <ul class="submenu">
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="elements.html">Element</a></li>
+                        <li><a href="confirmation.html">Confirmation</a></li>
+                        <li><a href="checkout.html">Product Checkout</a></li>
+                    </ul>
+                </li> -->
+                <li><a href="contact.html">{{navbar_menu_contact}}</a></li>
+            </ul>
+        </nav>
+    </div>
+    <!-- Header Right -->
+    <div class="header-right" style="background-color: #ffcc00;">
+        <ul>
+            <li> Language:
+                <!-- Language Button Menu -->
+                <div class="dropdown">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    <button onclick="langFunc()" class="dropbtn">{{ LANGUAGE_CODE|upper }}</button>
+                    <div id="myDropdown" class="dropdown-content">
+                    {% for lang_code, lang_name in  LANGUAGES %}
+                    <a {% if lang_code == 'si' %} href="/" {% else %} href="/{{ lang_code }}/" {% endif %} {% if lang_code == LANGUAGE_CODE %} selected{% endif %}>{{ lang_code|upper }}({{ lang_name }})</a>
+                    {% endfor %}
+                    </div>
+                  </div>
+            </li>
+            <li>
+                <div class="nav-search search-switch">
+                    <span class="flaticon-search"></span>
+                </div>
+            </li>
+            <li> <a href="login.html"><span class="flaticon-user"></span></a></li>
+            <li><a href="wishlist.html"><span class="flaticon-shopping-cart"></span></a> </li>
+        </ul>
+    </div>
+    <img src="{% static 'assets/img/menu/lotus.png' %}"  width="80" height="80" class="hidden-sm-down">
+</div>
+<!-- Mobile Menu -->
+<div class="col-12" >
+    <div class="mobile_menu d-block d-lg-none"></div>
+</div>
+</div>
+</div>
+    <!--? Search model Begin -->
+    <div class="search-model-box">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-btn">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Searching key.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search model end -->
+<script>
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+    function langFunc() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+    
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+</script>
