@@ -46,7 +46,7 @@ def home_view(request):
         'section_home_page_about_description' : _('HOME_PAGE_ABOUT_DESCRIPTION'),
     }
     context.update(set_base_content(request))
-    return render(request, "index.html", context)
+    return render(request, "template.2/index.html", context)
 
 def book_view(request):
     context = {

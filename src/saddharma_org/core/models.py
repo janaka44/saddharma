@@ -9,7 +9,7 @@ BOOK_CATEGORIES_L1 = (
     ('L_1_C_2', 'Sutta' ),
     ('L_1_C_3', 'Ahbhi Dhamma'),
     ('L_1_C_4', 'Dhamma Sangraha Books'),
-    ('L_1_C_5', 'Pali Grammer'),
+    ('L_1_C_5', 'Pali Grammar'),
     ('L_1_C_6', 'Other Dhamma Sangraha Books' ),
     ('L_1_C_7', 'Index and Dictionary'),
     ('L_1_C_8', 'Old Books'),
