@@ -21,94 +21,94 @@
 	
 	<!-- Header -->
 
-	<header class="header shadowfilter">
+	<header class="header">
+		<div class="header-image">
+	
+			<!-- Top Bar -->
 
-		<!-- Top Bar -->
-
-		<div class="top_bar">
-			<div class="container">
-				<div class="row">
-					<div class="col d-flex flex-row">
-						<div class="phone">+94 012 456 789</div>
-						<div class="social">
-							<ul class="social_list">
-								{% comment %} <li class="social_list_item"><a href="static/#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li> {% endcomment %}
-								<li class="social_list_item"><a href="static/#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-								{% comment %} <li class="social_list_item"><a href="static/#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-								<li class="social_list_item"><a href="static/#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-								<li class="social_list_item"><a href="static/#"><i class="fa fa-behance" aria-hidden="true"></i></a></li> {% endcomment %}
-								<li class="social_list_item"><a href="static/#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-							</ul>
-						</div>
-						<div class="user_box ml-auto">
-							<div class="user_box_login user_box_link"><a href="static/#">login</a></div>
-							<div class="user_box_register user_box_link"><a href="static/#">register</a></div>
+			<div class="top_bar">
+				<div class="container">
+					<div class="row">
+						<div class="col d-flex flex-row">
+							{% comment %} <div class="phone">+94 012 456 789</div> {% endcomment %}
+							<div class="social">
+								<ul class="social_list" style='display:none;'>
+									{% comment %} <li class="social_list_item"><a href="static/#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li> {% endcomment %}
+									<li class="social_list_item"><a href="static/#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									{% comment %} <li class="social_list_item"><a href="static/#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+									<li class="social_list_item"><a href="static/#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+									<li class="social_list_item"><a href="static/#"><i class="fa fa-behance" aria-hidden="true"></i></a></li> {% endcomment %}
+									<li class="social_list_item"><a href="static/#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+								</ul>
+							</div>
+							<div class="user_box ml-auto">
+								<div class="user_box_login user_box_link"><a href="static/#">login</a></div>
+								<div class="user_box_register user_box_link"><a href="static/#">register</a></div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>		
+				</div>		
+			</div>
+
+			<!-- Main Navigation -->
+
+			<nav class="main_nav">
+				<div class="container">
+					<div class="row">
+						<div class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
+							<div class="logo_container shadowfilter">
+								<div class="logo"><a href="static/#"><img src="static/images/Saddharma_logo.png" width="320px" alt="Saddharma"></a></div>
+							</div>
+							<div class="main_nav_container ml-auto">
+								<ul class="main_nav_list">
+									{% comment %} <li class="main_nav_item"><a href="static/#">සොයන්න</a></li> {% endcomment %}
+									<li class="main_nav_item"><a href="static/blog.html">ග්‍රන්ථ නාමාවලිය</a></li>
+									{% comment %} <li class="main_nav_item"><a href="static/about.html">චිනය</a></li>
+									<li class="main_nav_item"><a href="static/offers.html">සූත්‍ර</a></li>
+									<li class="main_nav_item"><a href="static/blog.html">අභි ධම්‌ම</a></li> {% endcomment %}
+									<li class="main_nav_item"><a href="static/about.html">ත්‍රිපිටකය</a></li> 
+									<li class="main_nav_item"><a href="static/about.html">ධම්‌ම සංග්‍රහ පොත්‌</a></li>
+									<li class="main_nav_item"><a href="static/offers.html">පාලි ව්‍යාකරණ</a></li>
+									<li class="main_nav_item"><a href="static/blog.html">වෙනත් පොත්</a></li>
+									<li class="main_nav_item"><a href="static/contact.html">සම්‌භන්‌ද වෙමු</a></li>
+								</ul>
+							</div>
+							{% comment %} <div class="content_search ml-lg-0 ml-auto">
+								<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+								width="17px" height="17px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+									<g>
+										<g>
+											<g>
+												<path class="mag_glass" fill="#FFFFFF" d="M78.438,216.78c0,57.906,22.55,112.343,63.493,153.287c40.945,40.944,95.383,63.494,153.287,63.494
+												s112.344-22.55,153.287-63.494C489.451,329.123,512,274.686,512,216.78c0-57.904-22.549-112.342-63.494-153.286
+												C407.563,22.549,353.124,0,295.219,0c-57.904,0-112.342,22.549-153.287,63.494C100.988,104.438,78.439,158.876,78.438,216.78z
+												M119.804,216.78c0-96.725,78.69-175.416,175.415-175.416s175.418,78.691,175.418,175.416
+												c0,96.725-78.691,175.416-175.416,175.416C198.495,392.195,119.804,313.505,119.804,216.78z"/>
+											</g>
+										</g>
+										<g>
+											<g>
+												<path class="mag_glass" fill="#FFFFFF" d="M6.057,505.942c4.038,4.039,9.332,6.058,14.625,6.058s10.587-2.019,14.625-6.058L171.268,369.98
+												c8.076-8.076,8.076-21.172,0-29.248c-8.076-8.078-21.172-8.078-29.249,0L6.057,476.693
+												C-2.019,484.77-2.019,497.865,6.057,505.942z"/>
+											</g>
+										</g>
+									</g>
+								</svg>
+							</div> {% endcomment %}
+
+							<form id="search_form" class="search_form bez_1">
+								<input type="search" class="search_content_input bez_1">
+							</form>
+
+							<div class="hamburger">
+								<i class="fa fa-bars trans_200"></i>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</nav>
 		</div>
-
-		<!-- Main Navigation -->
-
-		<nav class="main_nav">
-			<div class="container">
-				<div class="row">
-					<div class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
-						<div class="logo_container">
-							<div class="logo"><a href="static/#"><img src="static/images/Saddharma_logo.png" width="200px" alt="Saddharma"></a></div>
-						</div>
-						<div class="main_nav_container ml-auto">
-							<ul class="main_nav_list">
-								{% comment %} <li class="main_nav_item"><a href="static/#">සොයන්න</a></li> {% endcomment %}
-								<li class="main_nav_item"><a href="static/blog.html">ග්‍රන්ථ නාමාවලිය</a></li>
-								{% comment %} <li class="main_nav_item"><a href="static/about.html">චිනය</a></li>
-								<li class="main_nav_item"><a href="static/offers.html">සූත්‍ර</a></li>
-								<li class="main_nav_item"><a href="static/blog.html">අභි ධම්‌ම</a></li> {% endcomment %}
-								<li class="main_nav_item"><a href="static/about.html">ත්‍රිපිටකය</a></li> 
-								<li class="main_nav_item"><a href="static/about.html">ධම්‌ම සංග්‍රහ පොත්‌</a></li>
-								<li class="main_nav_item"><a href="static/offers.html"></a></li>
-								<li class="main_nav_item"><a href="static/blog.html">පාලි ව්‍යාකරණ</a></li>
-								<li class="main_nav_item"><a href="static/blog.html">වෙනත් පොත්</a></li>
-								<li class="main_nav_item"><a href="static/contact.html">සම්‌භන්‌ද වෙමු</a></li>
-							</ul>
-						</div>
-						{% comment %} <div class="content_search ml-lg-0 ml-auto">
-							<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-							width="17px" height="17px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
-								<g>
-									<g>
-										<g>
-											<path class="mag_glass" fill="#FFFFFF" d="M78.438,216.78c0,57.906,22.55,112.343,63.493,153.287c40.945,40.944,95.383,63.494,153.287,63.494
-											s112.344-22.55,153.287-63.494C489.451,329.123,512,274.686,512,216.78c0-57.904-22.549-112.342-63.494-153.286
-											C407.563,22.549,353.124,0,295.219,0c-57.904,0-112.342,22.549-153.287,63.494C100.988,104.438,78.439,158.876,78.438,216.78z
-											M119.804,216.78c0-96.725,78.69-175.416,175.415-175.416s175.418,78.691,175.418,175.416
-											c0,96.725-78.691,175.416-175.416,175.416C198.495,392.195,119.804,313.505,119.804,216.78z"/>
-										</g>
-									</g>
-									<g>
-										<g>
-											<path class="mag_glass" fill="#FFFFFF" d="M6.057,505.942c4.038,4.039,9.332,6.058,14.625,6.058s10.587-2.019,14.625-6.058L171.268,369.98
-											c8.076-8.076,8.076-21.172,0-29.248c-8.076-8.078-21.172-8.078-29.249,0L6.057,476.693
-											C-2.019,484.77-2.019,497.865,6.057,505.942z"/>
-										</g>
-									</g>
-								</g>
-							</svg>
-						</div> {% endcomment %}
-
-						<form id="search_form" class="search_form bez_1">
-							<input type="search" class="search_content_input bez_1">
-						</form>
-
-						<div class="hamburger">
-							<i class="fa fa-bars trans_200"></i>
-						</div>
-					</div>
-				</div>
-			</div>	
-		</nav>
-
 	</header>
 
 	<div class="menu trans_500">
@@ -137,14 +137,14 @@
 
 				<!-- Slider Item -->
 				<div class="owl-item home_slider_item">
-					<!-- Image by https://unsplash.com/@anikindimitry -->
 					<div class="home_slider_background" style="background-image:url(static/images/banner1.jpg)"></div>
+					<div class="home_slider_background" style="background-image:url(static/images/liyawel-2.jpg); opacity: 0.1;"></div>
 
 					<div class="home_slider_content text-center">
 						<div class="home_slider_content_inner" data-animation-in="flipInX" data-animation-out="animate-out fadeOut">
 							<!-- <img src="static/images/Saddharma_logo.png" width="350px" alt="Saddharma"> -->
 							<h1></h1>
-							{% comment %} <h1>පෞරාණික ධර්ම ග්‍රන්ථ සංග්‍රහය </h1> {% endcomment %}
+							<h2 class="text-shadow">පෞරාණික ධර්ම ග්‍රන්ථ සංග්‍රහය </h2>
 							<h3><input type="text" id="search" name="search" Placeholder="සොයන්න" class="destination search_input" required="required" style="width:700px"></h3>
 							{% comment %} <div class="button home_slider_button"><div class="button_bcg"></div><a href="static/#">explore now<span></span><span></span><span></span></a></div> {% endcomment %}
 						</div>
@@ -153,26 +153,26 @@
 
 				<!-- Slider Item -->
 				<div class="owl-item home_slider_item">
-					<div class="home_slider_background" style="background-image:url(static/images/home_slider.jpg)"></div>
+					<div class="home_slider_background" style="background-image:url(static/images/banner2.jpg)"></div>
+					<div class="home_slider_background" style="background-image:url(static/images/liyawel-2.jpg); opacity: 0.1;"></div>
 
 					<div class="home_slider_content text-center">
 						<div class="home_slider_content_inner" data-animation-in="flipInX" data-animation-out="animate-out fadeOut">
-							<h1>discover</h1>
-							<h1>the world</h1>
-							<div class="button home_slider_button"><div class="button_bcg"></div><a href="static/#">explore now<span></span><span></span><span></span></a></div>
+							<h2 class="text-shadow">පාලි ව්‍යාකරණ සහ ඉගෙනුම...</h2>
+							<div class="button home_slider_button"><div class="button_bcg"></div><a href="static/#">වැඩි විස්තර<span></span><span></span><span></span></a></div>
 						</div>
 					</div>
 				</div>
 
 				<!-- Slider Item -->
 				<div class="owl-item home_slider_item">
-					<div class="home_slider_background" style="background-image:url(static/images/home_slider.jpg)"></div>
+					<div class="home_slider_background" style="background-image:url(static/images/banner3.jpg)"></div>
+					<div class="home_slider_background" style="background-image:url(static/images/liyawel-2.jpg); opacity: 0.1;"></div>
 
 					<div class="home_slider_content text-center">
 						<div class="home_slider_content_inner" data-animation-in="flipInX" data-animation-out="animate-out fadeOut">
-							<h1>discover</h1>
-							<h1>the world</h1>
-							<div class="button home_slider_button"><div class="button_bcg"></div><a href="static/#">explore now<span></span><span></span><span></span></a></div>
+							<h2  class="text-shadow">පුස්කොල පොත්...</h2>
+							<div class="button home_slider_button"><div class="button_bcg"></div><a href="static/#">වැඩි විස්තර <span></span><span></span><span></span></a></div>
 						</div>
 					</div>
 				</div>
@@ -242,7 +242,9 @@
 
 					<!-- Search Tabs -->
 
+					
 					<div class="search_tabs_container">
+					<h4 class='text-shadow'>වෙනත් ආකාර වලින් ග්‍රන්ථ සෙවීම සඳහා :</h4>
 						<div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
 							<div class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-book" aria-hidden="true">&nbsp;</i><span>ත්‍රිපිටකය</span></div>
 							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-book" aria-hidden="true">&nbsp;</i>අටුවා</div>
@@ -285,7 +287,7 @@
 									<option>03</option>
 								</select>
 							</div>
-							<button class="button search_button">search<span></span><span></span><span></span></button>
+							<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
 						</form>
 					</div>
 
@@ -321,7 +323,7 @@
 									<option>03</option>
 								</select>
 							</div>
-							<button class="button search_button">search<span></span><span></span><span></span></button>
+							<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
 						</form>
 					</div>
 
@@ -357,7 +359,7 @@
 									<option>03</option>
 								</select>
 							</div>
-							<button class="button search_button">search<span></span><span></span><span></span></button>
+							<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
 						</form>
 					</div>
 
@@ -393,7 +395,7 @@
 									<option>03</option>
 								</select>
 							</div>
-							<button class="button search_button">search<span></span><span></span><span></span></button>
+							<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
 						</form>
 					</div>
 
@@ -429,7 +431,7 @@
 									<option>03</option>
 								</select>
 							</div>
-							<button class="button search_button">search<span></span><span></span><span></span></button>
+							<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
 						</form>
 					</div>
 
@@ -465,7 +467,7 @@
 									<option>03</option>
 								</select>
 							</div>
-							<button class="button search_button">search<span></span><span></span><span></span></button>
+							<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
 						</form>
 					</div>
 				</div>
@@ -479,13 +481,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					<h2 class="intro_title text-center">We have the best tours</h2>
+					<h2 class="intro_title text-center">ග්‍රන්ථ වර්ගීකරණ</h2>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="intro_text text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec. </p>
+						<p></p>
 					</div>
 				</div>
 			</div>
@@ -496,14 +498,13 @@
 				<div class="col-lg-4 intro_col">
 					<div class="intro_item">
 						<div class="intro_item_overlay"></div>
-						<!-- Image by https://unsplash.com/@dnevozhai -->
-						<div class="intro_item_background" style="background-image:url(static/images/intro_1.jpg)"></div>
+						<div class="intro_item_background" style="background-image:url(static/images/candle-book.jpg)"></div>
 						<div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
-							<div class="intro_date">May 25th - June 01st</div>
-							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">see more<span></span><span></span><span></span></a></div>
+							<div class="intro_date">ග්‍රන්ථ 245</div>
+							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">නාමාවලිය<span></span><span></span><span></span></a></div>
 							<div class="intro_center text-center">
-								<h1>Mauritius</h1>
-								<div class="intro_price">From $1450</div>
+								<h1>විනය</h1>
+								{% comment %} <div class="intro_price">From $1450</div> {% endcomment %}
 								<div class="rating rating_4">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -521,14 +522,13 @@
 				<div class="col-lg-4 intro_col">
 					<div class="intro_item">
 						<div class="intro_item_overlay"></div>
-						<!-- Image by https://unsplash.com/@hellolightbulb -->
-						<div class="intro_item_background" style="background-image:url(static/images/intro_2.jpg)"></div>
+						<div class="intro_item_background" style="background-image:url(static/images/banner1.jpg)"></div>
 						<div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
-							<div class="intro_date">May 25th - June 01st</div>
-							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">see more<span></span><span></span><span></span></a></div>
+							<div class="intro_date">ග්‍රන්ථ 186</div>
+							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">නාමාවලිය<span></span><span></span><span></span></a></div>
 							<div class="intro_center text-center">
-								<h1>Greece</h1>
-								<div class="intro_price">From $1450</div>
+								<h1>සුත්‍ර</h1>
+								{% comment %} <div class="intro_price">From $1450</div> {% endcomment %}
 								<div class="rating rating_4">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -546,14 +546,155 @@
 				<div class="col-lg-4 intro_col">
 					<div class="intro_item">
 						<div class="intro_item_overlay"></div>
-						<!-- Image by https://unsplash.com/@willianjusten -->
-						<div class="intro_item_background" style="background-image:url(static/images/intro_3.jpg)"></div>
+						<div class="intro_item_background" style="background-image:url(static/images/banner3.jpg)"></div>
 						<div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
-							<div class="intro_date">May 25th - June 01st</div>
-							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">see more<span></span><span></span><span></span></a></div>
+							<div class="intro_date">ග්‍රන්ථ 88</div>
+							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">නාමාවලිය<span></span><span></span><span></span></a></div>
 							<div class="intro_center text-center">
-								<h1>Scotland</h1>
-								<div class="intro_price">From $1450</div>
+								<h1>අභිධර්ම</h1>
+								{% comment %} <div class="intro_price">From $1450</div> {% endcomment %}
+								<div class="rating rating_4">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 intro_col">
+					<div class="intro_item">
+						<div class="intro_item_overlay"></div>
+						<div class="intro_item_background" style="background-image:url(static/images/library-1.jpg)"></div>
+						<div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
+							<div class="intro_date">ග්‍රන්ථ 245</div>
+							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">නාමාවලිය<span></span><span></span><span></span></a></div>
+							<div class="intro_center text-center">
+								<h1>ධම්‌ම සංග්‍රහ පොත්‌</h1>
+								{% comment %} <div class="intro_price">From $1450</div> {% endcomment %}
+								<div class="rating rating_4">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Intro Item -->
+
+				<div class="col-lg-4 intro_col">
+					<div class="intro_item">
+						<div class="intro_item_overlay"></div>
+						<div class="intro_item_background" style="background-image:url(static/images/banner2.jpg)"></div>
+						<div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
+							<div class="intro_date">ග්‍රන්ථ 186</div>
+							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">නාමාවලිය<span></span><span></span><span></span></a></div>
+							<div class="intro_center text-center">
+								<h1>පාලි ව්‍යාකරණ</h1>
+								{% comment %} <div class="intro_price">From $1450</div> {% endcomment %}
+								<div class="rating rating_4">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Intro Item -->
+
+				<div class="col-lg-4 intro_col">
+					<div class="intro_item">
+						<div class="intro_item_overlay"></div>
+						<div class="intro_item_background" style="background-image:url(static/images/library-2.jpg)"></div>
+						<div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
+							<div class="intro_date">ග්‍රන්ථ 88</div>
+							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">නාමාවලිය<span></span><span></span><span></span></a></div>
+							<div class="intro_center text-center">
+								<h1>වෙනත් ධම්‌ම සංග්‍රහ පොත්</h1>
+								{% comment %} <div class="intro_price">From $1450</div> {% endcomment %}
+								<div class="rating rating_4">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Intro Item -->
+
+				<div class="col-lg-4 intro_col">
+					<div class="intro_item">
+						<div class="intro_item_overlay"></div>
+						<div class="intro_item_background" style="background-image:url(static/images/old_library.jpg)"></div>
+						<div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
+							<div class="intro_date">ග්‍රන්ථ 88</div>
+							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">නාමාවලිය<span></span><span></span><span></span></a></div>
+							<div class="intro_center text-center">
+								<h1>පැරණි පොත්</h1>
+								{% comment %} <div class="intro_price">From $1450</div> {% endcomment %}
+								<div class="rating rating_4">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Intro Item -->
+
+				<div class="col-lg-4 intro_col">
+					<div class="intro_item">
+						<div class="intro_item_overlay"></div>
+						<div class="intro_item_background" style="background-image:url(static/images/book-open.jpg)"></div>
+						<div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
+							<div class="intro_date">ග්‍රන්ථ 88</div>
+							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">නාමාවලිය<span></span><span></span><span></span></a></div>
+							<div class="intro_center text-center">
+								<h1>වෙනත් පොත්</h1>
+								{% comment %} <div class="intro_price">From $1450</div> {% endcomment %}
+								<div class="rating rating_4">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Intro Item -->
+
+				<div class="col-lg-4 intro_col">
+					<div class="intro_item">
+						<div class="intro_item_overlay"></div>
+						<div class="intro_item_background" style="background-image:url(static/images/book-catalog.jpg)"></div>
+						<div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
+							<div class="intro_date">ග්‍රන්ථ 88</div>
+							<div class="button intro_button"><div class="button_bcg"></div><a href="static/#">නාමාවලිය<span></span><span></span><span></span></a></div>
+							<div class="intro_center text-center">
+								<h1>ග්‍රන්ථ නාමාවලිය</h1>
+								{% comment %} <div class="intro_price">From $1450</div> {% endcomment %}
 								<div class="rating rating_4">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -573,10 +714,14 @@
 	<!-- CTA -->
 
 	<div class="cta">
-		<!-- Image by https://unsplash.com/@thanni -->
-		<div class="cta_background" style="background-image:url(static/images/cta.jpg)"></div>
+		<div class="cta_background" style="background-image:url(static/images/banner2.jpg)"></div>
 		
 		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h2 class=" text-center text-shadow">දැනට කියවන පොත්...</h2>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col">
 
@@ -584,48 +729,87 @@
 
 					<div class="cta_slider_container">
 						<div class="owl-carousel owl-theme cta_slider">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="offers_image_container">
+										<div class="offers_image_background" style=" background-image:url(static/images/old_paper.jpg)"></div>
+										<div class="offers_image_background book-cover" style=" background-image:url(static/images/book-cover1.png)"></div>
+										<div class="offer_name"><a href="static/#">පිටුව 132</a></div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<!-- CTA Slider Item -->
+									<div class="owl-item cta_item text-center">
+										
+										<div class="cta_title">අභිධර්මාර්ථ ප්‍රදීපිකා 1</div>
+										<div class="rating_r rating_r_4">
+											<i></i>
+											<i></i>
+											<i></i>
+											<i></i>
+											<i></i>
+										</div>
+										<h3 class="cta_text">අමරදාස රත්නපාල මහතා </h3>
+										<p class="cta_text">අවසන් වරට කියවූ පිටුව 132 / 255</p>
+										<div class="button cta_button"><div class="button_bcg"></div><a href="static/#">කියවන්න<span></span><span></span><span></span></a></div>
+									</div>
+								</div>
+							</div>	
 
 							<!-- CTA Slider Item -->
-							<div class="owl-item cta_item text-center">
-								<div class="cta_title">maldives deluxe package</div>
-								<div class="rating_r rating_r_4">
-									<i></i>
-									<i></i>
-									<i></i>
-									<i></i>
-									<i></i>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="offers_image_container">
+										<!-- Image by https://unsplash.com/@kensuarez -->
+										<div class="offers_image_background" style=" background-image:url(static/images/old_paper.jpg)"></div>
+										<div class="offers_image_background book-cover" style=" background-image:url(static/images/book-cover2.png)"></div>
+										<div class="offer_name"><a href="static/#">පිටුව 105</a></div>
+									</div>
 								</div>
-								<p class="cta_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec. Proin bibendum, augue faucibus tincidunt ultrices, tortor augue gravida lectus, et efficitur enim justo vel ligula.</p>
-								<div class="button cta_button"><div class="button_bcg"></div><a href="static/#">book now<span></span><span></span><span></span></a></div>
-							</div>
+								<div class="col-lg-6">
+									<div class="owl-item cta_item text-center">
+										<div class="cta_title">විමුක්ති මාර්ගොදය (බොජ්ඣංග)</div>							
+										<div class="rating_r rating_r_4">
+											<i></i>
+											<i></i>
+											<i></i>
+											<i></i>
+											<i></i>
+										</div>
+										<h3 class="cta_text">දික්වැල්ලේ සීලරතන හිමි</h3>	
+										<p class="cta_text">අවසන් වරට කියවූ පිටුව 105 / 282</p>
+										<p class="cta_text"></p>
+										<div class="button cta_button"><div class="button_bcg"></div><a href="static/#">කියවන්න<span></span><span></span><span></span></a></div>
+									</div>
+								</div>
+							</div>							
 
-							<!-- CTA Slider Item -->
-							<div class="owl-item cta_item text-center">
-								<div class="cta_title">maldives deluxe package</div>
-								<div class="rating_r rating_r_4">
-									<i></i>
-									<i></i>
-									<i></i>
-									<i></i>
-									<i></i>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="offers_image_container">
+										<div class="offers_image_background" style=" background-image:url(static/images/old_paper.jpg)"></div>
+										<div class="offers_image_background book-cover" style=" background-image:url(static/images/book-cover3.png)"></div>
+										<div class="offer_name"><a href="static/#">පිටුව 14</a></div>
+									</div>
 								</div>
-								<p class="cta_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec. Proin bibendum, augue faucibus tincidunt ultrices, tortor augue gravida lectus, et efficitur enim justo vel ligula.</p>
-								<div class="button cta_button"><div class="button_bcg"></div><a href="static/#">book now<span></span><span></span><span></span></a></div>
-							</div>
-
-							<!-- CTA Slider Item -->
-							<div class="owl-item cta_item text-center">
-								<div class="cta_title">maldives deluxe package</div>
-								<div class="rating_r rating_r_4">
-									<i></i>
-									<i></i>
-									<i></i>
-									<i></i>
-									<i></i>
+								<div class="col-lg-6">
+									<!-- CTA Slider Item -->
+									<div class="owl-item cta_item text-center">
+										
+										<div class="cta_title">පඨමපාඨාවලී</div>
+										<div class="rating_r rating_r_4">
+											<i></i>
+											<i></i>
+											<i></i>
+											<i></i>
+											<i></i>
+										</div>
+										<h3 class="cta_text">පොල්වත්තේ බුද්ධදත්ත හිමි</h3>
+										<p class="cta_text">අවසන් වරට කියවූ පිටුව 14 / 182</p>
+										<div class="button cta_button"><div class="button_bcg"></div><a href="static/#">කියවන්න<span></span><span></span><span></span></a></div>
+									</div>
 								</div>
-								<p class="cta_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec. Proin bibendum, augue faucibus tincidunt ultrices, tortor augue gravida lectus, et efficitur enim justo vel ligula.</p>
-								<div class="button cta_button"><div class="button_bcg"></div><a href="static/#">book now<span></span><span></span><span></span></a></div>
-							</div>
+							</div>	
 							
 						</div>
 
@@ -679,7 +863,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
-					<h2 class="section_title">the best offers with rooms</h2>
+					<h2 class="section_title">වැඩිපුරම බලන පොත්</h2>
 				</div>
 			</div>
 			<div class="row offers_items">
@@ -691,13 +875,13 @@
 							<div class="col-lg-6">
 								<div class="offers_image_container">
 									<!-- Image by https://unsplash.com/@kensuarez -->
-									<div class="offers_image_background" style="background-image:url(static/images/offer_1.jpg)"></div>
-									<div class="offer_name"><a href="static/#">grand castle</a></div>
+									<div class="offers_image_background" style="background-image:url(static/images/book-cover1.png)"></div>
+									<div class="offer_name"><a href="static/#">1,220 Downloads</a></div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="offers_content">
-									<div class="offers_price">$70<span>per night</span></div>
+									<div class="offers_price">අභිධර්මාර්ථ ප්‍රදීපිකා 1<span><br>අමරදාස රත්නපාල මහතා</span></div>
 									<div class="rating_r rating_r_4 offers_rating">
 										<i></i>
 										<i></i>
@@ -705,16 +889,17 @@
 										<i></i>
 										<i></i>
 									</div>
-									<p class="offers_text">Suspendisse potenti. In faucibus massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor.</p>
-									<div class="offers_icons">
+									<p class="offers_text">File එකේ ප්‍රමාණය (size) : 19 MB<br>
+									පිටු 255</p></p>
+									{% comment %} <div class="offers_icons">
 										<ul class="offers_icons_list">
 											<li class="offers_icons_item"><img src="static/images/post.png" alt=""></li>
 											<li class="offers_icons_item"><img src="static/images/compass.png" alt=""></li>
 											<li class="offers_icons_item"><img src="static/images/bicycle.png" alt=""></li>
 											<li class="offers_icons_item"><img src="static/images/sailboat.png" alt=""></li>
 										</ul>
-									</div>
-									<div class="offers_link"><a href="static/offers.html">read more</a></div>
+									</div> {% endcomment %}
+									<div class="offers_link"><a href="static/offers.html">කියවන්න</a></div>
 								</div>
 							</div>
 						</div>
@@ -728,13 +913,13 @@
 							<div class="col-lg-6">
 								<div class="offers_image_container">
 									<!-- Image by Egzon Bytyqi -->
-									<div class="offers_image_background" style="background-image:url(static/images/offer_2.jpg)"></div>
-									<div class="offer_name"><a href="static/#">turkey hills</a></div>
+									<div class="offers_image_background" style="background-image:url(static/images/book-cover2.png)"></div>
+									<div class="offer_name"><a href="static/#">1,090 Downloads</a></div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="offers_content">
-									<div class="offers_price">$50<span>per night</span></div>
+									<div class="offers_price">විමුක්ති මාර්ගොදය (බොජ්ඣංග)<span><br>දික්වැල්ලේ සීලරතන හිමි</span></div>
 									<div class="rating_r rating_r_4 offers_rating">
 										<i></i>
 										<i></i>
@@ -742,16 +927,9 @@
 										<i></i>
 										<i></i>
 									</div>
-									<p class="offers_text">Suspendisse potenti. In faucibus massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor.</p>
-									<div class="offers_icons">
-										<ul class="offers_icons_list">
-											<li class="offers_icons_item"><img src="static/images/post.png" alt=""></li>
-											<li class="offers_icons_item"><img src="static/images/compass.png" alt=""></li>
-											<li class="offers_icons_item"><img src="static/images/bicycle.png" alt=""></li>
-											<li class="offers_icons_item"><img src="static/images/sailboat.png" alt=""></li>
-										</ul>
-									</div>
-									<div class="offers_link"><a href="static/offers.html">read more</a></div>
+									<p class="offers_text">File එකේ ප්‍රමාණය (size) : 28 MB<br>
+									පිටු 282</p>
+									<div class="offers_link"><a href="static/offers.html">කියවන්න</a></div>
 								</div>
 							</div>
 						</div>
@@ -765,13 +943,13 @@
 							<div class="col-lg-6">
 								<div class="offers_image_container">
 									<!-- Image by https://unsplash.com/@nevenkrcmarek -->
-									<div class="offers_image_background" style="background-image:url(static/images/offer_3.jpg)"></div>
-									<div class="offer_name"><a href="static/#">island dream</a></div>
+									<div class="offers_image_background" style="background-image:url(static/images/book-cover3.png)"></div>
+									<div class="offer_name"><a href="static/#">998 Downloads</a></div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="offers_content">
-									<div class="offers_price">$90<span>per night</span></div>
+									<div class="offers_price">පඨමපාඨාවලී<span><br>පොල්වත්තේ බුද්ධදත්ත හිමි</span></div>
 									<div class="rating_r rating_r_4 offers_rating">
 										<i></i>
 										<i></i>
@@ -779,16 +957,9 @@
 										<i></i>
 										<i></i>
 									</div>
-									<p class="offers_text">Suspendisse potenti. In faucibus massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor.</p>
-									<div class="offers_icons">
-										<ul class="offers_icons_list">
-											<li class="offers_icons_item"><img src="static/images/post.png" alt=""></li>
-											<li class="offers_icons_item"><img src="static/images/compass.png" alt=""></li>
-											<li class="offers_icons_item"><img src="static/images/bicycle.png" alt=""></li>
-											<li class="offers_icons_item"><img src="static/images/sailboat.png" alt=""></li>
-										</ul>
-									</div>
-									<div class="offers_link"><a href="static/offers.html">read more</a></div>
+									<p class="offers_text">File එකේ ප්‍රමාණය (size) : 14 MB<br>
+									පිටු 182</p>
+									<div class="offers_link"><a href="static/offers.html">කියවන්න</a></div>
 								</div>
 							</div>
 						</div>
@@ -801,14 +972,14 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="offers_image_container">
-									<!-- Image by https://unsplash.com/@mantashesthaven -->
-									<div class="offers_image_background" style="background-image:url(static/images/offer_4.jpg)"></div>
-									<div class="offer_name"><a href="static/#">travel light</a></div>
+									<!-- Image by https://unsplash.com/@kensuarez -->
+									<div class="offers_image_background" style="background-image:url(static/images/book-cover1.png)"></div>
+									<div class="offer_name"><a href="static/#">620 Downloads</a></div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="offers_content">
-									<div class="offers_price">$30<span>per night</span></div>
+									<div class="offers_price">අභිධර්මාර්ථ ප්‍රදීපිකා 2<span><br>අමරදාස රත්නපාල මහතා</span></div>
 									<div class="rating_r rating_r_4 offers_rating">
 										<i></i>
 										<i></i>
@@ -816,16 +987,17 @@
 										<i></i>
 										<i></i>
 									</div>
-									<p class="offers_text">Suspendisse potenti. In faucibus massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor.</p>
-									<div class="offers_icons">
+									<p class="offers_text">File එකේ ප්‍රමාණය (size) : 19 MB<br>
+									පිටු 255</p></p>
+									{% comment %} <div class="offers_icons">
 										<ul class="offers_icons_list">
 											<li class="offers_icons_item"><img src="static/images/post.png" alt=""></li>
 											<li class="offers_icons_item"><img src="static/images/compass.png" alt=""></li>
 											<li class="offers_icons_item"><img src="static/images/bicycle.png" alt=""></li>
 											<li class="offers_icons_item"><img src="static/images/sailboat.png" alt=""></li>
 										</ul>
-									</div>
-									<div class="offers_link"><a href="static/offers.html">read more</a></div>
+									</div> {% endcomment %}
+									<div class="offers_link"><a href="static/offers.html">කියවන්න</a></div>
 								</div>
 							</div>
 						</div>
@@ -1154,7 +1326,7 @@
 					<div class="footer_col">
 						<div class="footer_content footer_about">
 							<div class="logo_container footer_logo">
-								<div class="logo"><a href="static/#"><img src="static/images/Saddharma_logo.png" width="300px" alt=""></a></div>
+								<div class="logo"><a href="static/#"><img src="static/images/Saddharma_logo.png" width="250px" alt=""></a></div>
 							</div>
 							<p class="footer_about_text">වැඩි විස්තර සඳහා අප  සම්භන්ද වෙන්න.</p>
 							<ul class="footer_social_list">
