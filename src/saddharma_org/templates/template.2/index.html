@@ -152,7 +152,8 @@ body
 							<!-- <img src="static/images/Saddharma_logo.png" width="350px" alt="Saddharma"> -->
 							<h2 class="text-shadow mb-2" style="font-family: 'Noto Serif Sinhala', serif;">පෞරාණික ධර්ම ග්‍රන්ථ සංග්‍රහය </h2>
 							<h3><input type="text" id="search" name="search" Placeholder="සොයන්න" class="destination search_input" required="required" style="width:700px"></h3>
-							{% comment %} <div class="button home_slider_button"><div class="button_bcg"></div><a href="static/#">explore now<span></span><span></span><span></span></a></div> {% endcomment %}
+
+							<div class="button home_slider_button"><div class="button_bcg"></div><a href="static/#">සොයන්න<span></span><span></span><span></span></a></div>
 						</div>
 					</div>
 				</div>
@@ -261,43 +262,51 @@ body
 						</div>		
 					</div>
 
-					<!-- Search Panel -->
+					<!-- Search Panel : ත්‍රිපිටකය -->
 
 					<div class="search_panel active">
 						<form action="#" id="search_form_1" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-							<div class="search_item">
-								<div>destination</div>
-								<input type="text" class="destination search_input" required="required">
-							</div>
-							<div class="search_item">
-								<div>check in</div>
-								<input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
-							</div>
-							<div class="search_item">
-								<div>check out</div>
-								<input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-							</div>
-							<div class="search_item">
-								<div>adults</div>
-								<select name="adults" id="adults_1" class="dropdown_item_select search_input">
-									<option>01</option>
-									<option>02</option>
-									<option>03</option>
+							<div class="search_item col-lg-2">
+								<div>පිටකය</div>
+								<select required name="" id="" class="dropdown_item_select search_input">
+									<option id='' value='Vinaya'>විනයපිටක</option>
+									<option id='' value='Sutta'>සුත්තපිටක</option>
+									<option id='' value='Ahbhi_Dhamma'>අභිධම්මපිටක</option>
 								</select>
 							</div>
-							<div class="search_item">
-								<div>children</div>
-								<select name="children" id="children_1" class="dropdown_item_select search_input">
-									<option>0</option>
-									<option>02</option>
-									<option>03</option>
+							<div class="search_item col-lg-2">
+								<div>අනු පිටකය</div>
+								<select name="" id="" class="dropdown_item_select search_input">
+									<option id='' value='Vinaya'>දීඝනිකාය</option>
+									<option id='' value='Sutta'>මජ්ඣිමනිකාය</option>
+									<option id='' value='Ahbhi_Dhamma'>සංයුත්තනිකාය</option>
+									<option id='' value='Ahbhi_Dhamma'>අඞ්ගුත්තරනිකාය</option>
+									<option id='' value='Ahbhi_Dhamma'>ඛුද්දකනිකාය</option>
 								</select>
 							</div>
-							<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
+							<div class="search_item col-lg-3">
+								<div>???</div>
+								<select name="" id="" class="dropdown_item_select search_input">
+									<option id='' value='Vinaya'>සීලක්ඛන්ධවග්ගපාළි</option>
+									<option id='' value='Sutta'>මහාවග්ගපාළි</option>
+									<option id='' value='Ahbhi_Dhamma'>පාථිකවග්ගපාළි</option>
+								</select>
+							</div>
+							<div class="search_item col-lg-3">
+								<div>සූත්‍රය </div>
+								<select name="" id="" class="dropdown_item_select search_input">
+									<option id='' value='Vinaya'>1. බ්‍රහ්මජාලසුත්තං</option>
+									<option id='' value='Sutta'>සුත්තපිටක</option>
+									<option id='' value='Ahbhi_Dhamma'>අභිධම්මපිටක</option>
+								</select>
+							</div>
+							<div class="search_item col-lg-2">
+								<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
+							</div>
 						</form>
 					</div>
 
-					<!-- Search Panel -->
+					<!-- Search Panel : අටුවා -->
 
 					<div class="search_panel">
 						<form action="#" id="search_form_2" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
@@ -333,7 +342,7 @@ body
 						</form>
 					</div>
 
-					<!-- Search Panel -->
+					<!-- Search Panel : ත්‍රිපිටක ටීකා -->
 
 					<div class="search_panel">
 						<form action="#" id="search_form_3" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
@@ -369,79 +378,55 @@ body
 						</form>
 					</div>
 
-					<!-- Search Panel -->
+					<!-- Search Panel : කතෘ -->
 
 					<div class="search_panel">
 						<form action="#" id="search_form_4" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-							<div class="search_item">
-								<div>destination</div>
-								<input type="text" class="destination search_input" required="required">
+							<div class="search_item col-lg-4">
+								<div>කතෘ</div>
+								<input type="text" class="search_input" required="required">
 							</div>
-							<div class="search_item">
-								<div>check in</div>
-								<input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
+							<div class="search_item  col-lg-4">
+								<div>ප්‍රකාශක</div>
+								<input type="text" class="search_input" placeholder="">
 							</div>
-							<div class="search_item">
-								<div>check out</div>
-								<input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-							</div>
-							<div class="search_item">
-								<div>adults</div>
-								<select name="adults" id="adults_4" class="dropdown_item_select search_input">
-									<option>01</option>
-									<option>02</option>
-									<option>03</option>
+							<div class="search_item  col-lg-2">
+								<div>භාෂාව</div>
+								<select required name="" id="" class="dropdown_item_select search_input">
+									<option id='' value='Vinaya'>-</option>
+									<option id='' value='Vinaya'>සිංහල</option>
+									<option id='' value='Sutta'>පාලි</option>
+									<option id='' value='Ahbhi_Dhamma'>දෙමල</option>
+									<option id='' value='Ahbhi_Dhamma'>ඉංග්‍රීසි</option>
+									<option id='' value='Ahbhi_Dhamma'>බුරුම</option> 
 								</select>
 							</div>
-							<div class="search_item">
-								<div>children</div>
-								<select name="children" id="children_4" class="dropdown_item_select search_input">
-									<option>0</option>
-									<option>02</option>
-									<option>03</option>
-								</select>
+							<div class="search_item col-lg-2">
+								<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
 							</div>
-							<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
+							
 						</form>
 					</div>
 
-					<!-- Search Panel -->
+					<!-- Search Panel : අවුරුද්ද -->
 
 					<div class="search_panel">
 						<form action="#" id="search_form_5" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-							<div class="search_item">
-								<div>destination</div>
-								<input type="text" class="destination search_input" required="required">
+							<div class="search_item col-lg-4">
+								<div>අවුරුද්ද </div>
+								<input type="text" class="search_input" placeholder="1865">
 							</div>
-							<div class="search_item">
-								<div>check in</div>
-								<input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
+							<div class="search_item  col-lg-4">
+								<div>අවුරුද්ද</div>
+								<input type="text" class="search_input" placeholder="1950">
 							</div>
-							<div class="search_item">
-								<div>check out</div>
-								<input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
+							<div class="search_item col-lg-2">
+								<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
 							</div>
-							<div class="search_item">
-								<div>adults</div>
-								<select name="adults" id="adults_5" class="dropdown_item_select search_input">
-									<option>01</option>
-									<option>02</option>
-									<option>03</option>
-								</select>
-							</div>
-							<div class="search_item">
-								<div>children</div>
-								<select name="children" id="children_5" class="dropdown_item_select search_input">
-									<option>0</option>
-									<option>02</option>
-									<option>03</option>
-								</select>
-							</div>
-							<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
 						</form>
 					</div>
 
-					<!-- Search Panel -->
+					<!-- Search Panel : මුලාශ්‍රය -->
 
 					<div class="search_panel">
 						<form action="#" id="search_form_6" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">

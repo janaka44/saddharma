@@ -48,6 +48,14 @@ def home_view(request):
     context.update(set_base_content(request))
     return render(request, "template.2/index.html", context)
 
+def search_view(request):
+    context = {
+        'section_home_page_about_header' : _('HOME_PAGE_ABOUT_HEADER'),
+        'section_home_page_about_description' : _('HOME_PAGE_ABOUT_DESCRIPTION'),
+    }
+    context.update(set_base_content(request))
+    return render(request, "template.2/search/search.html", context)
+
 def book_view(request):
     context = {
     }
