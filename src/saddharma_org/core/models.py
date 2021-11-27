@@ -50,10 +50,15 @@ BOOK_CATEGORIES_L3 = (
 )
 
 class Author(models.Model):
-    author = models.CharField(max_length=100)
+    author = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     #slug = models.SlugField()
     #image = models.ImageField()
+
+    @classmethod
+    def create(cls, author, description=None):
+        author = cls(author=author, description=description)
+        return author
 
     def __str__(self):
         return self.author
@@ -98,6 +103,8 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(Author, on_delete=models.RESTRICT)
     pages = models.IntegerField(default=0)
+    year = models.DateField()
+    next_book = models.ForeignKey("Book", on_delete=models.RESTRICT)
     source_library = models.ForeignKey(Source_library, on_delete=models.RESTRICT)
     publisher = models.ForeignKey(Publisher, on_delete=models.RESTRICT)
     category_L1 = models.CharField(choices=BOOK_CATEGORIES_L1, max_length=10)
@@ -113,6 +120,15 @@ class Book(models.Model):
     uploaded_date = models.TextField(blank=True)
     approved_by = models.TextField(blank=True)
     approved_date = models.TextField(blank=True)
+    
+    @classmethod
+    def create(cls, title, author, pages, year=None):
+        book = cls(title=title,author=author, pages=pages, year=year)
+        # book.title  = title
+        # book.author = author
+        # book.year   = year
+        # book.year   = pages
+        return book
 
     def __str__(self):
         return self.title

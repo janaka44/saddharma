@@ -259,6 +259,11 @@ $(document).ready(function()
 		}
 	}
 
+	function navigate(toPage){
+		if (toPage=='search') 
+			window.location = '/search/search.html';
+	}
+
 	/* 
 
 	6. Init CTA Slider
