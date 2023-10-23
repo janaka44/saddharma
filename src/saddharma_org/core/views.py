@@ -8,7 +8,7 @@ from .models import Book, Author
 
 def set_base_content(request):
     context = {
-        'header_site_title' : _('Saddhrama'),
+        'header_site_title' : _('Saddharma'),
         'navbar_menu_home' : _('Home'),
         'navbar_menu_about' : _('About'),
         'navbar_menu_books' : _('Books'),

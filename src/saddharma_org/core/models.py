@@ -49,9 +49,13 @@ BOOK_CATEGORIES_L3 = (
     ('L_3_C_2', 'Other' )
 )
 
+
 class Author(models.Model):
-    author = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
+    author = models.CharField(max_length=200) # author name in Sinhala unicode
+    # TODO: add author name in English to search
+    # author_en = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    year = models.DateField(blank=True, null=True)
     #slug = models.SlugField()
     #image = models.ImageField()
 
@@ -68,6 +72,7 @@ class Author(models.Model):
     #         'slug': self.slug
     #     })
 
+
 class Publisher(models.Model):
     publisher = models.CharField(max_length=100)
     address = models.CharField(max_length=300, blank=True)
@@ -82,6 +87,7 @@ class Publisher(models.Model):
     #     return reverse("core:product", kwargs={
     #         'slug': self.slug
     #     })
+
 
 class Source_library(models.Model):
     source_library= models.CharField(max_length=100)
@@ -100,17 +106,18 @@ class Source_library(models.Model):
 
 
 class Book(models.Model):
+    catalog_no = models.CharField(max_length=20)
     title = models.CharField(max_length=100)
     author = models.ForeignKey(Author, on_delete=models.RESTRICT)
+    published_year = models.DateField(blank=True, null=True)
     pages = models.IntegerField(default=0)
-    year = models.DateField()
-    next_book = models.ForeignKey("Book", on_delete=models.RESTRICT)
+    language = models.CharField(choices=BOOK_CATEGORIES_L3, max_length=10)
+
+    next_book = models.ForeignKey("Book", on_delete=models.RESTRICT, null=True)
     source_library = models.ForeignKey(Source_library, on_delete=models.RESTRICT)
     publisher = models.ForeignKey(Publisher, on_delete=models.RESTRICT)
     category_L1 = models.CharField(choices=BOOK_CATEGORIES_L1, max_length=10)
     category_L2 = models.CharField(choices=BOOK_CATEGORIES_L2, max_length=10)
-    language = models.CharField(choices=BOOK_CATEGORIES_L3, max_length=10)
-    book_code = models.CharField(max_length=30, default='MANAGE THIS')
     storage_link = models.CharField(max_length=100, blank=True)
     #label = models.CharField(choices=LABEL_CHOICES, max_length=1)
     slug = models.SlugField()
@@ -139,9 +146,11 @@ class Bookmark(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     page = models.CharField(max_length=300)
 
+
 class Wishlist(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
 
 class Comments(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
