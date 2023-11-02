@@ -1,6 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
 from django.conf import settings
+import datetime
 
 # Create your models here.
 
@@ -89,7 +90,7 @@ class Publisher(models.Model):
     #     })
 
 
-class Source_library(models.Model):
+class SourceLibrary(models.Model):
     source_library= models.CharField(max_length=100)
     address = models.CharField(max_length=300, blank=True)
     description = models.TextField(blank=True)
@@ -105,16 +106,29 @@ class Source_library(models.Model):
     #     })
 
 
+class BookTemp(models.Model):
+    catalog_no = models.CharField(max_length=20, blank=True, null=True)
+    title = models.CharField(max_length=250, blank=True, null=True)
+    author_name = models.CharField(max_length=250, blank=True, null=True)
+    published_year = models.DateField(blank=True, null=True)
+    pages = models.IntegerField(default=0, blank=True, null=True)
+    language = models.CharField(max_length=30, blank=True, null=True)
+    status = models.CharField(max_length=100, blank=True, null=True)
+    source = models.CharField(max_length=200, blank=True, null=True)
+    category1 = models.CharField(max_length=200, blank=True, null=True)
+    category2 = models.CharField(max_length=200, blank=True, null=True)
+
+
 class Book(models.Model):
     catalog_no = models.CharField(max_length=20)
-    title = models.CharField(max_length=100)
-    author = models.ForeignKey(Author, on_delete=models.RESTRICT)
+    title = models.CharField(max_length=250)
+    author = models.ForeignKey(Author, on_delete=models.RESTRICT, null=True)
     published_year = models.DateField(blank=True, null=True)
     pages = models.IntegerField(default=0)
     language = models.CharField(choices=BOOK_CATEGORIES_L3, max_length=10)
 
     next_book = models.ForeignKey("Book", on_delete=models.RESTRICT, null=True)
-    source_library = models.ForeignKey(Source_library, on_delete=models.RESTRICT)
+    source_library = models.ForeignKey(SourceLibrary, on_delete=models.RESTRICT)
     publisher = models.ForeignKey(Publisher, on_delete=models.RESTRICT)
     category_L1 = models.CharField(choices=BOOK_CATEGORIES_L1, max_length=10)
     category_L2 = models.CharField(choices=BOOK_CATEGORIES_L2, max_length=10)
@@ -130,7 +144,7 @@ class Book(models.Model):
     
     @classmethod
     def create(cls, title, author, pages, year=None):
-        book = cls(title=title,author=author, pages=pages, year=year)
+        book = cls(title=title, author=author, pages=pages, published_year=year)
         # book.title  = title
         # book.author = author
         # book.year   = year

@@ -1,9 +1,16 @@
 from django.urls import path
 from . import views
+from django.contrib import admin
+from django.urls import path, include
+from api import urls as api_urls
 
 app_name = 'core'
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include(api_urls)),
+
     path('',        views.home_view, name='home'),
     path('search/', views.search_view, name='search'),
     path('read/<int:id>', views.book_reader_view, name='book_reader'),

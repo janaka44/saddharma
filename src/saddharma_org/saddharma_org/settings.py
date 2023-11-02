@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'saddharma_org',
     'core',
+    'rest_framework',
+    'api'
 ]
 
 MIDDLEWARE = [
