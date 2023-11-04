@@ -1,0 +1,6 @@
+{% extends "template.2/template_page.html" %}
+{% block content %}
+    {% for row in rows %}
+        <div>{{ row.line1 }}</div>
+    {% endfor %}
+{% endblock %}

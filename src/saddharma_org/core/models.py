@@ -6,48 +6,48 @@ import datetime
 # Create your models here.
 
 BOOK_CATEGORIES_L1 = (
-    ('L_1_C_1', 'Vinaya' ),
-    ('L_1_C_2', 'Sutta' ),
-    ('L_1_C_3', 'Ahbhi Dhamma'),
-    ('L_1_C_4', 'Dhamma Sangraha Books'),
-    ('L_1_C_5', 'Pali Grammar'),
-    ('L_1_C_6', 'Other Dhamma Sangraha Books' ),
-    ('L_1_C_7', 'Index and Dictionary'),
-    ('L_1_C_8', 'Old Books'),
-    ('L_1_C_8', 'Other Books'),
+    ('L1_C1', 'Vinaya' ),
+    ('L1_C2', 'Sutta' ),
+    ('L1_C3', 'Ahbhi Dhamma'),
+    ('L1_C4', 'Dhamma Sangraha Books'),
+    ('L1_C5', 'Pali Grammar'),
+    ('L1_C6', 'Other Dhamma Sangraha Books' ),
+    ('L1_C7', 'Index and Dictionary'),
+    ('L1_C8', 'Old Books'),
+    ('L1_C8', 'Other Books'),
 )
 
 BOOK_CATEGORIES_L2 = (
-    ('L_2_C_1', 'Tripitaka'),
-    ('L_2_C_2', 'Atuwa'),
-    ('L_2_C_3', 'Tripitaka Teeka'),
-    ('L_2_C_4', 'Sangraha and Vivarana Books'),
-    ('L_2_C_5', 'Vansha Katha'),
-    ('L_2_C_6', 'Buddha Charithaya'),
-    ('L_2_C_7', 'Kosha Grantha'),
-    ('L_2_C_8', 'Chandolankara'),
-    ('L_2_C_9', 'Sandesha Katha'),
-    ('L_2_C_10', 'Chatta Sangayana'),
-    ('L_2_C_11', 'Sanskrutha Bhashawa saha Sahithya'),
-    ('L_2_C_12', 'Waidya Grantha Ha Nighandu'),
-    ('L_2_C_13', 'Tripitaka Suchi'),
-    ('L_2_C_14', 'Shabdha Kosha'),
-    ('L_2_C_15', 'Ven. Rerukane Thero Sangraha Books'),
-    ('L_2_C_16', 'Sandesha'),
-    ('L_2_C_17', 'Sahithyaya'),
-    ('L_2_C_18', 'Bhavana saha karmasthana'),
-    ('L_2_C_19', 'Vaidika Sahithyaya saha Maha kavya'),
-    ('L_2_C_22', 'Other')
+    ('L2_C1', 'Tripitaka'),
+    ('L2_C2', 'Atuwa'),
+    ('L2_C3', 'Tripitaka Teeka'),
+    ('L2_C4', 'Sangraha and Vivarana Books'),
+    ('L2_C5', 'Vansha Katha'),
+    ('L2_C6', 'Buddha Charithaya'),
+    ('L2_C7', 'Kosha Grantha'),
+    ('L2_C8', 'Chandolankara'),
+    ('L2_C9', 'Sandesha Katha'),
+    ('L2_C10', 'Chatta Sangayana'),
+    ('L2_C11', 'Sanskrutha Bhashawa saha Sahithya'),
+    ('L2_C12', 'Waidya Grantha Ha Nighandu'),
+    ('L2_C13', 'Tripitaka Suchi'),
+    ('L2_C14', 'Shabdha Kosha'),
+    ('L2_C15', 'Ven. Rerukane Thero Sangraha Books'),
+    ('L2_C16', 'Sandesha'),
+    ('L2_C17', 'Sahithyaya'),
+    ('L2_C18', 'Bhavana saha karmasthana'),
+    ('L2_C19', 'Vaidika Sahithyaya saha Maha kavya'),
+    ('L2_C22', 'Other')
 
 )
 
 BOOK_CATEGORIES_L3 = (
-    ('L_3_C_1', 'Sinhala' ),
-    ('L_3_C_2', 'Pali' ),
-    ('L_3_C_2', 'Sanskrutha' ),
-    ('L_3_C_2', 'English' ),
-    ('L_3_C_2', 'Tamil' ),
-    ('L_3_C_2', 'Other' )
+    ('L3_C1', 'Sinhala' ),
+    ('L3_C2', 'Pali' ),
+    ('L3_C3', 'Sanskrutha' ),
+    ('L3_C4', 'English' ),
+    ('L3_C5', 'Tamil' ),
+    ('L3_C6', 'Other' )
 )
 
 
@@ -143,8 +143,8 @@ class Book(models.Model):
     approved_date = models.TextField(blank=True)
     
     @classmethod
-    def create(cls, title, author, pages, year=None):
-        book = cls(title=title, author=author, pages=pages, published_year=year)
+    def create(cls, catalog_no, title, author, pages, year=None):
+        book = cls(catalog_no=catalog_no, title=title, author=author, pages=pages, published_year=year)
         # book.title  = title
         # book.author = author
         # book.year   = year

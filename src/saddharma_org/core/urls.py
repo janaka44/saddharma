@@ -14,4 +14,7 @@ urlpatterns = [
     path('',        views.home_view, name='home'),
     path('search/', views.search_view, name='search'),
     path('read/<int:id>', views.book_reader_view, name='book_reader'),
+
+    path('import-books/', views.import_books, name='import_books'),
+    path('import_sources/', views.import_sources, name='import_sources'),
 ]
