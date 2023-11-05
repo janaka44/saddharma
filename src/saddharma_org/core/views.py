@@ -118,23 +118,46 @@ def import_sources(request):
 
 
 def import_books(request):
-    from core.models import Book, BookTemp, BOOK_CATEGORIES_L3, SourceLibrary
+    import datetime
+    from django.core.exceptions import ObjectDoesNotExist
+    from core.models import Book, BookTemp, BOOK_CATEGORIES_L1, BOOK_CATEGORIES_L2, BOOK_CATEGORIES_L3, SourceLibrary
 
     temp_books = BookTemp.objects.all()
     n = 0
     for b in temp_books:
-        print(f'catalog_no={b.catalog_no}, title = {b.title}, author={b.author_name}, pages={b.pages}, year=' + str(b.published_year.strftime('%Y')))
+        b.pages = b.pages if b.pages is not None else -1
+        b.published_year = b.published_year if b.published_year is not None else datetime.datetime(1700, 1, 1)
+        print(f'>> Excel {n} catalog_no={b.catalog_no}, title = {b.title}, author={b.author_name}, pages={b.pages}, year=' + str(b.published_year.strftime('%Y')))
 
-        newbook = Book.create(catalog_no=b.catalog_no, title=b.title, author=b.author_name, pages=b.pages, year=b.published_year)
+        try:
+            author = Author.objects.get(author=b.author_name)
+        except ObjectDoesNotExist:
+            print(f'Author not found: {b.author_name}')
+
+        newbook = Book.create(catalog_no=b.catalog_no, title=b.title, author=author, pages=b.pages, year=b.published_year)
         # year = b.published_year.strftime('%Y')
+
         lang = [item for item in BOOK_CATEGORIES_L3 if item[1] == b.language]
         if len(lang) == 1:
             newbook.language = lang[0][0]
-        source_lib = SourceLibrary.objects.filter(source_library=b.source)
-        if source_lib is not None:
-            newbook.source_library = source_lib
+        if b.source is not None:
+            try:
+                source_lib = SourceLibrary.objects.get(source_library=b.source)
+            except ObjectDoesNotExist:
+                print(f'Source not found: {source_lib}')
+            if source_lib is not None:
+                newbook.source_library = source_lib
+        cat_L1 = [item for item in BOOK_CATEGORIES_L1 if item[1] == b.category1]
+        if len(cat_L1) == 1:
+            newbook.category_L1 = cat_L1[0][0]
+        cat_L2 = [item for item in BOOK_CATEGORIES_L2 if item[1] == b.category2]
+        if len(cat_L2) == 1:
+            newbook.category_L2 = cat_L2[0][0]
+        #print(f'>> Save {n}: catalog_no={newbook.catalog_no}, title = {newbook.title}, author={newbook.author.author}, pages={newbook.pages}, year=' + str(author.published_year.strftime('%Y')) + f', language={newbook.language}')
+        newbook.save()
+
         n += 1
-        if n > 10:
+        if n > 100:
             break
     context = {
         'rows': {
