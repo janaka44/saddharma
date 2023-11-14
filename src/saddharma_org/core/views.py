@@ -124,44 +124,90 @@ def import_books(request):
 
     temp_books = BookTemp.objects.all()
     n = 0
+    p = 0
+    no_author = 0
+    no_cat1 = 0
+    no_cat2 = 0
+    no_source = 0
+    no_lang = 0
     for b in temp_books:
+        n += 1
+        if n < 00 or n >= 500:
+            break
         b.pages = b.pages if b.pages is not None else -1
         b.published_year = b.published_year if b.published_year is not None else datetime.datetime(1700, 1, 1)
-        print(f'>> Excel {n} catalog_no={b.catalog_no}, title = {b.title}, author={b.author_name}, pages={b.pages}, year=' + str(b.published_year.strftime('%Y')))
+        #print(f'>> Excel {n} catalog_no={b.catalog_no}, title = {b.title}, author={b.author_name}, pages={b.pages}, year=' + str(b.published_year.strftime('%Y')))
+        #print(f'>> Excel {n} catalog_no={b.catalog_no}')
+
+        vol = 1
+        existingBookCount = Book.objects.filter(catalog_no=b.catalog_no).count()
+        if (existingBookCount > 0):
+            vol = existingBookCount + 1
+            print(f'Book found, catalog_no={b.catalog_no}, increasing volume...{vol}')
 
         try:
             author = Author.objects.get(author=b.author_name)
         except ObjectDoesNotExist:
-            print(f'Author not found: {b.author_name}')
+            if b.author_name is not None:
+                print(f'Author {b.author_name} not found')
+                author = None
+            no_author = no_author + 1
 
         newbook = Book.create(catalog_no=b.catalog_no, title=b.title, author=author, pages=b.pages, year=b.published_year)
+        newbook.volume = vol
         # year = b.published_year.strftime('%Y')
 
         lang = [item for item in BOOK_CATEGORIES_L3 if item[1] == b.language]
         if len(lang) == 1:
             newbook.language = lang[0][0]
+        else:
+            if b.language is not None:
+                no_lang += 1
+                print(f'Language :{b.language} not found')
+
         if b.source is not None:
             try:
                 source_lib = SourceLibrary.objects.get(source_library=b.source)
             except ObjectDoesNotExist:
-                print(f'Source not found: {source_lib}')
+                if b.source is not None:
+                    no_source += 1
+                    print(f'Source not found: {b.source}')
             if source_lib is not None:
                 newbook.source_library = source_lib
+
         cat_L1 = [item for item in BOOK_CATEGORIES_L1 if item[1] == b.category1]
         if len(cat_L1) == 1:
             newbook.category_L1 = cat_L1[0][0]
+        else:
+            if b.category1 is not None:
+                no_cat1 += 1
+                print(f'Cat 1 :{b.category1} not found')
+
         cat_L2 = [item for item in BOOK_CATEGORIES_L2 if item[1] == b.category2]
         if len(cat_L2) == 1:
             newbook.category_L2 = cat_L2[0][0]
+        else:
+            if b.category2 is not None:
+                no_cat2 += 1
+                print(f'Cat 2 :{b.category2} not found')
         #print(f'>> Save {n}: catalog_no={newbook.catalog_no}, title = {newbook.title}, author={newbook.author.author}, pages={newbook.pages}, year=' + str(author.published_year.strftime('%Y')) + f', language={newbook.language}')
         newbook.save()
 
-        n += 1
-        if n > 100:
-            break
+        p += 1
+
+    print(f'****** processed {p} books.')
+
+    print(f'*** Author: {no_author} records missing.')
+    print(f'*** Language: {no_lang} records missing.')
+    print(f'*** Source: {no_source} records missing.')
+    print(f'*** Cat 1: {no_cat1} records missing.')
+    print(f'*** Cat 1: {no_cat2} records missing.')
+
+
     context = {
         'rows': {
-            'line1': f'processed {n} rows.'
+            'line1': f'processed {p} books.',
+            'line1': f'{no_author} books found with no authors.',
         }
     }
     context.update(set_base_content(request))

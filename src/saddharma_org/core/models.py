@@ -7,10 +7,10 @@ import datetime
 
 BOOK_CATEGORIES_L1 = (
     ('L1_C1', 'විනය'),
-    ('L1_C2', 'සුත්‍ර'),
+    ('L1_C2', 'සූත්‍ර'),
     ('L1_C3', 'අභිධර්ම'),
     ('L1_C4', 'ධර්ම සංග්‍රහ ග්‍රන්ථ'),
-    ('L1_C5', 'පාලි ව්‍යාකරණ ග්‍රන්ථ'),
+    ('L1_C5', 'පාලි ව්‍යාකරණ'),
     ('L1_C6', 'ඉපැරණි ග්‍රන්ථ'),
     ('L1_C7', 'වෙනත් ග්‍රන්ථ'),
 )
@@ -23,6 +23,7 @@ BOOK_CATEGORIES_L2 = (
     ('L2_C1_C5', 'සංග්‍රහ ග්‍රන්ථ හා විවරණ ග්‍රන්ථ'),
     ('L2_C1_C6', 'ඡට්ට සංගායන ග්‍රන්ථ (පාලි)'),
     ('L2_C1_C7', 'රේරුකානේ නා හිමි ග්‍රන්ථ සංග්‍රහ'),
+    ('L2_C1_C8', 'අභිධර්ම'),
 
     ('L2_C2_C1', 'ත්‍රිපිටක මූල ග්‍රන්ථ'),
     ('L2_C2_C2', 'සිංහල අටුවා'),
@@ -51,13 +52,13 @@ BOOK_CATEGORIES_L2 = (
     ('L2_C6_C4', 'සංස්කෘත භාෂාව හා සාහිත්‍ය'),
     ('L2_C6_C5', 'වෛද්‍ය ග්‍රන්ථ හා නිඝණ්ඩු'),
     ('L2_C6_C6', 'සිංහල සංදේශ'),
-    ('L2_C6_C7', 'සිංහල සාහිත්‍ය '),
-    ('L2_C6_C8', 'කෝෂග්‍රන්ථ '),
+    ('L2_C6_C7', 'සිංහල සාහිත්‍ය'),
+    ('L2_C6_C8', 'කෝෂග්‍රන්ථ'),
     ('L2_C6_C9', 'ඡන්දොලංකාර'),
-    ('L2_C6_C10', 'භාවනා හා කර්මස්ථාන ග්‍රන්ථ '),
+    ('L2_C6_C10', 'භාවනා හා කර්මස්ථාන ග්‍රන්ථ'),
     ('L2_C6_C11', 'රේරුකානේ නා හිමි ග්‍රන්ථ සංග්‍රහ'),
     ('L2_C6_C12', 'සංග්‍රහ ග්‍රන්ථ හා විවරණ ග්‍රන්ථ'),
-    ('L2_C6_C13', 'වෛදික සාහිත්‍ය හා මහා කාව්‍ය '),
+    ('L2_C6_C13', 'වෛදික සාහිත්‍ය හා මහා කාව්‍ය'),
     ('L2_C6_C14', 'සිංහල භාෂාව'),
     ('L2_C6_C15', 'ත්‍රිපිටක සුචි'),
     ('L2_C6_C16', 'ශබ්ධකෝෂ'),
@@ -67,7 +68,7 @@ BOOK_CATEGORIES_L2 = (
 BOOK_CATEGORIES_L3 = (
     ('L3_C1', 'Sinhala' ),
     ('L3_C2', 'Pali' ),
-    ('L3_C3', 'Sanskrutha' ),
+    ('L3_C3', 'Sanskrit' ),
     ('L3_C4', 'English' ),
     ('L3_C5', 'Tamil' ),
     ('L3_C6', 'Other' )
@@ -144,6 +145,7 @@ class BookTemp(models.Model):
 
 class Book(models.Model):
     catalog_no = models.CharField(max_length=20)
+    volume = models.IntegerField(default=1, blank=True, null=True)
     title = models.CharField(max_length=250)
     author = models.ForeignKey(Author, on_delete=models.RESTRICT, null=True)
     published_year = models.DateField(blank=True, null=True)
@@ -167,7 +169,7 @@ class Book(models.Model):
     last_modified = models.DateTimeField(blank=True, auto_now=True)
     
     @classmethod
-    def create(cls, catalog_no, title, author, pages, year=None):
+    def create(cls, catalog_no, title, pages, author=None, year=None):
         book = cls(catalog_no=catalog_no, title=title, author=author, pages=pages, published_year=year)
         return book
 
