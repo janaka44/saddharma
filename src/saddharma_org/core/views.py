@@ -52,6 +52,7 @@ def home_view(request):
     context.update(set_base_content(request))
     return render(request, "template.2/index.html", context)
 
+
 def search_view(request):
     rows = []
     a1 = Author.create(author='අමරදාස රත්නපාල මහතා')
@@ -122,7 +123,8 @@ def import_books(request):
     from django.core.exceptions import ObjectDoesNotExist
     from core.models import Book, BookTemp, BOOK_CATEGORIES_L1, BOOK_CATEGORIES_L2, BOOK_CATEGORIES_L3, SourceLibrary
 
-    temp_books = BookTemp.objects.all()
+    temp_books = BookTemp.objects.filter(catalog_no__isnull=False).order_by('id')
+    err_rows = []
     n = 0
     p = 0
     no_author = 0
@@ -132,7 +134,9 @@ def import_books(request):
     no_lang = 0
     for b in temp_books:
         n += 1
-        if n < 00 or n >= 500:
+        if n < 400:
+            continue
+        if n > 600:
             break
         b.pages = b.pages if b.pages is not None else -1
         b.published_year = b.published_year if b.published_year is not None else datetime.datetime(1700, 1, 1)
@@ -151,7 +155,7 @@ def import_books(request):
             if b.author_name is not None:
                 print(f'Author {b.author_name} not found')
                 author = None
-            no_author = no_author + 1
+                no_author = no_author + 1
 
         newbook = Book.create(catalog_no=b.catalog_no, title=b.title, author=author, pages=b.pages, year=b.published_year)
         newbook.volume = vol
@@ -182,33 +186,34 @@ def import_books(request):
             if b.category1 is not None:
                 no_cat1 += 1
                 print(f'Cat 1 :{b.category1} not found')
+                err_rows.append(f'Cat 1 :{b.category1} not found')
 
-        cat_L2 = [item for item in BOOK_CATEGORIES_L2 if item[1] == b.category2]
+
+        cat_L2 = [item for item in BOOK_CATEGORIES_L2 if item[0][3:5] == newbook.category_L1[3:5] and item[1] == b.category2]
         if len(cat_L2) == 1:
             newbook.category_L2 = cat_L2[0][0]
         else:
             if b.category2 is not None:
                 no_cat2 += 1
                 print(f'Cat 2 :{b.category2} not found')
+                print(f'- newbook.category_L1 = {newbook.category_L1[3:5]}')
+                err_rows.append(f'Cat 2 :{b.category2} not found')
+
         #print(f'>> Save {n}: catalog_no={newbook.catalog_no}, title = {newbook.title}, author={newbook.author.author}, pages={newbook.pages}, year=' + str(author.published_year.strftime('%Y')) + f', language={newbook.language}')
         newbook.save()
 
         p += 1
 
-    print(f'****** processed {p} books.')
-
-    print(f'*** Author: {no_author} records missing.')
-    print(f'*** Language: {no_lang} records missing.')
-    print(f'*** Source: {no_source} records missing.')
-    print(f'*** Cat 1: {no_cat1} records missing.')
-    print(f'*** Cat 1: {no_cat2} records missing.')
-
 
     context = {
-        'rows': {
-            'line1': f'processed {p} books.',
-            'line1': f'{no_author} books found with no authors.',
-        }
+        'line1': f'Processed {p} books.',
+        'line2': f'*** Author: {no_author} records missing.',
+        'line3': f'*** Language: {no_lang} records missing.',
+        'line4': f'*** Source: {no_source} records missing.',
+        'line5': f'*** Cat 1: {no_cat1} records missing.',
+        'line6': f'*** Cat 2: {no_cat2} records missing.',
+        # 'errors': err_rows
     }
+    print(context)
     context.update(set_base_content(request))
     return render(request, "template.2/empty.html", context)

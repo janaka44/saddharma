@@ -1,6 +1,18 @@
-{% extends "template.2/template_page.html" %}
 {% block content %}
-    {% for row in rows %}
-        <div>{{ row.line1 }}</div>
-    {% endfor %}
+
+<div class="row">
+
+	<div class="col-3" style="background-color:yellow" >Summary:</div>
+	<div>{{ line1 }}</div>
+	<div>{{ line2 }}</div>
+	<div>{{ line3 }}</div>
+	<div>{{ line4 }}</div>
+	<div>{{ line5 }}</div>
+	<div>{{ line6 }}</div>
+
+	{% for err in err_rows %}
+		{{ err }}
+	{% endfor %}
+
+</div>
 {% endblock %}
