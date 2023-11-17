@@ -123,39 +123,68 @@ def import_books(request):
     from django.core.exceptions import ObjectDoesNotExist
     from core.models import Book, BookTemp, BOOK_CATEGORIES_L1, BOOK_CATEGORIES_L2, BOOK_CATEGORIES_L3, SourceLibrary
 
-    temp_books = BookTemp.objects.filter(catalog_no__isnull=False).order_by('id')
+    temp_books = BookTemp.objects.filter().order_by('id')
     err_rows = []
+    no_author_list = {}
+    no_cat1_list = {}
+    no_cat2_list = {}
+
     n = 0
     p = 0
+
+    no_catalog_no = 0
+    no_title = 0
     no_author = 0
     no_cat1 = 0
     no_cat2 = 0
     no_source = 0
     no_lang = 0
+    book_start = 0
+    book_end = 1600
+
+    summary_line = f'Processing books #{book_start} - #{book_end}'
     for b in temp_books:
         n += 1
-        if n < 400:
+        if n < book_start:
             continue
-        if n > 600:
+        if n > book_end:
             break
+
+        if b.title is None:
+            no_title += 1
+            continue
+
+        if b.catalog_no is None:
+            no_catalog_no += 1
+            continue
+
         b.pages = b.pages if b.pages is not None else -1
         b.published_year = b.published_year if b.published_year is not None else datetime.datetime(1700, 1, 1)
-        #print(f'>> Excel {n} catalog_no={b.catalog_no}, title = {b.title}, author={b.author_name}, pages={b.pages}, year=' + str(b.published_year.strftime('%Y')))
-        #print(f'>> Excel {n} catalog_no={b.catalog_no}')
+        # print(f'>> Excel {n} catalog_no={b.catalog_no}, title = {b.title}, author={b.author_name}, pages={b.pages}, year=' + str(b.published_year.strftime('%Y')))
+        # print(f'>> Excel {n} catalog_no={b.catalog_no}')
 
         vol = 1
         existingBookCount = Book.objects.filter(catalog_no=b.catalog_no).count()
         if (existingBookCount > 0):
             vol = existingBookCount + 1
-            print(f'Book found, catalog_no={b.catalog_no}, increasing volume...{vol}')
+            #print(f'Book found, catalog_no={b.catalog_no}, increasing volume...{vol}')
 
         try:
-            author = Author.objects.get(author=b.author_name)
+            if b.author_name is not None:
+                author = Author.objects.get(author=b.author_name)
+            else:
+                author = None
+                no_author = no_author + 1
+
         except ObjectDoesNotExist:
             if b.author_name is not None:
                 print(f'Author {b.author_name} not found')
                 author = None
                 no_author = no_author + 1
+                if b.author_name in no_author_list:
+                    no_author_list[b.author_name] += 1
+                else:
+                    no_author_list[b.author_name] = 1
 
         newbook = Book.create(catalog_no=b.catalog_no, title=b.title, author=author, pages=b.pages, year=b.published_year)
         newbook.volume = vol
@@ -186,10 +215,14 @@ def import_books(request):
             if b.category1 is not None:
                 no_cat1 += 1
                 print(f'Cat 1 :{b.category1} not found')
+                if b.category1 in no_cat1_list:
+                    no_cat1_list[b.category1] += 1
+                else:
+                    no_cat1_list[b.category1] = 1
                 err_rows.append(f'Cat 1 :{b.category1} not found')
 
-
-        cat_L2 = [item for item in BOOK_CATEGORIES_L2 if item[0][3:5] == newbook.category_L1[3:5] and item[1] == b.category2]
+        # cat_L2 = [item for item in BOOK_CATEGORIES_L2 if item[0][3:5] == newbook.category_L1[3:5] and item[1] == b.category2]
+        cat_L2 = [item for item in BOOK_CATEGORIES_L2 if item[1] == b.category2]
         if len(cat_L2) == 1:
             newbook.category_L2 = cat_L2[0][0]
         else:
@@ -197,6 +230,10 @@ def import_books(request):
                 no_cat2 += 1
                 print(f'Cat 2 :{b.category2} not found')
                 print(f'- newbook.category_L1 = {newbook.category_L1[3:5]}')
+                if b.category2 in no_cat2_list:
+                    no_cat2_list[b.category2] += 1
+                else:
+                    no_cat2_list[b.category2] = 1
                 err_rows.append(f'Cat 2 :{b.category2} not found')
 
         #print(f'>> Save {n}: catalog_no={newbook.catalog_no}, title = {newbook.title}, author={newbook.author.author}, pages={newbook.pages}, year=' + str(author.published_year.strftime('%Y')) + f', language={newbook.language}')
@@ -204,16 +241,25 @@ def import_books(request):
 
         p += 1
 
-
     context = {
-        'line1': f'Processed {p} books.',
-        'line2': f'*** Author: {no_author} records missing.',
-        'line3': f'*** Language: {no_lang} records missing.',
-        'line4': f'*** Source: {no_source} records missing.',
-        'line5': f'*** Cat 1: {no_cat1} records missing.',
-        'line6': f'*** Cat 2: {no_cat2} records missing.',
+        'line1': '<b>' + summary_line + f'\n Processed {p} books.</b>',
+        'line2': f'*** <b>Author</b>: Books without Author = {no_author}\n{getBar(no_author)}',
+        'line3': f'*** <b>Language</b>: {no_lang} records missing.\n{getBar(no_lang)}',
+        'line4': f'*** <b>Source</b>: {no_source} records missing.\n{getBar(no_source)}',
+        'line5': f'*** <b>Category 1</b>: {no_cat1} records missing.\n{getBar(no_cat1)}',
+        'line6': f'*** <b>Category 2</b>: {no_cat2} records missing\n{getBar(no_cat2)}',
+        'line7': f'*** <b>Title</b>: Books without title = {no_title}\n{getBar(no_title)}',
+        'line8': f'*** <b>Catalog No</b>: Books without Catalog No = {no_catalog_no}.\n{getBar(no_catalog_no)}',
+        'no_author_list': no_author_list,
+        'no_cat1_list': no_cat1_list,
+        'no_cat2_list': no_cat2_list,
         # 'errors': err_rows
     }
-    print(context)
+    # print(context)
     context.update(set_base_content(request))
     return render(request, "template.2/empty.html", context)
+
+
+def getBar(n):
+    span_bar = f'<div style="background-color:red; width:{2 * n}px">&nbsp;</div>'
+    return span_bar

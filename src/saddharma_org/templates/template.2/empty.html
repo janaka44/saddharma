@@ -1,17 +1,42 @@
+
+<head>
+	<link rel="stylesheet" type="text/css" href="/static/styles/bootstrap4/bootstrap.min.css">
+</head>
 {% block content %}
 
-<div class="row">
+<div style="font-family:Arial" class="m-2">
 
-	<div class="col-3" style="background-color:yellow" >Summary:</div>
-	<div>{{ line1 }}</div>
-	<div>{{ line2 }}</div>
-	<div>{{ line3 }}</div>
-	<div>{{ line4 }}</div>
-	<div>{{ line5 }}</div>
-	<div>{{ line6 }}</div>
+	<div style="background-color:yellow; font-weight:700;" >Book Import Summary:</div>
+	{% autoescape off %}
+	<div>{{ line1|linebreaks |safe}}</div>
+	<div>{{ line2|linebreaks }}</div>
+	<div>{{ line3|linebreaks }}</div>
+	<div>{{ line4|linebreaks }}</div>
+	<div>{{ line5|linebreaks }}</div>
+	<div>{{ line6|linebreaks }}</div>
+	<div>{{ line7|linebreaks }}</div>
+	<div>{{ line8|linebreaks }}</div>
+	{% endautoescape %}
+	<hr>
+	<div class="font-weight-bold">Missing Author List: </div>
+	{% for key, value in no_author_list.items %}
+		<div>{{ key }} : {{ value }}</div>
+	{% endfor %}
 
-	{% for err in err_rows %}
-		{{ err }}
+	<br>
+	<div class="font-weight-bold">Missing Category 1 List:</div>
+	{% for key, value in no_cat1_list.items %}
+		<div>{{ key }} : {{ value }}</div>
+	{% endfor %}
+
+	<br>
+	<div class="font-weight-bold">Missing Category 2 List:</div>
+	{% for key, value in no_cat2_list.items %}
+		<div>{{ key }} : {{ value }}</div>
+	{% endfor %}
+
+	{% for key, value in err_rows %}
+		<div>{{ key }} : {{ value }}</div>
 	{% endfor %}
 
 </div>
