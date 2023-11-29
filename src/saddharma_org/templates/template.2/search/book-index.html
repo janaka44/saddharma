@@ -1,0 +1,87 @@
+{% extends "template.2/template_page.html" %}
+{% block content %}
+
+	<div class="container" style="padding:50px 0 0 30px; margin-top: 150px">
+		<div class="row">
+			<div class="col-4 h6">
+				<span class="">{{ rows.paginator.count }} books found.</span>
+			</div>
+			<div class="col-8 text-right font-weight-bold h6">
+				<!-- Pagination : ------------- START -->
+				{% if rows.has_previous %}
+				  <a href="?page={{ rows.previous_page_number }}">« Previous page</a>
+
+				  {% if rows.number > 3 %}
+					<a href="?page=1">1</a>
+					{% if rows.number > 4 %}
+					  <span>...</span>
+					{% endif %}
+				  {% endif %}
+				{% endif %}
+
+				{% for num in rows.paginator.page_range %}
+				  {% if rows.number == num %}
+					<a href="?page={{ num }}">{{ num }}</a>
+				  {% elif num > rows.number|add:'-3' and num < rows.number|add:'3' %}
+					<a href="?page={{ num }}">{{ num }}</a>
+				  {% endif %}
+				{% endfor %}
+
+				{% if rows.has_next %}
+				  {% if rows.number < rows.paginator.num_pages|add:'-3' %}
+					<span>...</span>
+					<a href="?page={{ rows.paginator.num_pages }}">{{ rows.paginator.num_pages }}</a>
+				  {% elif rows.number < rows.paginator.num_pages|add:'-2' %}
+					<a href="?page={{ rows.paginator.num_pages }}">{{ rows.paginator.num_pages }}</a>
+				  {% endif %}
+
+				  <a href="?page={{ rows.next_page_number }}">Next Page »</a>
+				{% endif %}
+				<!-- Pagination : ------------- END -->
+			</div>
+		</div>
+
+		<div class="row justify-content-center align-items-center">
+			<table style="padding:10px" class="p-2 grid" cellpadding="2px" cellspacing="10px" >
+				<thead>
+					<th>Catalog No</th>
+					<th>Book Title</th>
+					<th>Author</th>
+					<th>Language</th>
+					<th>Pages</th>
+					<th>Year</th>
+					<th>Category 1</th>
+					<th>Category 2</th>
+				</thead>
+				<tbody>
+					<tr class="grid">
+						<th>නාමාවලි අංකය</th>
+						<th>නම </th>
+						<th>කතෘ </th>
+						<th>භාෂාව</th>
+						<th>පිටු ගණන</th>
+						<th>වසර </th>
+						<th>වර්ගීකරණය 1</th>
+						<th>වර්ගීකරණය 2</th>
+					</tr>
+					{% for row in rows %}
+						<tr class="{% cycle 'odd' 'even' %}">
+							<td>{{ row.catalog_no }}</td>
+							<td>{{ row.title }}</td>
+							<td>{{ row.author }}
+							<td>{{ row.get_language_display }}</td>
+							<td>{{ row.pages }}</td>
+							<td>{{ row.published_year|date:"Y" }}</td>
+							<td>{{ row.get_category_L1_display }}</td>
+							<td>{{ row.get_category_L2_display }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+
+{% endblock %}
+	

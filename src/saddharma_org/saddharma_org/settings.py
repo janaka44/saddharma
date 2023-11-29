@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'saddharma_org',
     'core',
     'rest_framework',
-    'api'
+    'api',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

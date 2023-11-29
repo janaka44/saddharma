@@ -11,12 +11,16 @@ class BookListApiView(APIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     # 1. List all
-    def get(self, request, *args, **kwargs):
+    def get(self, request, catalog_no, *args, **kwargs):
         '''
         List all the todo items for given requested user
         '''
-        # data = Book.objects.filter(user = request.user.id)
-        data = Book.objects.all()
+        data = self.get_object(catalog_no)
+        if not data:
+            return Response(
+                {"res": "Book with catalog_no: {catalog_no} not found."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         serializer = BookSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -36,6 +40,15 @@ class BookListApiView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_object(self, catalog_no):
+        '''
+        Helper method to get the object with given todo_id, and user_id
+        '''
+        try:
+            return Book.objects.filter(catalog_no=catalog_no)
+        except Book.DoesNotExist:
+            return None
 
 
 class BookTempListApiView(APIView):

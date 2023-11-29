@@ -1,5 +1,7 @@
 import logging
 
+from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.utils.translation import gettext as _
 
@@ -7,6 +9,8 @@ from .models import Book, Author
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
+
+ROWS_PER_PAGE = 25
 
 
 def set_base_content(request):
@@ -53,34 +57,39 @@ def home_view(request):
     return render(request, "template.2/index.html", context)
 
 
+def book_search(request):
+
+    page_num = request.GET.get('page', 1)
+    search_query = request.GET.get('search', "")
+
+    if search_query != "":
+        rows = Book.objects.filter(title__contains=search_query).order_by('catalog_no')
+    else:
+        rows = Book.objects.filter().order_by('catalog_no')
+
+    paginator = Paginator(rows, ROWS_PER_PAGE)
+
+    try:
+        page_obj = paginator.page(page_num)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if the page is out of range, deliver the last page
+        page_obj = paginator.page(paginator.num_pages)
+    # --
+
+    context = {
+        'rows': page_obj,
+    }
+    print(f'row count = {len(rows)}')
+
+    # context.update(set_base_content(request))
+    return render(request, "template.2/search/book-index.html", context)
+
+
 def search_view(request):
     rows = []
-    a1 = Author.create(author='අමරදාස රත්නපාල මහතා')
-    a2 = Author.create(author='දික්වැල්ලේ සීලරතන හිමි')
-    a3 = Author.create(author='පොල්වත්තේ බුද්ධදත්ත හිමි')
-    a4 = Author.create(author='කෝදාගොඩ පඤ්ඤාසේකර හිමි (ඤාණකිත්ති හිමි)')
-    a5 = Author.create(author='සද්ධානන්දතිස්ස හා සුධම්මානන්දතිස්ස හිමිවරු ')
-    a6 = Author.create(author='විදුරුපොල පියතිස්ස හිමි ')
-    a7 = Author.create(author='විමලසාර හිමි')
-    a8 = Author.create(author='සද්ධම්මපාල රත්නායක')
-    a9 = Author.create(author='ඇම් අනෝමදස්සී හිමි')
-    a10 = Author.create(author='හෝමාගම සීලරතන හිමි')
-    
-    rows.append(Book.create(title='අභිධර්මාර්ථ ප්‍රදීපිකා 1', author=a1, pages=241, year=1965))
-    rows.append(Book.create('විමුක්ති මාර්ගොදය (බොජ්ඣංග)', a2,145, 1978))
-    rows.append(Book.create('පඨමපාඨාවලී',a3,327, 1954))
-    rows.append(Book.create('අභිධර්මාර්ථ ප්‍රදීපිකා 2',a1, 214, 1968))
-    rows.append(Book.create('අත්ථසාලිනි අත්ථයෝජනා',a4, 221, 1911))
-    rows.append(Book.create('අත්ථසාලිනී අර්ථකථා සන්නය (දම් සඟුණු අටුවා සන්නය) ',a5, 251, 1890))
-    rows.append(Book.create('ව්‍යාකරණසදදසින්‍ධු ප්‍රථම- ද්විතිය - තෘතිය භාගය  - පාලි පාරිභාෂිකශබ්දකෝෂය',a6, 278, 1929))
-    rows.append(Book.create('අභිධම්ම හා සුත්තන්ත මාතිකා සන්නය     ',a7,327, 1910))
-    rows.append(Book.create('අභිධම්මත්ථ විකාසිනී - අභිධම්මාවතාර ටීකා',a3,327, 1961))
-    rows.append(Book.create('අභිධම්මමාතිකා පාළි ව්‍යාඛ්‍යානය ',a8,327, 1949))    
-    rows.append(Book.create('පරමත්තමහෝදදී අභිධම්මාවතාරය සන්නය; ප්‍රථම භාගය',a9, 194, 1914))
-    rows.append(Book.create('ස්කන්ධාදීන්ගේ විභාගය හා විමුක්ති සංග්‍රහය ',a10,327, 1925))
-    
-    # for r in rows:
-    #     print(r.pk)
     
     context = {
         'rows' : rows,

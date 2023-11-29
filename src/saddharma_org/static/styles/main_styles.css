@@ -72,10 +72,10 @@ body
 	font-family: 'Open Sans', sans-serif;
 	/* font-family: "Noto Serif Sinhala script=all rev=1";  */
 	/* font-weight: 400; font-style: normal; line-height: initial;" */
-	font-size: 14px;
+	font-size: 12px;
 	font-weight: 400;
 	background: #FFFFFF;
-	color: #a5a5a5;
+	/* color: #a5a5a5; */
 }
 div
 {
@@ -2301,3 +2301,42 @@ input#search:focus {
 {
 	color: #FFFFFF;
 }
+
+/*********************************
+Table
+*********************************/
+.odd {
+    background-color: #fff7df;
+}
+
+.even {
+    background-color: #ffffff;
+}
+
+tr.grid {
+    padding:5px;
+}
+
+tr.grid tbody {
+    border: 1px solid black;
+}
+
+th {
+    background-color: #fa9e1b;
+    border-bottom: 1px solid black;
+    margin-bottom: 2px;
+}
+
+th, td {
+    padding: 3px;
+    border: 2px solid white;
+}
+
+table.grid {
+    border: 1px solid black;
+}
+
+
+
+
+
