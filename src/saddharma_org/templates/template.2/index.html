@@ -120,7 +120,7 @@
 
 		<div class="container fill_height">
 			<div class="row fill_height">
-				<div class="col fill_height">
+				<div class="col fill_height p-3">
 
 					<!-- Search Tabs -->
 					
@@ -130,8 +130,8 @@
 							{% comment %} <div class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-book" aria-hidden="true">&nbsp;</i><span>ත්‍රිපිටකය</span></div>
 							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-book" aria-hidden="true">&nbsp;</i>අටුවා</div>
 							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-book" aria-hidden="true">&nbsp;</i>ත්‍රිපිටක ටීකා</div> {% endcomment %}
-							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-user-circle-o" aria-hidden="true">&nbsp;</i>කතෘ</div>
-							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-calendar" aria-hidden="true">&nbsp;</i>වර්‌ෂය</div>
+							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-user-circle-o" aria-hidden="true">&nbsp;</i>සෙවීම / Search</div>
+<!--							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-calendar" aria-hidden="true">&nbsp;</i>වර්‌ෂය</div>-->
 							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-calendar" aria-hidden="true">&nbsp;</i></div>
 						</div>		
 					</div>
@@ -139,42 +139,53 @@
 					<!-- Search Panel : ත්‍රිපිටකය -->
 
 					<div class="search_panel active">
-						<form action="#" id="search_form_1" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-							<div class="search_item col-lg-2">
-								<div>පිටකය</div>
-								<select required name="" id="" class="dropdown_item_select search_input">
-									<option id='' value='Vinaya'>විනයපිටක</option>
-									<option id='' value='Sutta'>සුත්තපිටක</option>
-									<option id='' value='Ahbhi_Dhamma'>අභිධම්මපිටක</option>
-								</select>
-							</div>
-							<div class="search_item col-lg-2">
-								<div>අනු පිටකය</div>
-								<select name="" id="" class="dropdown_item_select search_input">
-									<option id='' value='Vinaya'>දීඝනිකාය</option>
-									<option id='' value='Sutta'>මජ්ඣිමනිකාය</option>
-									<option id='' value='Ahbhi_Dhamma'>සංයුත්තනිකාය</option>
-									<option id='' value='Ahbhi_Dhamma'>අඞ්ගුත්තරනිකාය</option>
-									<option id='' value='Ahbhi_Dhamma'>ඛුද්දකනිකාය</option>
-								</select>
-							</div>
+						<form action="#" id="search_form_1" class="search_panel_content d-flex align-self-start justify-content-start  flex-wrap">
 							<div class="search_item col-lg-3">
-								<div>???</div>
-								<select name="" id="" class="dropdown_item_select search_input">
-									<option id='' value='Vinaya'>සීලක්ඛන්ධවග්ගපාළි</option>
-									<option id='' value='Sutta'>මහාවග්ගපාළි</option>
-									<option id='' value='Ahbhi_Dhamma'>පාථිකවග්ගපාළි</option>
-								</select>
+								<div>නාමාවලි අංකය / Catalog No</div>
+								<input type="text" class="search_input" id="catalog_no" name="catalog_no">
 							</div>
-							<div class="search_item col-lg-3">
-								<div>සූත්‍රය </div>
-								<select name="" id="" class="dropdown_item_select search_input">
-									<option id='' value='Vinaya'>1. බ්‍රහ්මජාලසුත්තං</option>
-									<option id='' value='Sutta'>සුත්තපිටක</option>
-									<option id='' value='Ahbhi_Dhamma'>අභිධම්මපිටක</option>
+							<div class="search_item col-lg-9">
+								<div>නම / Book Title</div>
+								<input type="text" class="search_input" id="title" name="title">
+							</div>
+							<div class="search_item col-lg-6">
+								<div>කතෘ / Author</div>
+								<input type="text" class="search_input" id="author" name="author">
+							</div>
+							<div class="search_item col-lg-2">
+								<div>භාෂාව / Language</div>
+								<select name="language" id="language" class="dropdown_item_select search_input">
+								{% for row in language_rows %}
+									<option id='{{ row.0 }}' value='{{ row.1 }}'>{{ row.1 }}</option>
+								{% endfor %}
 								</select>
 							</div>
 							<div class="search_item col-lg-2">
+								<div>වසර / Year</div>
+								<input type="text" class="search_input" id="published_year" name="published_year">
+							</div>
+							<div class="search_item col-lg-2">
+								<div>පිටු ගණන / Pages</div>
+								<input type="text" class="search_input" id="pages" name="pages">
+							</div>
+							<div class="search_item col-lg-4">
+								<div>වර්ගීකරණය 1 / Category 1</div>
+								<select name="category_L1" id="category_L1" class="dropdown_item_select search_input">
+								{% for row in category1_rows %}
+									<option id='{{ row.0 }}' value='{{ row.1 }}'>{{ row.1 }}</option>
+								{% endfor %}
+								</select>
+							</div>
+							<div class="search_item col-lg-4">
+								<div>වර්ගීකරණය 2 / Category 2</div>
+								<select name="category_L2" id="category_L2" class="dropdown_item_select search_input">
+								{% for row in category2_rows %}
+									<option id='{{ row.0 }}' value='{{ row.1 }}'>{{ row.1 }}</option>
+								{% endfor %}
+								</select>
+							</div>
+
+							<div class="search_item col-lg-12">
 								<button class="button search_button" onclick="navigate('search');">සොයන්න<span></span><span></span><span></span></button>
 							</div>
 						</form>
@@ -994,5 +1005,8 @@
 			</div>
 		</div>
 	</div>
-
+<!-- Footer -->
+{% include 'template.2/footer.html' %}
 {% endblock %}
+
+

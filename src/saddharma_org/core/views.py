@@ -5,7 +5,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.utils.translation import gettext as _
 
-from .models import Book, Author
+from .models import Book, Author, \
+    BOOK_CATEGORIES_L1, BOOK_CATEGORIES_L2, BOOK_CATEGORIES_L3
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -48,11 +49,22 @@ def set_base_content(request):
      }
     return context
 
+
 def home_view(request):
+    category1_rows = BOOK_CATEGORIES_L1
+    category2_rows = BOOK_CATEGORIES_L2
+    language_rows = BOOK_CATEGORIES_L3
     context = {
         'section_home_page_about_header' : _('HOME_PAGE_ABOUT_HEADER'),
         'section_home_page_about_description' : _('HOME_PAGE_ABOUT_DESCRIPTION'),
+        'language_rows': language_rows,
+        'category1_rows': category1_rows,
+        'category2_rows': category2_rows,
     }
+
+    for row in BOOK_CATEGORIES_L3:
+        print(f'{row} : {row[0]} = {row[1]} ')
+
     context.update(set_base_content(request))
     return render(request, "template.2/index.html", context)
 
