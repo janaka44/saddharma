@@ -70,14 +70,42 @@ def home_view(request):
 
 
 def book_search(request):
+    from django.db.models import Q
 
     page_num = request.GET.get('page', 1)
     search_query = request.GET.get('search', "")
 
-    if search_query != "":
-        rows = Book.objects.filter(title__contains=search_query).order_by('catalog_no')
-    else:
-        rows = Book.objects.filter().order_by('catalog_no')
+    catalog_no = request.GET.get('catalog_no', "")
+    title = request.GET.get('title', "")
+    author = request.GET.get('author', "")
+    language = request.GET.get('language', "")
+    published_year = request.GET.get('published_year', "")
+    pages = request.GET.get('pages', "")
+    category_L1 = request.GET.get('category_L1', "")
+    category_L2 = request.GET.get('category_L2', "")
+
+    filters = Q()
+    if search_query:
+        filters &= Q(title__contains=search_query)
+    if catalog_no:
+        filters &= Q(catalog_no=catalog_no)
+    if title:
+        filters &= Q(title__contains=title)
+    if author:
+        filters &= Q(author__author__contains=author)
+    if language:
+        filters &= Q(language=language)
+    if published_year:
+        filters &= Q(published_year__year=published_year)
+    if pages:
+        filters &= Q(pages=pages)
+    if category_L1:
+        filters &= Q(category_L1=category_L1)
+    if category_L2:
+        filters &= Q(category_L2=category_L2)
+
+    print(request.get_full_path())
+    rows = Book.objects.filter(filters).order_by('catalog_no')
 
     paginator = Paginator(rows, ROWS_PER_PAGE)
 
@@ -93,6 +121,7 @@ def book_search(request):
 
     context = {
         'rows': page_obj,
+        'fullpath': request.get_full_path(),
     }
     print(f'row count = {len(rows)}')
 

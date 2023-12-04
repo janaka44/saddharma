@@ -139,7 +139,7 @@
 					<!-- Search Panel : ත්‍රිපිටකය -->
 
 					<div class="search_panel active">
-						<form action="#" id="search_form_1" class="search_panel_content d-flex align-self-start justify-content-start  flex-wrap">
+						<form action="/search" id="search_form_1" class="search_panel_content d-flex align-self-start justify-content-start  flex-wrap" method="get">
 							<div class="search_item col-lg-3">
 								<div>නාමාවලි අංකය / Catalog No</div>
 								<input type="text" class="search_input" id="catalog_no" name="catalog_no">
@@ -155,9 +155,10 @@
 							<div class="search_item col-lg-2">
 								<div>භාෂාව / Language</div>
 								<select name="language" id="language" class="dropdown_item_select search_input">
-								{% for row in language_rows %}
-									<option id='{{ row.0 }}' value='{{ row.1 }}'>{{ row.1 }}</option>
-								{% endfor %}
+									<option id='NULL' value=''>--</option>
+									{% for row in language_rows %}
+										<option id='{{ row.0 }}' value='{{ row.0 }}'>{{ row.1 }}</option>
+									{% endfor %}
 								</select>
 							</div>
 							<div class="search_item col-lg-2">
@@ -171,22 +172,25 @@
 							<div class="search_item col-lg-4">
 								<div>වර්ගීකරණය 1 / Category 1</div>
 								<select name="category_L1" id="category_L1" class="dropdown_item_select search_input">
-								{% for row in category1_rows %}
-									<option id='{{ row.0 }}' value='{{ row.1 }}'>{{ row.1 }}</option>
-								{% endfor %}
+									<option id='NULL' value=''>--</option>
+									{% for row in category1_rows %}
+										<option id='{{ row.0 }}' value='{{ row.0 }}'>{{ row.1 }}</option>
+									{% endfor %}
 								</select>
 							</div>
 							<div class="search_item col-lg-4">
 								<div>වර්ගීකරණය 2 / Category 2</div>
 								<select name="category_L2" id="category_L2" class="dropdown_item_select search_input">
-								{% for row in category2_rows %}
-									<option id='{{ row.0 }}' value='{{ row.1 }}'>{{ row.1 }}</option>
-								{% endfor %}
+									<option id='NULL' value=''>--</option>
+									{% for row in category2_rows %}
+										<option id='{{ row.0 }}' value='{{ row.0 }}'>{{ row.1 }}</option>
+									{% endfor %}
 								</select>
 							</div>
 
 							<div class="search_item col-lg-12">
 								<button class="button search_button" onclick="navigate('search');">සොයන්න<span></span><span></span><span></span></button>
+								<input type="reset" class="button search_button" value="Clear Form"></input>
 							</div>
 						</form>
 					</div>
