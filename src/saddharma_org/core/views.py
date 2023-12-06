@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.utils.translation import gettext as _
+from django.db.models import Q
 
 from .models import Book, Author, \
     BOOK_CATEGORIES_L1, BOOK_CATEGORIES_L2, BOOK_CATEGORIES_L3
@@ -51,27 +52,80 @@ def set_base_content(request):
 
 
 def home_view(request):
+    from django.db.models import Count, Sum
+    book_category_rows = {}
+    book_category_2_rows = {}
+
+    # fetch lists for dropdowns in detail search area
     category1_rows = BOOK_CATEGORIES_L1
     category2_rows = BOOK_CATEGORIES_L2
     language_rows = BOOK_CATEGORIES_L3
+
+    # fetch data for book category tiles
+    filters = Q()
+    # for category in BOOK_CATEGORIES_L1:
+    book_category_data_rows = Book.objects\
+        .values('category_L1')\
+        .annotate(count=Count('category_L1')) \
+        .order_by('category_L1')
+
+    book_category_2_data_rows = Book.objects \
+        .values('category_L2') \
+        .annotate(count=Count('category_L2')) \
+        .order_by('category_L2')
+
+    category_images = {
+        'L1_C1': 'candle-book.jpg',
+        'L1_C2': 'banner1.jpg',
+        'L1_C3': 'banner3.jpg',
+        'L1_C4': 'library-1.jpg',
+        'L1_C5': 'banner2.jpg',
+        'L1_C6': 'library-2.jpg',
+        'L1_C7': 'old_library.jpg',
+    }
+
+    # add category image to QuerySet
+    i = 0
+    for row in book_category_data_rows:
+        i = i+1
+        if row['category_L1'] is not None:
+            new_cat = {}
+            new_cat['cat']   = row['category_L1']
+            new_cat['count'] = row['count']
+            new_cat['image'] = category_images[row['category_L1']]
+            new_cat['title'] = [item for item in BOOK_CATEGORIES_L1 if item[0] == row['category_L1']][0][1]
+            book_category_rows[f'row{i}'] = new_cat
+
+    i = 0
+    for row in book_category_2_data_rows:
+        i = i+1
+        if row['category_L2'] is not None:
+            new_cat = {}
+            new_cat['cat']   = row['category_L2']
+            new_cat['count'] = row['count']
+            new_cat['title'] = [item for item in BOOK_CATEGORIES_L2 if item[0] == row['category_L2']][0][1]
+            book_category_2_rows[f'row{i}'] = new_cat
+
+    print(book_category_2_rows)
+    # for r in book_category_rows:
+    #     print(r)
+
     context = {
         'section_home_page_about_header' : _('HOME_PAGE_ABOUT_HEADER'),
         'section_home_page_about_description' : _('HOME_PAGE_ABOUT_DESCRIPTION'),
         'language_rows': language_rows,
         'category1_rows': category1_rows,
         'category2_rows': category2_rows,
+        'book_category_rows': book_category_rows,
+        'book_category_2_rows': book_category_2_rows,
+        'total_books': book_category_data_rows.aggregate(Sum('count')),
     }
-
-    for row in BOOK_CATEGORIES_L3:
-        print(f'{row} : {row[0]} = {row[1]} ')
 
     context.update(set_base_content(request))
     return render(request, "template.2/index.html", context)
 
 
 def book_search(request):
-    from django.db.models import Q
-
     page_num = request.GET.get('page', 1)
     search_query = request.GET.get('search', "")
 
