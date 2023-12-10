@@ -85,12 +85,15 @@ WSGI_APPLICATION = 'saddharma_org.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# ---------- Default
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+# ---------- Local
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -101,13 +104,25 @@ WSGI_APPLICATION = 'saddharma_org.wsgi.application'
 #         'PORT': '5432',
 #     }
 # }
+
+# ---------- Local: Render.com
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Feel free to alter this value to suit your needs.
+#         default='postgresql://sd_admin:123@localhost:5432/saddharma_postgres',
+#         conn_max_age=600
+#     )
+# }
+
+# ---------- Cloud: Railway.app
 DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-        default='postgresql://sd_admin:123@localhost:5432/saddharma_postgres',
+        default='postgresql://postgres:f*aB4b1-BAD1Aea--FB1*eff6d1-c56g@monorail.proxy.rlwy.net:14572/railway',
         conn_max_age=600
     )
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
