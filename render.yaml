@@ -1,7 +1,7 @@
 databases:
   - name: saddharma_test
     databaseName: saddharma_postgres
-    user: admin
+    user: sd_admin
 
 services:
   - type: web

@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'saddharma_org.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-        default='postgresql://admin:123@localhost:5432/saddharma_postgres',
+        default='postgresql://sd_admin:123@localhost:5432/saddharma_postgres',
         conn_max_age=600
     )
 }
