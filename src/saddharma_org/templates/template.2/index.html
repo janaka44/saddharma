@@ -18,14 +18,15 @@
 					<div class="home_slider_content text-center">
 						<div class="home_slider_content_inner" data-animation-in="flipInX" data-animation-out="animate-out fadeOut">
 							<!-- <img src="static/images/Saddharma_logo.png" width="350px" alt="Saddharma"> -->
-							<h2 class="text-shadow mb-2" style="font-family: 'Noto Serif Sinhala', serif;">පෞරාණික ධර්ම ග්‍රන්ථ සංග්‍රහය </h2>
+<!--							<h2 class="text-shadow mb-2" style="font-family: 'Noto Serif Sinhala', serif;">පෞරාණික ධර්ම ග්‍රන්ථ සංග්‍රහය </h2>-->
+<!--							<h5 class="text-light">Buddhist Library</h5>-->
 							<form action="search" method="get">
 								<div class="row">
 									<div class="col-9">
-										<h3><input type="text" id="search" name="search" Placeholder="සොයන්න" class="destination search_input" style="width:700px"></h3>
+										<h3><input type="text" id="search" name="search" title="input search text" Placeholder="සොයන්න" class="destination search_input" style="width:700px"></h3>
 									</div>
 									<div class="col-3">
-										<input type="submit" value="සොයන්න" class="btn btn-danger ml-3" style="height: 45px;">
+										<input type="submit" value="සොයන්න" title="Search" class="btn btn-danger ml-3" style="height: 45px;">
 	<!--									<a href="search/">සොයන්න</a>-->
 									</div>
 								</div>
@@ -114,7 +115,7 @@
 
 	<!-- Search -->
 
-	<div class="search">
+	<div class="search pb-3">
 
 		<!-- Search Contents -->
 
@@ -126,6 +127,7 @@
 
 					<div class="search_tabs_container">
 						<h3 class='text-shadow'>වෙනත් ආකාර වලින් ග්‍රන්ථ සෙවීම සඳහා :</h3>
+						<h5 class='text-shadow'>Advanced Search:</h5>
 						<div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
 <!--							{% comment %} <div class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-book" aria-hidden="true">&nbsp;</i><span>ත්‍රිපිටකය</span></div>
 							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><i class="fa fa-book" aria-hidden="true">&nbsp;</i>අටුවා</div>
@@ -136,7 +138,7 @@
 						</div>
 					</div>
 
-					<!-- Search Panel : ත්‍රිපිටකය -->
+					<!-- Search Panel : Advanced Search -->
 
 					<div class="search_panel active">
 						<form action="/search" id="search_form_1" class="search_panel_content d-flex align-self-start justify-content-start  flex-wrap" method="get">
@@ -170,7 +172,7 @@
 								<input type="text" class="search_input" id="pages" name="pages">
 							</div>
 							<div class="search_item col-lg-4">
-								<div>වර්ගීකරණය 1 / Category 1</div>
+								<div>ප්‍රධාන වර්ගීකරණය / Main Category</div>
 								<select name="category_L1" id="category_L1" class="dropdown_item_select search_input">
 									<option id='NULL' value=''>--</option>
 									{% for row in category1_rows %}
@@ -179,7 +181,7 @@
 								</select>
 							</div>
 							<div class="search_item col-lg-4">
-								<div>වර්ගීකරණය 2 / Category 2</div>
+								<div>වෙනත් වර්ගීකරණ / Sub Category</div>
 								<select name="category_L2" id="category_L2" class="dropdown_item_select search_input">
 									<option id='NULL' value=''>--</option>
 									{% for row in category2_rows %}
@@ -195,86 +197,6 @@
 						</form>
 					</div>
 
-					<!-- Search Panel : අටුවා -->
-
-
-					<!-- Search Panel : ත්‍රිපිටක ටීකා -->
-
-					<div class="search_panel">
-						<form action="#" id="search_form_3" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-							<div class="search_item">
-								<div>destination</div>
-								<input type="text" class="destination search_input" required="required">
-							</div>
-							<div class="search_item">
-								<div>check in</div>
-								<input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
-							</div>
-							<div class="search_item">
-								<div>check out</div>
-								<input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-							</div>
-							<div class="search_item">
-								<div>adults</div>
-								<select name="adults" id="adults_3" class="dropdown_item_select search_input">
-									<option>01</option>
-									<option>02</option>
-									<option>03</option>
-								</select>
-							</div>
-							<div class="search_item">
-								<div>children</div>
-								<select name="children" id="children_3" class="dropdown_item_select search_input">
-									<option>0</option>
-									<option>02</option>
-									<option>03</option>
-								</select>
-							</div>
-							<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
-						</form>
-					</div>
-
-					<!-- Search Panel : කතෘ -->
-
-					<div class="search_panel">
-						<form action="#" id="search_form_4" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-							<div class="search_item col-lg-4">
-								<div>කතෘ</div>
-								<input type="text" class="search_input" required="required">
-							</div>
-							<div class="search_item  col-lg-4">
-								<div>ප්‍රකාශක</div>
-								<input type="text" class="search_input" placeholder="">
-							</div>
-							<div class="search_item  col-lg-2">
-								<div>භාෂාව</div>
-								<select required name="" id="" class="dropdown_item_select search_input">
-									<option id='' value='Vinaya'>-</option>
-									<option id='' value='Vinaya'>සිංහල</option>
-									<option id='' value='Sutta'>පාලි</option>
-									<option id='' value='Ahbhi_Dhamma'>දෙමල</option>
-									<option id='' value='Ahbhi_Dhamma'>ඉංග්‍රීසි</option>
-									<option id='' value='Ahbhi_Dhamma'>බුරුම</option>
-								</select>
-							</div>
-							<div class="search_item col-lg-2">
-								<button class="button search_button">සොයන්න<span></span><span></span><span></span></button>
-							</div>
-
-						</form>
-					</div>
-
-					<!-- Search Panel : අවුරුද්ද -->
-
-					<div class="search_panel">
-
-					</div>
-
-					<!-- Search Panel : මුලාශ්‍රය -->
-
-					<div class="search_panel">
-
-					</div>
 				</div>
 			</div>
 		</div>		
@@ -287,6 +209,7 @@
 			<div class="row">
 				<div class="col">
 					<h2 class="intro_title text-center">මූලික ග්‍රන්ථ වර්ගීකරණ</h2>
+					<h5 class='text-dark text-center font-weight-bold'>Book Main Categories</h5>
 				</div>
 			</div>
 			<div class="row intro_items">
@@ -314,19 +237,20 @@
 			<div class="row pt-5">
 				<div class="col">
 					<h2 class="intro_title text-center">වෙනත් ග්‍රන්ථ වර්ගීකරණ</h2>
+					<h5 class='text-dark text-center  font-weight-bold'>Book Sub Categories</h5>
 				</div>
 			</div>
 
 			<div class="row intro_items d-flex justify-content-center">
 				<table style="padding:10px" class="p-2 grid" cellpadding="2px" cellspacing="10px" >
 					<thead>
-						<th>Category 2</th>
+						<th>Sub Categories</th>
 						<th>Book Count</th>
 					</thead>
 					<tbody>
 						<tr class="grid">
-							<th>වර්ගීකරණය 2</th>
-							<th>ගණන</th>
+							<th>වෙනත් වර්ගීකරණ</th>
+							<th>පොත් ගණන</th>
 						</tr>
 						{% for v,row in book_category_2_rows.items %}
 							<tr class="{% cycle 'odd' 'even' %}">
@@ -353,6 +277,7 @@
 			<div class="row">
 				<div class="col text-center mb-3">
 					<h2 class=" text-shadow">දැනට කියවන පොත්...</h2>
+					<h5 class='text-shadow text-center'>Currently reading books...</h5>
 				</div>
 			</div>
 			<div class="row">
@@ -497,6 +422,7 @@
 			<div class="row">
 				<div class="col text-center">
 					<h2 class="section_title">වැඩිපුරම කියවූ පොත්</h2>
+					<h5 class='text-dark text-center  font-weight-bold'>Mostly read books...</h5>
 				</div>
 			</div>
 			<div class="row offers_items">
@@ -649,6 +575,7 @@
 			<div class="row">
 				<div class="col text-center">	
 					<h2 class="section_title text-shadow">ප්‍රශ්න සහ අදහස් </h2>
+					<h5 class='text-shadow text-center'>Questions and Comments</h5>
 				</div>
 			</div>
 			<div class="row">
@@ -781,6 +708,7 @@
 				<div class="col-lg-12">
 					<div class="contact_form_container">
 						<div class="contact_title">සම්‌භන්‌ද වෙමු</div>
+						<h5 class='text-shadow'>Contact Us</h5>
 						<form action="#" id="contact_form" class="contact_form">
 							<input type="text" id="contact_form_name" class="contact_form_name input_field" placeholder="නම" required="required" data-error="Name is required.">
 							<input type="text" id="contact_form_email" class="contact_form_email input_field" placeholder="ඊ-මේල් ලිපිනය" required="required" data-error="Email is required.">

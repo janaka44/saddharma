@@ -106,10 +106,6 @@ def home_view(request):
             new_cat['title'] = [item for item in BOOK_CATEGORIES_L2 if item[0] == row['category_L2']][0][1]
             book_category_2_rows[f'row{i}'] = new_cat
 
-    print(book_category_2_rows)
-    # for r in book_category_rows:
-    #     print(r)
-
     context = {
         'section_home_page_about_header' : _('HOME_PAGE_ABOUT_HEADER'),
         'section_home_page_about_description' : _('HOME_PAGE_ABOUT_DESCRIPTION'),
@@ -154,11 +150,18 @@ def book_search(request):
     if pages:
         filters &= Q(pages=pages)
     if category_L1:
-        filters &= Q(category_L1=category_L1)
+        value_list = category_L1.split(',')
+        print(value_list)
+        for value in value_list:
+            filters |= Q(category_L1=value)
     if category_L2:
-        filters &= Q(category_L2=category_L2)
+        value_list = category_L2.split(',')
+        print(value_list)
+        for value in value_list:
+            filters |= Q(category_L2=value)
 
     print(request.get_full_path())
+    print(f'filters = {filters}')
     rows = Book.objects.filter(filters).order_by('catalog_no')
 
     paginator = Paginator(rows, ROWS_PER_PAGE)
