@@ -1,7 +1,7 @@
 databases:
   - name: saddharma_org
     databaseName: saddharma_postgres
-    user: postgres
+    user: db-admin
 
 services:
   - type: web
