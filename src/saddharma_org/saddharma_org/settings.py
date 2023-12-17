@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 # DEBUG = True
 DEBUG = 'PROD' not in os.environ
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', '.saddharma.org', '206.189.148.243']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('PROD_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
