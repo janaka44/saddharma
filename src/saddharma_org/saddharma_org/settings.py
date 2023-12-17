@@ -103,6 +103,7 @@ WSGI_APPLICATION = 'saddharma_org.wsgi.application'
 # }
 
 # ---------- Cloud: Prod
+# TODO: hide pwd with secrets
 if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.config(
