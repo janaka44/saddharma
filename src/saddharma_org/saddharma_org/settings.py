@@ -102,9 +102,12 @@ WSGI_APPLICATION = 'saddharma_org.wsgi.application'
 #     )
 # }
 
+print(os.environ.get('DATABASE_URL'))
+
 # ---------- Cloud: Prod
 # TODO: hide pwd with secrets
 if 'DATABASE_URL' in os.environ:
+    print('DATABASE_URL found')
     DATABASES = {
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL'),
@@ -114,6 +117,7 @@ if 'DATABASE_URL' in os.environ:
     }
 else:
     # ---------- Local dev DB
+    print('DATABASE_URL - not found')
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
