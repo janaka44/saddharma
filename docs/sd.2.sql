@@ -139,6 +139,296 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 \.
 
 
+
+--
+-- TOC entry 3526 (class 0 OID 17911)
+-- Dependencies: 243
+-- Data for Name: core_comments; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.core_comments (id, page, description, book_id, user_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3520 (class 0 OID 17889)
+-- Dependencies: 237
+-- Data for Name: core_publisher; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.core_publisher (id, publisher, address, description) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3522 (class 0 OID 17897)
+-- Dependencies: 239
+-- Data for Name: core_sourcelibrary; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.core_sourcelibrary (id, source_library, address, description) FROM stdin;
+11	Archive.org		
+12	Daham Madura		
+13	Dammadana Web		
+14	My Library		
+16	Na Uyana		
+17	National Library		
+18	Paramaththa		
+19	Path Nirwana		
+20	Polgasduwa		
+\.
+
+
+--
+-- TOC entry 3524 (class 0 OID 17905)
+-- Dependencies: 241
+-- Data for Name: core_wishlist; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.core_wishlist (id, book_id, user_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3514 (class 0 OID 17844)
+-- Dependencies: 231
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3500 (class 0 OID 17744)
+-- Dependencies: 217
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	core	author
+8	core	book
+9	core	publisher
+11	core	wishlist
+12	core	comments
+13	core	bookmark
+10	core	sourcelibrary
+14	core	booktemp
+\.
+
+
+--
+-- TOC entry 3498 (class 0 OID 17736)
+-- Dependencies: 215
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2023-10-23 22:57:39.231029+10:30
+2	auth	0001_initial	2023-10-23 22:57:39.358834+10:30
+3	admin	0001_initial	2023-10-23 22:57:39.38871+10:30
+4	admin	0002_logentry_remove_auto_add	2023-10-23 22:57:39.393709+10:30
+5	admin	0003_logentry_add_action_flag_choices	2023-10-23 22:57:39.400743+10:30
+6	contenttypes	0002_remove_content_type_name	2023-10-23 22:57:39.410712+10:30
+7	auth	0002_alter_permission_name_max_length	2023-10-23 22:57:39.41671+10:30
+8	auth	0003_alter_user_email_max_length	2023-10-23 22:57:39.420709+10:30
+9	auth	0004_alter_user_username_opts	2023-10-23 22:57:39.42571+10:30
+10	auth	0005_alter_user_last_login_null	2023-10-23 22:57:39.430714+10:30
+11	auth	0006_require_contenttypes_0002	2023-10-23 22:57:39.432714+10:30
+12	auth	0007_alter_validators_add_error_messages	2023-10-23 22:57:39.436714+10:30
+13	auth	0008_alter_user_username_max_length	2023-10-23 22:57:39.455452+10:30
+14	auth	0009_alter_user_last_name_max_length	2023-10-23 22:57:39.461449+10:30
+15	auth	0010_alter_group_name_max_length	2023-10-23 22:57:39.46957+10:30
+16	auth	0011_update_proxy_permissions	2023-10-23 22:57:39.478552+10:30
+17	auth	0012_alter_user_first_name_max_length	2023-10-23 22:57:39.483531+10:30
+18	core	0001_initial	2023-10-23 22:57:39.672438+10:30
+19	sessions	0001_initial	2023-10-23 22:57:39.701436+10:30
+20	core	0002_author_year	2023-10-23 23:12:09.131516+10:30
+21	core	0003_alter_author_year	2023-10-23 23:16:10.545412+10:30
+22	core	0004_alter_author_description_alter_author_year	2023-10-23 23:31:04.205064+10:30
+23	core	0005_booktemp_rename_source_library_sourcelibrary_and_more	2023-10-25 20:00:14.594157+10:30
+24	core	0006_alter_booktemp_author_name_alter_booktemp_catalog_no_and_more	2023-10-26 09:54:59.201348+10:30
+25	core	0007_alter_booktemp_author_name_alter_booktemp_catalog_no_and_more	2023-10-26 11:25:54.514014+10:30
+26	core	0008_book_last_modified_alter_book_approved_date_and_more	2023-11-05 16:48:52.206995+10:30
+27	core	0009_alter_book_approved_by_alter_book_approved_date	2023-11-05 16:50:16.077609+10:30
+28	core	0010_alter_book_language_alter_book_uploaded_by_and_more	2023-11-05 16:52:32.880261+10:30
+29	core	0011_alter_book_category_l1_alter_book_category_l2_and_more	2023-11-05 22:40:20.088477+10:30
+30	core	0012_book_volume	2023-11-09 20:38:48.190309+10:30
+31	core	0013_alter_book_volume	2023-11-09 20:39:17.821838+10:30
+\.
+
+
+--
+-- TOC entry 3529 (class 0 OID 17992)
+-- Dependencies: 246
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+7y4pb382zsxusbwqisr6h4kbrucbs69t	.eJxVjDEOwjAMRe-SGUVpm9iUkZ0zRI4dkwJqpaadEHdHkTrA-t97_20i7VuJe81rnMRcTGdOv1sifua5AXnQfF8sL_O2Tsk2xR602tsi-XU93L-DQrW0GhDJj8x9wjAoMCp5duRJBFGgB8XM7AIwUFBJnAYYfSY9q3a9M58vCxU5Kg:1qyXNe:B5W-61yYxnxmgsEtI2eXW92Sfbi5JJzSAy62I_llQCc	2023-11-16 23:35:02.280773+10:30
+\.
+
+
+--
+-- TOC entry 3537 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- TOC entry 3538 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- TOC entry 3539 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 60, true);
+
+
+--
+-- TOC entry 3540 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- TOC entry 3541 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 1, true);
+
+
+--
+-- TOC entry 3542 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- TOC entry 3543 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: core_author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.core_author_id_seq', 530, true);
+
+
+--
+-- TOC entry 3544 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: core_book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.core_book_id_seq', 1528, true);
+
+
+--
+-- TOC entry 3545 (class 0 OID 0)
+-- Dependencies: 244
+-- Name: core_bookmark_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.core_bookmark_id_seq', 1, false);
+
+
+--
+-- TOC entry 3546 (class 0 OID 0)
+-- Dependencies: 247
+-- Name: core_booktemp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.core_booktemp_id_seq', 3000, true);
+
+
+--
+-- TOC entry 3547 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: core_comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.core_comments_id_seq', 1, false);
+
+
+--
+-- TOC entry 3548 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: core_publisher_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.core_publisher_id_seq', 1, false);
+
+
+--
+-- TOC entry 3549 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: core_source_library_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.core_source_library_id_seq', 20, true);
+
+
+--
+-- TOC entry 3550 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: core_wishlist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.core_wishlist_id_seq', 1, false);
+
+
+--
+-- TOC entry 3551 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+
+
+--
+-- TOC entry 3552 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 14, true);
+
+
+--
+-- TOC entry 3553 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 31, true);
+
+
+
 --
 -- TOC entry 3516 (class 0 OID 17873)
 -- Dependencies: 233
@@ -1576,7 +1866,7 @@ COPY public.core_book (id, title, pages, "category_L1", "category_L2", language,
 889	පරමාර්ථ විකාශනි (1, 2, 3)	583	L1_C3	L2_A7	L3_C1	\N		\N	2023-11-18	\N	\N	204	\N	\N	12	\N	A0145	1942-01-01	2023-11-18 22:15:13.891153+10:30	1
 890	SAMMOHA VINODANI	560	L1_C3	L2_A7	L3_C4	\N		\N	2023-11-18	\N	\N	119	\N	\N	12	\N	A0146	1923-01-01	2023-11-18 22:15:13.894154+10:30	1
 891	ABHIDAMMATTHA SANGAHA	468	L1_C3	L2_A7	L3_C4	\N		\N	2023-11-18	\N	\N	348	\N	\N	12	\N	A0147	1956-01-01	2023-11-18 22:15:13.896154+10:30	1
-892	BUDDHADATTA'S MANUALS OR SUMMARIES OF ABHIDHAMMA	204	L1_C3	L2_A7	L3_C4	\N		\N	2023-11-18	\N	\N	119	\N	\N	12	\N	A0148	1915-01-01	2023-11-18 22:15:13.899164+10:30	1
+892	BUDDHADATTA''S MANUALS OR SUMMARIES OF ABHIDHAMMA	204	L1_C3	L2_A7	L3_C4	\N		\N	2023-11-18	\N	\N	119	\N	\N	12	\N	A0148	1915-01-01	2023-11-18 22:15:13.899164+10:30	1
 893	Manual Of Abidamma	659	L1_C3	L2_A7	L3_C4	\N		\N	2023-11-18	\N	\N	349	\N	\N	12	\N	A0149	1942-01-01	2023-11-18 22:15:13.901154+10:30	1
 894	කුශලත්‍රිකය	32	L1_C3	L2_A7	L3_C1	\N		\N	2023-11-18	\N	\N	350	\N	\N	12	\N	A0150	1905-01-01	2023-11-18 22:15:13.903155+10:30	1
 895	pali Dhathupatha and dathupatha Manjusa	94	L1_C5	L1_C5_C2	L3_C4	\N		\N	2023-11-18	\N	\N	\N	\N	\N	11	\N	P0102	1921-01-01	2023-11-18 22:15:13.905154+10:30	1
@@ -2876,7 +3166,7 @@ COPY public.core_booktemp (id, catalog_no, title, author_name, published_year, p
 2305	A0138	සිංහල පුග්ගල පඤ්ඤත්ති විභාගය	මුද්දරගම ධම්මාලංකාර හිමි	1954-01-01	262	Sinhala	Full	Daham Madura	අභිධර්ම	අභිධර්ම
 2313	A0146	SAMMOHA VINODANI	පොල්වත්තේ බුද්ධදත්ත හිමි	1923-01-01	560	English	Full	Daham Madura	අභිධර්ම	අභිධර්ම
 2314	A0147	ABHIDAMMATTHA SANGAHA	වජිරාරාම නාරද හිමි	1956-01-01	468	English	Full	Daham Madura	අභිධර්ම	අභිධර්ම
-2315	A0148	BUDDHADATTA'S MANUALS OR SUMMARIES OF ABHIDHAMMA	පොල්වත්තේ බුද්ධදත්ත හිමි	1915-01-01	204	English	Full	Daham Madura	අභිධර්ම	අභිධර්ම
+2315	A0148	BUDDHADATTA''S MANUALS OR SUMMARIES OF ABHIDHAMMA	පොල්වත්තේ බුද්ධදත්ත හිමි	1915-01-01	204	English	Full	Daham Madura	අභිධර්ම	අභිධර්ම
 2316	A0149	Manual Of Abidamma	භික්ඛු කාශ්‍යප	1942-01-01	659	English	Full	Daham Madura	අභිධර්ම	අභිධර්ම
 2306	A0139	ධම්සඟුණු නම් විජම්පෙළ	බෙන්තර සද්ධාතිස්ස හිමි	1929-01-01	231	Pali	Full	Daham Madura	අභිධර්ම	අභිධර්ම
 2307	A0140	පට්ඨානප්‍රකරණං	දොඩම්පහල කවිධජ හිමි	1942-01-01	244	Pali	Full	Daham Madura	අභිධර්ම	අභිධර්ම
@@ -3811,298 +4101,8 @@ COPY public.core_booktemp (id, catalog_no, title, author_name, published_year, p
 2151	V0080	සමන්ත පාසාදිකා 04	හේවාවිතාරණ පාලි අටුවා	1948-01-01	350	Pali	Full	Na Uyana	විනය	පාලි අටුවා
 \.
 
-
---
--- TOC entry 3526 (class 0 OID 17911)
--- Dependencies: 243
--- Data for Name: core_comments; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.core_comments (id, page, description, book_id, user_id) FROM stdin;
-\.
-
-
---
--- TOC entry 3520 (class 0 OID 17889)
--- Dependencies: 237
--- Data for Name: core_publisher; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.core_publisher (id, publisher, address, description) FROM stdin;
-\.
-
-
---
--- TOC entry 3522 (class 0 OID 17897)
--- Dependencies: 239
--- Data for Name: core_sourcelibrary; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.core_sourcelibrary (id, source_library, address, description) FROM stdin;
-11	Archive.org		
-12	Daham Madura		
-13	Dammadana Web		
-14	My Library		
-16	Na Uyana		
-17	National Library		
-18	Paramaththa		
-19	Path Nirwana		
-20	Polgasduwa		
-\.
-
-
---
--- TOC entry 3524 (class 0 OID 17905)
--- Dependencies: 241
--- Data for Name: core_wishlist; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.core_wishlist (id, book_id, user_id) FROM stdin;
-\.
-
-
---
--- TOC entry 3514 (class 0 OID 17844)
--- Dependencies: 231
--- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
-\.
-
-
---
--- TOC entry 3500 (class 0 OID 17744)
--- Dependencies: 217
--- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.django_content_type (id, app_label, model) FROM stdin;
-1	admin	logentry
-2	auth	permission
-3	auth	group
-4	auth	user
-5	contenttypes	contenttype
-6	sessions	session
-7	core	author
-8	core	book
-9	core	publisher
-11	core	wishlist
-12	core	comments
-13	core	bookmark
-10	core	sourcelibrary
-14	core	booktemp
-\.
-
-
---
--- TOC entry 3498 (class 0 OID 17736)
--- Dependencies: 215
--- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2023-10-23 22:57:39.231029+10:30
-2	auth	0001_initial	2023-10-23 22:57:39.358834+10:30
-3	admin	0001_initial	2023-10-23 22:57:39.38871+10:30
-4	admin	0002_logentry_remove_auto_add	2023-10-23 22:57:39.393709+10:30
-5	admin	0003_logentry_add_action_flag_choices	2023-10-23 22:57:39.400743+10:30
-6	contenttypes	0002_remove_content_type_name	2023-10-23 22:57:39.410712+10:30
-7	auth	0002_alter_permission_name_max_length	2023-10-23 22:57:39.41671+10:30
-8	auth	0003_alter_user_email_max_length	2023-10-23 22:57:39.420709+10:30
-9	auth	0004_alter_user_username_opts	2023-10-23 22:57:39.42571+10:30
-10	auth	0005_alter_user_last_login_null	2023-10-23 22:57:39.430714+10:30
-11	auth	0006_require_contenttypes_0002	2023-10-23 22:57:39.432714+10:30
-12	auth	0007_alter_validators_add_error_messages	2023-10-23 22:57:39.436714+10:30
-13	auth	0008_alter_user_username_max_length	2023-10-23 22:57:39.455452+10:30
-14	auth	0009_alter_user_last_name_max_length	2023-10-23 22:57:39.461449+10:30
-15	auth	0010_alter_group_name_max_length	2023-10-23 22:57:39.46957+10:30
-16	auth	0011_update_proxy_permissions	2023-10-23 22:57:39.478552+10:30
-17	auth	0012_alter_user_first_name_max_length	2023-10-23 22:57:39.483531+10:30
-18	core	0001_initial	2023-10-23 22:57:39.672438+10:30
-19	sessions	0001_initial	2023-10-23 22:57:39.701436+10:30
-20	core	0002_author_year	2023-10-23 23:12:09.131516+10:30
-21	core	0003_alter_author_year	2023-10-23 23:16:10.545412+10:30
-22	core	0004_alter_author_description_alter_author_year	2023-10-23 23:31:04.205064+10:30
-23	core	0005_booktemp_rename_source_library_sourcelibrary_and_more	2023-10-25 20:00:14.594157+10:30
-24	core	0006_alter_booktemp_author_name_alter_booktemp_catalog_no_and_more	2023-10-26 09:54:59.201348+10:30
-25	core	0007_alter_booktemp_author_name_alter_booktemp_catalog_no_and_more	2023-10-26 11:25:54.514014+10:30
-26	core	0008_book_last_modified_alter_book_approved_date_and_more	2023-11-05 16:48:52.206995+10:30
-27	core	0009_alter_book_approved_by_alter_book_approved_date	2023-11-05 16:50:16.077609+10:30
-28	core	0010_alter_book_language_alter_book_uploaded_by_and_more	2023-11-05 16:52:32.880261+10:30
-29	core	0011_alter_book_category_l1_alter_book_category_l2_and_more	2023-11-05 22:40:20.088477+10:30
-30	core	0012_book_volume	2023-11-09 20:38:48.190309+10:30
-31	core	0013_alter_book_volume	2023-11-09 20:39:17.821838+10:30
-\.
-
-
---
--- TOC entry 3529 (class 0 OID 17992)
--- Dependencies: 246
--- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
-7y4pb382zsxusbwqisr6h4kbrucbs69t	.eJxVjDEOwjAMRe-SGUVpm9iUkZ0zRI4dkwJqpaadEHdHkTrA-t97_20i7VuJe81rnMRcTGdOv1sifua5AXnQfF8sL_O2Tsk2xR602tsi-XU93L-DQrW0GhDJj8x9wjAoMCp5duRJBFGgB8XM7AIwUFBJnAYYfSY9q3a9M58vCxU5Kg:1qyXNe:B5W-61yYxnxmgsEtI2eXW92Sfbi5JJzSAy62I_llQCc	2023-11-16 23:35:02.280773+10:30
-\.
-
-
---
--- TOC entry 3537 (class 0 OID 0)
--- Dependencies: 220
--- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
-
-
---
--- TOC entry 3538 (class 0 OID 0)
--- Dependencies: 222
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
-
-
---
--- TOC entry 3539 (class 0 OID 0)
--- Dependencies: 218
--- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 60, true);
-
-
---
--- TOC entry 3540 (class 0 OID 0)
--- Dependencies: 226
--- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
-
-
---
--- TOC entry 3541 (class 0 OID 0)
--- Dependencies: 224
--- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_user_id_seq', 1, true);
-
-
---
--- TOC entry 3542 (class 0 OID 0)
--- Dependencies: 228
--- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
-
-
---
--- TOC entry 3543 (class 0 OID 0)
--- Dependencies: 232
--- Name: core_author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.core_author_id_seq', 530, true);
-
-
---
--- TOC entry 3544 (class 0 OID 0)
--- Dependencies: 234
--- Name: core_book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.core_book_id_seq', 1528, true);
-
-
---
--- TOC entry 3545 (class 0 OID 0)
--- Dependencies: 244
--- Name: core_bookmark_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.core_bookmark_id_seq', 1, false);
-
-
---
--- TOC entry 3546 (class 0 OID 0)
--- Dependencies: 247
--- Name: core_booktemp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.core_booktemp_id_seq', 3000, true);
-
-
---
--- TOC entry 3547 (class 0 OID 0)
--- Dependencies: 242
--- Name: core_comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.core_comments_id_seq', 1, false);
-
-
---
--- TOC entry 3548 (class 0 OID 0)
--- Dependencies: 236
--- Name: core_publisher_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.core_publisher_id_seq', 1, false);
-
-
---
--- TOC entry 3549 (class 0 OID 0)
--- Dependencies: 238
--- Name: core_source_library_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.core_source_library_id_seq', 20, true);
-
-
---
--- TOC entry 3550 (class 0 OID 0)
--- Dependencies: 240
--- Name: core_wishlist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.core_wishlist_id_seq', 1, false);
-
-
---
--- TOC entry 3551 (class 0 OID 0)
--- Dependencies: 230
--- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
-
-
---
--- TOC entry 3552 (class 0 OID 0)
--- Dependencies: 216
--- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 14, true);
-
-
---
--- TOC entry 3553 (class 0 OID 0)
--- Dependencies: 214
--- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 31, true);
-
-
 -- Completed on 2023-12-22 11:01:16
 
 --
 -- PostgreSQL database dump complete
 --
-
