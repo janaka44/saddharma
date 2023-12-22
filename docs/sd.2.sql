@@ -4106,3 +4106,4 @@ COPY public.core_booktemp (id, catalog_no, title, author_name, published_year, p
 --
 -- PostgreSQL database dump complete
 --
+ 
