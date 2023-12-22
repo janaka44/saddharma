@@ -1,0 +1,14 @@
+# start psql
+psql --host=localhost --dbname=legaldb --username=postgres
+pwd for linux user root:
+
+# list schemas
+\dn
+
+set schema  't2';
+
+SELECT COUNT(*) auth_group FROM auth_group;
+
+SELECT COUNT(*) auth_group_permissions FROM auth_group_permissions;
+
+\q
