@@ -1014,7 +1014,6 @@ input#search:focus {
 	height: 100%;
 	flex-grow: 1;
 	background: #FFFFFF;
-	cursor: pointer;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;
