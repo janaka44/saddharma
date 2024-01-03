@@ -287,7 +287,6 @@ section
 {
 	display: block;
 	font-size: 13px;
-	font-weight: 700;
 	color: #fff;
 	text-transform: uppercase;
 	line-height: 53px;
@@ -447,9 +446,7 @@ input#search:focus {
 	display: block;
 	font-size: 10px;
 	line-height: 36px;
-	font-weight: 600;
 	color: #FFFFFF;
-	text-transform: uppercase;
 }
 .user_box_link a:hover
 {
@@ -1012,7 +1009,6 @@ input#search:focus {
 .search_tab
 {
 	font-size: 16px;
-	font-weight: 700;
 	color: #2d2c2c;
 	text-align: center;
 	height: 100%;
@@ -1057,9 +1053,9 @@ input#search:focus {
 	-o-filter: brightness(200%) grayscale(100%);
   	filter: brightness(200%) grayscale(100%);
 }
-.search_tab:hover
+.search_tab
 {
-	background-image: linear-gradient(to bottom right, #5e1700, #dca954);
+	background-image: linear-gradient(to bottom right, #5e1700, #000000);
 	color: #FFFFFF;
 }
 .search_tab:hover img
@@ -1168,7 +1164,6 @@ input#search:focus {
 .search_button
 {
 	font-size: 13px;
-	font-weight: 700;
 	color: #fff;
 	line-height: 53px;
 	padding-left: 46px;
@@ -1580,7 +1575,6 @@ input#search:focus {
 {
 	display: block;
 	font-size: 16px;
-	font-weight: 700;
 	color: #FFFFFF;
 	text-transform: uppercase;
 	line-height: 35px;
@@ -1969,7 +1963,6 @@ input#search:focus {
 .form_submit_button
 {
 	font-size: 13px;
-	font-weight: 700;
 	color: #fff;
 	text-transform: uppercase;
 	line-height: 53px;

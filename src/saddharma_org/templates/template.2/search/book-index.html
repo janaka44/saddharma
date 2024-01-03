@@ -69,7 +69,7 @@
 					{% for row in rows %}
 						<tr class="{% cycle 'odd' 'even' %}">
 							<td>{{ row.catalog_no }}</td>
-							<td>{{ row.title }}</td>
+							<td><a href="/read/{{ row.catalog_no }}"> {{ row.title }}</a></td>
 							<td>{{ row.volume }}</td>
 							<td>{{ row.author }}
 							<td>{{ row.get_language_display }}</td>

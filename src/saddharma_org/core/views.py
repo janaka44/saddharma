@@ -1,7 +1,10 @@
 import logging
+from msilib.schema import File
 
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.translation import gettext as _
 from django.db.models import Q
@@ -17,27 +20,27 @@ ROWS_PER_PAGE = 25
 
 def set_base_content(request):
     context = {
-        'header_site_title' : _('Saddharma'),
-        'navbar_menu_home' : _('Home'),
-        'navbar_menu_about' : _('About'),
-        'navbar_menu_books' : _('Books'),
-        'navbar_menu_books_title' : _('Search by Title'),
-        'navbar_menu_books_author' : _('Search by Author'),
-        'navbar_menu_books_library' : _('Search by Library'),
-        'navbar_menu_books_upload' : _('Upload Books'),
-        'navbar_menu_books_review' : _('Review Books'),
-        'navbar_menu_other' : _('Other'),
-        'navbar_menu_other_authors' : _('Authors'),
-        'navbar_menu_other_libraries' : _('Libraries'),
-        'navbar_menu_myaccount' : _('My Account'),
-        'navbar_menu_myaccount_bookmarks' : _('Bookmarks'),
-        'navbar_menu_myaccount_wishlist' : _('Wishlist'),
-        'navbar_menu_myaccount_mybooks' : _('My Uploads'),
-        'navbar_menu_contact' : _('Contact'),
-        'footer_description' : _('FOOTER_DESCRIPTION'),
-        'footer_copyright_msg' : _('COPYRIGHT_MESSAGE'),
-        'footer_quicklinks' : _('Quick Links'),
-		'footer_quicklinks_about' : _('About'),
+        'header_site_title': _('Saddharma'),
+        'navbar_menu_home': _('Home'),
+        'navbar_menu_about': _('About'),
+        'navbar_menu_books': _('Books'),
+        'navbar_menu_books_title': _('Search by Title'),
+        'navbar_menu_books_author': _('Search by Author'),
+        'navbar_menu_books_library': _('Search by Library'),
+        'navbar_menu_books_upload': _('Upload Books'),
+        'navbar_menu_books_review': _('Review Books'),
+        'navbar_menu_other': _('Other'),
+        'navbar_menu_other_authors': _('Authors'),
+        'navbar_menu_other_libraries': _('Libraries'),
+        'navbar_menu_myaccount': _('My Account'),
+        'navbar_menu_myaccount_bookmarks': _('Bookmarks'),
+        'navbar_menu_myaccount_wishlist': _('Wishlist'),
+        'navbar_menu_myaccount_mybooks': _('My Uploads'),
+        'navbar_menu_contact': _('Contact'),
+        'footer_description': _('FOOTER_DESCRIPTION'),
+        'footer_copyright_msg': _('COPYRIGHT_MESSAGE'),
+        'footer_quicklinks': _('Quick Links'),
+		'footer_quicklinks_about': _('About'),
 		'footer_quicklink_title' : _('Search by Title'),
 		'footer_quicklink_author' : _('Search by Author'),
 		'footer_quicklink_library' : _('Search by Library'),
@@ -196,11 +199,22 @@ def search_view(request):
     return render(request, "template.2/search/search.html", context)
 
 
-def book_reader_view(request, id):
+def book_reader_view(request, catalog_no):
     context = {
     }
     context.update(set_base_content(request))
     return render(request, "template.2/reader/bookReader.html", context)
+
+
+@login_required
+def resume(request, applicant_id):
+
+    #Get the applicant's resume
+    resume = File.objects.get(applicant=applicant_id)
+    fsock = open(resume.location, 'r')
+    response = HttpResponse(fsock, mimetype='application/pdf')
+
+    return response
 
 
 def import_sources(request):

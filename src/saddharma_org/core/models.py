@@ -56,12 +56,13 @@ BOOK_CATEGORIES_L2 = (
 )
 
 BOOK_CATEGORIES_L3 = (
-    ('L3_C1', 'Sinhala' ),
-    ('L3_C2', 'Pali' ),
-    ('L3_C3', 'Sanskrit' ),
-    ('L3_C4', 'English' ),
-    ('L3_C5', 'Tamil' ),
-    ('L3_C6', 'Other' )
+    ('L3_C1', 'Sinhala / සිංහල'),
+    ('L3_C2', 'Pali / පාලි'),
+    ('L3_C3', 'Sanskrit / සංස්කෘත'),
+    ('L3_C4', 'English / ඉංග්‍රීසි'),
+    ('L3_C5', 'Tamil / දෙමළ'),
+    ('L3_C6', 'Burmese / බුරුම'),
+    ('L3_10', 'Other / වෙනත්'),
 )
 
 
