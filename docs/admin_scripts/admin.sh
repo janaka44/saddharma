@@ -46,7 +46,7 @@ Admin Tool ©2023 | saddharma.org
 
 "
 
-admin_home="~/saddharma/saddharma/docs/admin_scripts"
+admin_home="/root/saddharma/saddharma/docs/admin_scripts"
 PS3='Please enter your choice nunmber: '
 options=("Restart Servers" "Update Live App" "Login to DB" "Check Service Status" "Activate Python Virtual Env"  "Quit")
 select opt in "${options[@]}"
