@@ -12,10 +12,10 @@ done
 
 currentDate=$(date '+%Y-%m-%d')
 new_backup_path="/root/saddharma/web_backup/$current_date"
-web_home="~/saddharma/saddharma/src/saddharma_org/"
+web_home="/root/saddharma/saddharma/src/saddharma_org/"
 
-source ~/saddharma/venv/bin/activate
-cd ~/saddharma/saddharma/src/saddharma_org/
+source /root/saddharma/venv/bin/activate
+cd /root/saddharma/saddharma/src/saddharma_org/
 
 if [ -z "$(git status --untracked-files=no --porcelain)" ]; then 
 
