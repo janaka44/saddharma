@@ -10,7 +10,7 @@ while true; do
     esac
 done
 
-current_date=$(date '+%Y-%m-%d')
+current_date=$(date '+%Y-%m-%d') 
 new_backup_path="/root/saddharma/web_backup/$current_date"
 web_home="/root/saddharma/saddharma/src/saddharma_org/"
 
