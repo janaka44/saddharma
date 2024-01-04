@@ -41,11 +41,12 @@ echo "
                                                                                                                                             /###(                                (###/                  
      *%%%%%%%%%&* *&&&&&&&&&&&&&&&&*  *%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&* *%%%%%%%%*  *&&&&&&&&&&&&&*  *%%%%%%%%%%%%%%%%%%*  *&&&&&&&&&&&&&&&&&&&* /&&&&&&* .(%%%%%%%%%* *&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*  
      *%%%%%%%%%&* *&&&&&&&&&&&&&&&&*  *%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&* *%%%%%%%%*  *&&&&&&&&&&&&&*  *%%%%%%%%%%%%%%%%%%*  *&&&&&&&&&&&&&&&&&&&* /&&&&&&* .(%%%%%%%%%* *&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*  
-     
+
 Admin Tool ©2023 | saddharma.org
 
 "
 
+admin_home="~/saddharma/saddharma/docs/admin_scripts"
 PS3='Please enter your choice nunmber: '
 options=("Restart Servers" "Update Live App" "Login to DB" "Check Service Status" "Activate Python Virtual Env"  "Quit")
 select opt in "${options[@]}"
@@ -53,23 +54,23 @@ do
     case $REPLY in
         "1")
             echo "Restarting Servers..."
-	        . /home/django/admin/restart_servers.sh
+	        . "$admin_home/restart_servers.sh"
             ;;
         "2")
             echo "Updating Live App..."
-            . /home/django/admin/update_site.sh
+            . "$admin_home/update_site.sh"
             ;;
         "3")
             echo "Connecting to DB..."
-            . /home/django/admin/connect_db.sh
+            . "$admin_home/connect_db.sh"
             ;;
         "4")
             echo "Checking Service Status..."
-	    . /home/django/admin/check_services.sh
+	    . "$admin_home/check_services.sh"
             ;;
 	    "5")
 	        echo "Activating Python Virtual Env..."
-	        . /home/django/admin/activate_venv.sh
+	        . "$admin_home/activate_venv.sh"
 	   break
 	   ;;
         "6")
