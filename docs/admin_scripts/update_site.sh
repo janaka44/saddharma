@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bashcd
 echo 'Updating site...'
 
 while true; do
@@ -11,10 +11,11 @@ while true; do
 done
 
 currentDate=$(date '+%Y-%m-%d')
-newBackupPath="/home/django/backup/legaloffice_$currentDate"
+new_backup_path="/root/saddharma/web_backup/$current_date"
+web_home="~/saddharma/saddharma/src/saddharma_org/"
 
-cd /home/django/legaloffice/
-source venv/bin/activate
+source ~/saddharma/venv/bin/activate
+cd ~/saddharma/saddharma/src/saddharma_org/
 
 if [ -z "$(git status --untracked-files=no --porcelain)" ]; then 
 
@@ -25,14 +26,14 @@ if [ -z "$(git status --untracked-files=no --porcelain)" ]; then
     exit
   fi
 
-  echo "Backing up live codebase to $newBackupPath"
-  mkdir "$newBackupPath"
-  cp -r /home/django/legaloffice "$newBackupPath"
+  echo "Backing up live codebase to $new_backup_path"
+  mkdir "$new_backup_path"
+  cp -r "$web_home" "$new_backup_path"
 
   pip install -r requirements.txt
 
   echo 'Upgrading DB to latest...'
-  export DJANGO_SETTINGS_MODULE=legaloffice.settings.prod
+  export DJANGO_SETTINGS_MODULE=saddharma_org.settings
   python3 manage.py migrate
 
   echo 'Restarting servers...'
