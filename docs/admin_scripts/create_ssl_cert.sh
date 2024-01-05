@@ -1,4 +1,4 @@
-sudo certbot --nginx -d legalofficepro.com -d www.legalofficepro.com -d demo.legalofficepro.com -d sa.legalofficepro.com
+sudo certbot --nginx -d saddharma.org -d www.saddharma.org -d test.saddharma.org
 sudo systemctl status certbot.timer
 
 
