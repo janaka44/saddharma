@@ -1,8 +1,6 @@
 import logging
-from msilib.schema import File
 
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -40,15 +38,15 @@ def set_base_content(request):
         'footer_description': _('FOOTER_DESCRIPTION'),
         'footer_copyright_msg': _('COPYRIGHT_MESSAGE'),
         'footer_quicklinks': _('Quick Links'),
-		'footer_quicklinks_about': _('About'),
-		'footer_quicklink_title' : _('Search by Title'),
-		'footer_quicklink_author' : _('Search by Author'),
-		'footer_quicklink_library' : _('Search by Library'),
+        'footer_quicklinks_about': _('About'),
+        'footer_quicklink_title' : _('Search by Title'),
+        'footer_quicklink_author' : _('Search by Author'),
+        'footer_quicklink_library' : _('Search by Library'),
         'footer_myaccount' : _('My Account'),
-		'footer_myaccount_bookmarks' : _('Bookmarks'),
-		'footer_myaccount_wishlist' : _('Wishlist'),
+        'footer_myaccount_bookmarks' : _('Bookmarks'),
+        'footer_myaccount_wishlist' : _('Wishlist'),
         'footer_support' : _('Support'),
-		'footer_support_contacts' : _('Contact us'),
+        'footer_support_contacts' : _('Contact us'),
         'footer_support_terms' : _('Terms & Conditions'),
      }
     return context
@@ -206,15 +204,15 @@ def book_reader_view(request, catalog_no):
     return render(request, "template.2/reader/bookReader.html", context)
 
 
-@login_required
-def resume(request, applicant_id):
-
-    #Get the applicant's resume
-    resume = File.objects.get(applicant=applicant_id)
-    fsock = open(resume.location, 'r')
-    response = HttpResponse(fsock, mimetype='application/pdf')
-
-    return response
+# @login_required
+# def resume(request, applicant_id):
+#
+#     #Get the applicant's resume
+#     resume = File.objects.get(applicant=applicant_id)
+#     fsock = open(resume.location, 'r')
+#     response = HttpResponse(fsock, mimetype='application/pdf')
+#
+#     return response
 
 
 def import_sources(request):
