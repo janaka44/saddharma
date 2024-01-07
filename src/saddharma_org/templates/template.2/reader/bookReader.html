@@ -1,5 +1,6 @@
 {% extends "template.2/template_page.html" %}
 {% block content %}
+{% load static %}
 
 <div class="intro_items" style="padding:50px 0 0 0px; margin-top: 150px">
     <div class="mt-2 d-flex bd-highlight">
@@ -9,7 +10,18 @@
       <div class="p-2 col-3 flex-shrink-1 bd-highlight" style="border:1px solid green;">
           <h4 class="font-weight-bold">{{ row.book.title }}</h4>
           <h7 class=""><a href="">{{ row.book.author }}</a></h7>
-            <div>Comments</div>
+          <div class="mt-2">Comments</div>
+          {% for comment_row in row.comments %}
+          <div class="d-flex justify-content-between ">
+              <div class="mr-1">
+                  <img src="{% static '/assets/img/profiles/sample_profile.jpeg' %}" style="border-radius: 50%;" alt="profile photo" width="32px" height="32px">
+              </div>
+              <div class="book-comment w-100 rounded p-2 mb-1">{{ comment_row.description }}</div>
+          </div>
+          {% endfor %}
+
+          <h7 class="mt-2">Add new comment:</h7>
+          <textarea rows="3" class="mt-2 w-100 border border-primary rounded"></textarea>
       </div>
     </div>
 </div>

@@ -2323,6 +2323,10 @@ table.grid {
     border: 1px solid black;
 }
 
+/* Custom Styles */
+.book-comment {
+    border:1px solid #cdcdcd;
+}
 
 
 

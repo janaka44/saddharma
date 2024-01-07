@@ -182,5 +182,6 @@ class Wishlist(models.Model):
 class Comments(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    page = models.CharField(max_length=300)
+    page = models.IntegerField(null=True)
     description = models.TextField(blank=True)
+    parent_comment = models.ForeignKey("Comments", on_delete=models.CASCADE, null=True)
