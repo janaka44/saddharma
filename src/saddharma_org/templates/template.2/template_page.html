@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load humanize %}
+{% load static %}
 <head>
     <title>{% block page_title %}සද්ධර්ම : පෞරාණික ධර්ම ග්‍රන්ථ සංග්‍රහය{% endblock %}</title>
     <meta charset="utf-8">
@@ -20,9 +21,9 @@
 
 <div class="super_container">
 	
-	<!-- Header -->
+	<!-- Header  {{ header_view }} 2 -->
 
-	<header class="header">
+	<header class="header {{ header_view }}">
 		<div class="header-image">
 	
 			<!-- Top Bar -->
@@ -65,12 +66,13 @@
 								<ul class="main_nav_list">
 									{% comment %} <li class="main_nav_item"><a href="/static/#">සොයන්න</a></li> {% endcomment %}
 									<li class="main_nav_item"><a href="/search/">ග්‍රන්ථ නාමාවලිය</a></li>
-									{% comment %} <li class="main_nav_item"><a href="/static/about.html">චිනය</a></li>
-									<li class="main_nav_item"><a href="/static/offers.html">සූත්‍ර</a></li>
-									<li class="main_nav_item"><a href="/static/blog.html">අභි ධම්‌ම</a></li> {% endcomment %}
-									<li class="main_nav_item"><a href="/search/?category_L1=L1_C1,L1_C2,L1_C3">ත්‍රිපිටකය</a></li>
-									<li class="main_nav_item"><a href="/search/?category_L1=L1_C4">ධම්‌ම සංග්‍රහ පොත්‌</a></li>
-									<li class="main_nav_item"><a href="/search/?category_L1=L1_C5">පාලි ව්‍යාකරණ</a></li>
+									<li class="main_nav_item"><a href="/#about-us">අප ගැන</a></li>
+<!--									{% comment %} <li class="main_nav_item"><a href="/static/about.html">චිනය</a></li>-->
+<!--									<li class="main_nav_item"><a href="/static/offers.html">සූත්‍ර</a></li>-->
+<!--									<li class="main_nav_item"><a href="/static/blog.html">අභි ධම්‌ම</a></li> {% endcomment %}-->
+<!--									<li class="main_nav_item"><a href="/search/?category_L1=L1_C1,L1_C2,L1_C3">ත්‍රිපිටකය</a></li>-->
+<!--									<li class="main_nav_item"><a href="/search/?category_L1=L1_C4">ධම්‌ම සංග්‍රහ පොත්‌</a></li>-->
+<!--									<li class="main_nav_item"><a href="/search/?category_L1=L1_C5">පාලි ව්‍යාකරණ</a></li>-->
 									<li class="main_nav_item"><a href="/#contact">සම්‌භන්‌ද වෙමු</a></li>
 								</ul>
 							</div>

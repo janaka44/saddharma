@@ -444,7 +444,7 @@ input#search:focus {
 .user_box_link a
 {
 	display: block;
-	font-size: 10px;
+	font-size: 12px;
 	line-height: 36px;
 	color: #FFFFFF;
 }
@@ -2326,6 +2326,18 @@ table.grid {
 /* Custom Styles */
 .book-comment {
     border:1px solid #cdcdcd;
+}
+
+.tag-link {
+    color:#cdcdcd;
+    text-decoration: underline;
+    border:1px solid #fa9e1c;
+    border-radius:5px;
+    padding:5px;
+}
+
+a.tag-link:hover {
+    color:#fa9e1c;
 }
 
 

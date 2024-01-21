@@ -206,11 +206,13 @@ def book_reader_view(request, catalog_no):
     comments = Comments.objects.filter(book=book.id)
     print(comments)
     context = {
+        'header_view': 'scrolled',
         'row': {
             'book': book,
-            'book_url': '',
+            'book_url': 'scrolled',
             'comments': comments,
-            }
+
+            },
     }
     # 'book_url': 'https://tipitaka.sgp1.digitaloceanspaces.com/library/අභිධර්ම%7B1%7D/අභිධර්ම%20චන්ද්%E2%80%8Dරිකාව%20-%20මාතර%20ධර්මවංශ%20හිමි%5Bscanned%5D%7B12%7D.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=DO00W6TA6TFMRGYL3VCD%2F20240105%2Funused%2Fs3%2Faws4_request&X-Amz-Date=20240105T023224Z&X-Amz-Expires=3600&X-Amz-Signature=818fe73a61419b83047e1ca73b722615b13cccbe113a17be723fb4ca6273f2db&X-Amz-SignedHeaders=host&x-id=GetObject',
 
