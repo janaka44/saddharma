@@ -6,7 +6,7 @@
 
 <div style="font-family:Arial" class="m-2">
 
-	<div style="background-color:yellow; font-weight:700;" >Book Import Summary:</div>
+	<div style="background-color:yellow; font-weight:700;" >{{ title }}</div>
 	{% autoescape off %}
 	<div>{{ line1|linebreaks |safe}}</div>
 	<div>{{ line2|linebreaks }}</div>
@@ -16,27 +16,35 @@
 	<div>{{ line6|linebreaks }}</div>
 	<div>{{ line7|linebreaks }}</div>
 	<div>{{ line8|linebreaks }}</div>
+	<div>{{ line9|linebreaks }}</div>
+	<div>{{ line10|linebreaks }}</div>
 	{% endautoescape %}
 	<hr>
-	<div class="font-weight-bold">Missing Author List: </div>
-	{% for key, value in no_author_list.items %}
-		<div>{{ key }} : {{ value }}</div>
-	{% endfor %}
+	{% if no_author_list %}
+		<div class="font-weight-bold">Missing Author List: </div>
+		{% for key, value in no_author_list.items %}
+			<div>{{ key }} : {{ value }}</div>
+		{% endfor %}
+	{% endif %}
 
-	<br>
-	<div class="font-weight-bold">Missing Category 1 List:</div>
-	{% for key, value in no_cat1_list.items %}
-		<div>{{ key }} : {{ value }}</div>
-	{% endfor %}
+	{% if no_cat1_list %}
+		<br>
+		<div class="font-weight-bold">Missing Category 1 List:</div>
+		{% for key, value in no_cat1_list.items %}
+			<div>{{ key }} : {{ value }}</div>
+		{% endfor %}
+	{% endif %}
 
-	<br>
-	<div class="font-weight-bold">Missing Category 2 List:</div>
-	{% for key, value in no_cat2_list.items %}
-		<div>{{ key }} : {{ value }}</div>
-	{% endfor %}
+	{% if no_cat2_list %}
+		<br>
+		<div class="font-weight-bold">Missing Category 2 List:</div>
+		{% for key, value in no_cat2_list.items %}
+			<div>{{ key }} : {{ value }}</div>
+		{% endfor %}
+	{% endif %}
 
-	{% for key, value in err_rows %}
-		<div>{{ key }} : {{ value }}</div>
+	{% for key, value in err_rows.items %}
+		<div style="color:red">{{ key }} : {{ value }}</div>
 	{% endfor %}
 
 </div>

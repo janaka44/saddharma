@@ -17,4 +17,5 @@ urlpatterns = [
 
     path('import-books/',   views.import_books,     name='import_books'),
     path('import_sources/', views.import_sources,   name='import_sources'),
+    path('import_book_urls/', views.import_book_urls,   name='import_book_urls')
 ]

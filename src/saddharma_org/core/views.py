@@ -39,16 +39,16 @@ def set_base_content(request):
         'footer_copyright_msg': _('COPYRIGHT_MESSAGE'),
         'footer_quicklinks': _('Quick Links'),
         'footer_quicklinks_about': _('About'),
-        'footer_quicklink_title' : _('Search by Title'),
-        'footer_quicklink_author' : _('Search by Author'),
-        'footer_quicklink_library' : _('Search by Library'),
-        'footer_myaccount' : _('My Account'),
-        'footer_myaccount_bookmarks' : _('Bookmarks'),
-        'footer_myaccount_wishlist' : _('Wishlist'),
-        'footer_support' : _('Support'),
-        'footer_support_contacts' : _('Contact us'),
-        'footer_support_terms' : _('Terms & Conditions'),
-     }
+        'footer_quicklink_title': _('Search by Title'),
+        'footer_quicklink_author': _('Search by Author'),
+        'footer_quicklink_library': _('Search by Library'),
+        'footer_myaccount': _('My Account'),
+        'footer_myaccount_bookmarks': _('Bookmarks'),
+        'footer_myaccount_wishlist': _('Wishlist'),
+        'footer_support': _('Support'),
+        'footer_support_contacts': _('Contact us'),
+        'footer_support_terms': _('Terms & Conditions'),
+    }
     return context
 
 
@@ -65,8 +65,8 @@ def home_view(request):
     # fetch data for book category tiles
     filters = Q()
     # for category in BOOK_CATEGORIES_L1:
-    book_category_data_rows = Book.objects\
-        .values('category_L1')\
+    book_category_data_rows = Book.objects \
+        .values('category_L1') \
         .annotate(count=Count('category_L1')) \
         .order_by('category_L1')
 
@@ -88,10 +88,10 @@ def home_view(request):
     # add category image to QuerySet
     i = 0
     for row in book_category_data_rows:
-        i = i+1
+        i = i + 1
         if row['category_L1'] is not None:
             new_cat = {}
-            new_cat['cat']   = row['category_L1']
+            new_cat['cat'] = row['category_L1']
             new_cat['count'] = row['count']
             new_cat['image'] = category_images[row['category_L1']]
             new_cat['title'] = [item for item in BOOK_CATEGORIES_L1 if item[0] == row['category_L1']][0][1]
@@ -99,17 +99,17 @@ def home_view(request):
 
     i = 0
     for row in book_category_2_data_rows:
-        i = i+1
+        i = i + 1
         if row['category_L2'] is not None:
             new_cat = {}
-            new_cat['cat']   = row['category_L2']
+            new_cat['cat'] = row['category_L2']
             new_cat['count'] = row['count']
             new_cat['title'] = [item for item in BOOK_CATEGORIES_L2 if item[0] == row['category_L2']][0][1]
             book_category_2_rows[f'row{i}'] = new_cat
 
     context = {
-        'section_home_page_about_header' : _('HOME_PAGE_ABOUT_HEADER'),
-        'section_home_page_about_description' : _('HOME_PAGE_ABOUT_DESCRIPTION'),
+        'section_home_page_about_header': _('HOME_PAGE_ABOUT_HEADER'),
+        'section_home_page_about_description': _('HOME_PAGE_ABOUT_DESCRIPTION'),
         'language_rows': language_rows,
         'category1_rows': category1_rows,
         'category2_rows': category2_rows,
@@ -137,7 +137,7 @@ def book_search(request):
 
     filters = Q()
     if search_query:
-        filters &= Q(title__contains=search_query)
+        filters &= Q(title__contains=search_query) | Q(catalog_no=search_query)
     if catalog_no:
         filters &= Q(catalog_no=catalog_no)
     if title:
@@ -189,9 +189,9 @@ def book_search(request):
 
 def search_view(request):
     rows = []
-    
+
     context = {
-        'rows' : rows,
+        'rows': rows,
     }
     context.update(set_base_content(request))
     return render(request, "template.2/search/search.html", context)
@@ -209,10 +209,11 @@ def book_reader_view(request, catalog_no):
         'header_view': 'scrolled',
         'row': {
             'book': book,
-            'book_url': 'scrolled',
+            # TODO: move this link to a setting parameter: Book CDN base URL
+            'book_url': 'https://books.saddharma.org/',
             'comments': comments,
 
-            },
+        },
     }
     # 'book_url': 'https://tipitaka.sgp1.digitaloceanspaces.com/library/අභිධර්ම%7B1%7D/අභිධර්ම%20චන්ද්%E2%80%8Dරිකාව%20-%20මාතර%20ධර්මවංශ%20හිමි%5Bscanned%5D%7B12%7D.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=DO00W6TA6TFMRGYL3VCD%2F20240105%2Funused%2Fs3%2Faws4_request&X-Amz-Date=20240105T023224Z&X-Amz-Expires=3600&X-Amz-Signature=818fe73a61419b83047e1ca73b722615b13cccbe113a17be723fb4ca6273f2db&X-Amz-SignedHeaders=host&x-id=GetObject',
 
@@ -242,12 +243,149 @@ def import_sources(request):
             newsource = SourceLibrary()
             newsource.source_library = b.source
             newsource.save()
-        n=n+1
+        n = n + 1
 
     context = {
         'rows': {
             'line1': f'processed {n} rows.'
         }
+    }
+    context.update(set_base_content(request))
+    return render(request, "template.2/empty.html", context)
+
+
+def cdn_extract_books_from_folder(url):
+    import xml.etree.ElementTree as ET
+    import requests
+
+    summary_line = ""
+    err_rows = {}
+    n_total = 0
+    n_processed = 0
+    n_skipped = 0
+
+    ns = {'x': 'http://s3.amazonaws.com/doc/2006-03-01/'}
+
+    # Get the listing of books within the folder
+    response_books = requests.get(url)
+    xmlResponse_books = ET.fromstring(response_books.content)
+    for books in xmlResponse_books.findall('x:Contents', ns):
+        book_name = books.find('x:Key', ns).text
+        book_start = book_name.rfind('/') + 1
+        # extract catalog no
+        if book_start > 0 and book_name.find('.pdf'):
+            catalog_no = book_name[book_start: book_start + book_name[book_start:].find(' ')]
+            if catalog_no:
+                filters = Q()
+                filters &= Q(catalog_no=catalog_no)
+                book_count = Book.objects.filter(catalog_no=catalog_no).count()
+                if book_count == 1:
+                    book = Book.objects.get(catalog_no=catalog_no)
+                    summary_line += f"{book_name} : {catalog_no} - processed.</br>"
+                    book.storage_link = book_name
+                    # book.save()
+                    n_processed += 1
+                elif book_count > 1:
+                    err_rows[
+                        n_skipped] = f'multiple books found: {book_name} - {catalog_no} has {book_count} entries.'
+                    # summary_line += f"{book_name} : {catalog_no} - skipped.</br>"
+                    n_skipped += 1
+                elif book_count == 0:
+                    err_rows[n_skipped] = f'book not found: {book_name} - {catalog_no}'
+                    # summary_line += f"{book_name} : {catalog_no} - skipped.</br>"
+                    n_skipped += 1
+
+                n_total += 1
+
+    return_dict = {
+        'n_processed':  n_processed,
+        'n_skipped':    n_skipped,
+        'n_total':      n_total,
+        'summary_line': summary_line,
+        'err_rows':     err_rows
+    }
+
+    return return_dict
+
+
+def cdn_extract_folder(url):
+    import xml.etree.ElementTree as ET
+    import requests
+
+    err_rows = {}
+    # err_rows[0] = ''
+    # fetch folder list
+    response = requests.get(url)
+    ns = {'x': 'http://s3.amazonaws.com/doc/2006-03-01/'}
+
+    n_total = 0
+    n_processed = 0
+    n_skipped = 0
+    n_folders = 0
+
+    summary_line = ""
+    xmlResponse = ET.fromstring(response.content)
+    # print(xmlResponse)
+
+    for folder in xmlResponse.findall('x:CommonPrefixes', ns):
+        folder_name = folder.find('x:Prefix', ns).text
+        summary_line += f"</br><b> FOLDER: {folder_name} </b></br>"
+        n_folders += 1
+
+        # add books
+        sub_dict = cdn_extract_books_from_folder(f'https://books.saddharma.org/?list-type=2&delimiter=/&prefix={folder_name}')
+        n_processed += sub_dict['n_processed']
+        n_skipped += sub_dict['n_skipped']
+        n_total += sub_dict['n_total']
+        summary_line += sub_dict['summary_line']
+        err_rows.update(sub_dict['err_rows'])
+
+        # add sub folders
+        sub_dict = cdn_extract_folder(f'https://books.saddharma.org/?list-type=2&delimiter=/&prefix={folder_name}')
+        n_processed += sub_dict['n_processed']
+        n_skipped += sub_dict['n_skipped']
+        n_total += sub_dict['n_total']
+        n_folders += sub_dict['n_folders']
+        summary_line += sub_dict['summary_line']
+        err_rows.update(sub_dict['err_rows'])
+
+        # n_folders += 1
+
+    return_dict = {
+        'n_processed':  n_processed,
+        'n_skipped':    n_skipped,
+        'n_total':      n_total,
+        'n_folders':    n_folders,
+        'summary_line': summary_line,
+        'err_rows':     err_rows
+    }
+
+    return return_dict
+
+
+def import_book_urls(request):
+    return_dict = cdn_extract_folder('https://books.saddharma.org/?list-type=2&delimiter=/&prefix=books/')
+    n_processed_perc = round(100 * return_dict["n_processed"] / return_dict["n_total"], 2)
+    context = {
+        'title': f'Book URL Assignment Summary:',
+        # 'line1': '<p>' + summary_line + f'</p>',
+        'line2': f'<b>Processed : {return_dict["n_processed"]} books.</b>',
+        'line3': f'<b>Skipped   : {return_dict["n_skipped"]} books.</b>',
+        'line4': f'<b>Total : {return_dict["n_total"]} books : {n_processed_perc}%</b>',
+        'line5': f'<b>Folders : {return_dict["n_folders"]} folders </b>',
+        'line6': f'<span style="display:block; border:1px solid black; height: 20px; width:{return_dict["n_total"]}px">'
+                 f'     <span style="display:block; background-color:green; height: 20px; width:{return_dict["n_processed"]}px;"></span>'
+                 f'</span>',
+
+        # 'line2': f'*** <b>output</b>: Books without Author = {}\n{}',
+        # 'line3': f'*** <b>Language</b>: {no_lang} records missing.\n{getBar(no_lang)}',
+        # 'line4': f'*** <b>Source</b>: {no_source} records missing.\n{getBar(no_source)}',
+        # 'line5': f'*** <b>Category 1</b>: {no_cat1} records missing.\n{getBar(no_cat1)}',
+        # 'line6': f'*** <b>Category 2</b>: {no_cat2} records missing\n{getBar(no_cat2)}',
+        # 'line7': f'*** <b>Title</b>: Books without title = {no_title}\n{getBar(no_title)}',
+        # 'line8': f'*** <b>Catalog No</b>: Books without Catalog No = {no_catalog_no}.\n{getBar(no_catalog_no)}',
+        'line10': '<p>' + return_dict["summary_line"] + f'</p>',
+        'err_rows': return_dict["err_rows"]
     }
     context.update(set_base_content(request))
     return render(request, "template.2/empty.html", context)
@@ -302,7 +440,7 @@ def import_books(request):
         existingBookCount = Book.objects.filter(catalog_no=b.catalog_no).count()
         if (existingBookCount > 0):
             vol = existingBookCount + 1
-            #print(f'Book found, catalog_no={b.catalog_no}, increasing volume...{vol}')
+            # print(f'Book found, catalog_no={b.catalog_no}, increasing volume...{vol}')
 
         try:
             if b.author_name is not None:
@@ -321,7 +459,8 @@ def import_books(request):
                 else:
                     no_author_list[b.author_name] = 1
 
-        newbook = Book.create(catalog_no=b.catalog_no, title=b.title, author=author, pages=b.pages, year=b.published_year)
+        newbook = Book.create(catalog_no=b.catalog_no, title=b.title, author=author, pages=b.pages,
+                              year=b.published_year)
         newbook.volume = vol
         # year = b.published_year.strftime('%Y')
 
@@ -371,12 +510,13 @@ def import_books(request):
                     no_cat2_list[b.category2] = 1
                 err_rows.append(f'Cat 2 :{b.category2} not found')
 
-        #print(f'>> Save {n}: catalog_no={newbook.catalog_no}, title = {newbook.title}, author={newbook.author.author}, pages={newbook.pages}, year=' + str(author.published_year.strftime('%Y')) + f', language={newbook.language}')
+        # print(f'>> Save {n}: catalog_no={newbook.catalog_no}, title = {newbook.title}, author={newbook.author.author}, pages={newbook.pages}, year=' + str(author.published_year.strftime('%Y')) + f', language={newbook.language}')
         newbook.save()
 
         p += 1
 
     context = {
+        'title': f'Book Import Summary:',
         'line1': '<b>' + summary_line + f'\n Processed {p} books.</b>',
         'line2': f'*** <b>Author</b>: Books without Author = {no_author}\n{getBar(no_author)}',
         'line3': f'*** <b>Language</b>: {no_lang} records missing.\n{getBar(no_lang)}',
