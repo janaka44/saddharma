@@ -164,6 +164,13 @@ def book_search(request):
     print(request.get_full_path())
     print(f'filters = {filters}')
     rows = Book.objects.filter(filters).order_by('catalog_no')
+    for row in rows:
+        # convert KB into MB without decimals
+        if row.size is not None:
+            if (row.size/1024) < 1:
+                row.book_size = f"{int(row.size)} KB"
+            else:
+                row.book_size = f"{int(row.size/1024)} MB"
 
     paginator = Paginator(rows, ROWS_PER_PAGE)
 
@@ -210,7 +217,7 @@ def book_reader_view(request, catalog_no):
         'row': {
             'book': book,
             # TODO: move this link to a setting parameter: Book CDN base URL
-            'book_url': 'https://books.saddharma.org/',
+            'book_url': f'https://books.saddharma.org',
             'comments': comments,
 
         },
@@ -263,6 +270,7 @@ def cdn_extract_books_from_folder(url):
     n_total = 0
     n_processed = 0
     n_skipped = 0
+    n_already_updated = 0
 
     ns = {'x': 'http://s3.amazonaws.com/doc/2006-03-01/'}
 
@@ -271,20 +279,26 @@ def cdn_extract_books_from_folder(url):
     xmlResponse_books = ET.fromstring(response_books.content)
     for books in xmlResponse_books.findall('x:Contents', ns):
         book_name = books.find('x:Key', ns).text
+        book_size = int(books.find('x:Size', ns).text)
+
         book_start = book_name.rfind('/') + 1
         # extract catalog no
         if book_start > 0 and book_name.find('.pdf'):
             catalog_no = book_name[book_start: book_start + book_name[book_start:].find(' ')]
             if catalog_no:
-                filters = Q()
-                filters &= Q(catalog_no=catalog_no)
                 book_count = Book.objects.filter(catalog_no=catalog_no).count()
                 if book_count == 1:
                     book = Book.objects.get(catalog_no=catalog_no)
-                    summary_line += f"{book_name} : {catalog_no} - processed.</br>"
-                    book.storage_link = book_name
-                    # book.save()
-                    n_processed += 1
+
+                    if book.storage_link is not None and book.size > 0:
+                        n_already_updated += 1
+                    else:
+                        book.storage_link = book_name
+                        book.size = (book_size or 0) / 1024
+                        book.save()
+                        n_processed += 1
+                        summary_line += f"{book_name} : {catalog_no} - processed.</br>"
+
                 elif book_count > 1:
                     err_rows[
                         n_skipped] = f'multiple books found: {book_name} - {catalog_no} has {book_count} entries.'
@@ -301,6 +315,7 @@ def cdn_extract_books_from_folder(url):
         'n_processed':  n_processed,
         'n_skipped':    n_skipped,
         'n_total':      n_total,
+        'n_already_updated': n_already_updated,
         'summary_line': summary_line,
         'err_rows':     err_rows
     }
@@ -322,6 +337,7 @@ def cdn_extract_folder(url):
     n_processed = 0
     n_skipped = 0
     n_folders = 0
+    n_already_updated = 0
 
     summary_line = ""
     xmlResponse = ET.fromstring(response.content)
@@ -336,6 +352,7 @@ def cdn_extract_folder(url):
         sub_dict = cdn_extract_books_from_folder(f'https://books.saddharma.org/?list-type=2&delimiter=/&prefix={folder_name}')
         n_processed += sub_dict['n_processed']
         n_skipped += sub_dict['n_skipped']
+        n_already_updated += sub_dict['n_already_updated']
         n_total += sub_dict['n_total']
         summary_line += sub_dict['summary_line']
         err_rows.update(sub_dict['err_rows'])
@@ -344,16 +361,16 @@ def cdn_extract_folder(url):
         sub_dict = cdn_extract_folder(f'https://books.saddharma.org/?list-type=2&delimiter=/&prefix={folder_name}')
         n_processed += sub_dict['n_processed']
         n_skipped += sub_dict['n_skipped']
+        n_already_updated += sub_dict['n_already_updated']
         n_total += sub_dict['n_total']
         n_folders += sub_dict['n_folders']
         summary_line += sub_dict['summary_line']
         err_rows.update(sub_dict['err_rows'])
 
-        # n_folders += 1
-
     return_dict = {
         'n_processed':  n_processed,
         'n_skipped':    n_skipped,
+        'n_already_updated': n_already_updated,
         'n_total':      n_total,
         'n_folders':    n_folders,
         'summary_line': summary_line,
@@ -364,26 +381,31 @@ def cdn_extract_folder(url):
 
 
 def import_book_urls(request):
+
     return_dict = cdn_extract_folder('https://books.saddharma.org/?list-type=2&delimiter=/&prefix=books/')
-    n_processed_perc = round(100 * return_dict["n_processed"] / return_dict["n_total"], 2)
+    n_processed_perc = round(100 * (return_dict["n_processed"] + return_dict['n_already_updated']) / return_dict["n_total"], 2)
+
+    # Book stats
+    total_book_count = Book.objects.all().count()
+    books_without_urls_count = Book.objects.filter(storage_link__isnull=True).count()
+
     context = {
         'title': f'Book URL Assignment Summary:',
         # 'line1': '<p>' + summary_line + f'</p>',
         'line2': f'<b>Processed : {return_dict["n_processed"]} books.</b>',
         'line3': f'<b>Skipped   : {return_dict["n_skipped"]} books.</b>',
-        'line4': f'<b>Total : {return_dict["n_total"]} books : {n_processed_perc}%</b>',
-        'line5': f'<b>Folders : {return_dict["n_folders"]} folders </b>',
-        'line6': f'<span style="display:block; border:1px solid black; height: 20px; width:{return_dict["n_total"]}px">'
+        'line4': f'<b>Already updated : {return_dict["n_already_updated"]} books.</b>',
+        'line5': f'<b>Total : {return_dict["n_total"]} books : {n_processed_perc}% URL/size updated.</b>',
+        'line6': f'<b>Folders : {return_dict["n_folders"]} folders </b>',
+        'line7': f'<b>CDN stats(from uploaded books):</b></br>'
+                 f'<span style="display:block; border:1px solid black; height: 20px; width:{return_dict["n_total"]}px">'
                  f'     <span style="display:block; background-color:green; height: 20px; width:{return_dict["n_processed"]}px;"></span>'
                  f'</span>',
-
-        # 'line2': f'*** <b>output</b>: Books without Author = {}\n{}',
-        # 'line3': f'*** <b>Language</b>: {no_lang} records missing.\n{getBar(no_lang)}',
-        # 'line4': f'*** <b>Source</b>: {no_source} records missing.\n{getBar(no_source)}',
-        # 'line5': f'*** <b>Category 1</b>: {no_cat1} records missing.\n{getBar(no_cat1)}',
-        # 'line6': f'*** <b>Category 2</b>: {no_cat2} records missing\n{getBar(no_cat2)}',
-        # 'line7': f'*** <b>Title</b>: Books without title = {no_title}\n{getBar(no_title)}',
-        # 'line8': f'*** <b>Catalog No</b>: Books without Catalog No = {no_catalog_no}.\n{getBar(no_catalog_no)}',
+        'line8': f'<b>Books without URLs : {books_without_urls_count} / {total_book_count} books</b>',
+        'line9': f'<b>Database stats:</b></br>'
+                 f'<span style="display:block; border:1px solid black; height: 20px; width:{total_book_count}px">'
+                 f'     <span style="display:block; background-color:red; height: 20px; width:{books_without_urls_count}px;"></span>'
+                 f'</span>',
         'line10': '<p>' + return_dict["summary_line"] + f'</p>',
         'err_rows': return_dict["err_rows"]
     }

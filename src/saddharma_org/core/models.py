@@ -149,6 +149,7 @@ class Book(models.Model):
     category_L1 = models.CharField(choices=BOOK_CATEGORIES_L1, max_length=10, blank=True, null=True)
     category_L2 = models.CharField(choices=BOOK_CATEGORIES_L2, max_length=10, blank=True, null=True)
     storage_link = models.TextField(blank=True, null=True)
+    size = models.IntegerField(blank=True, null=True)
     #label = models.CharField(choices=LABEL_CHOICES, max_length=1)
     slug = models.SlugField()
     #image = models.ImageField()
