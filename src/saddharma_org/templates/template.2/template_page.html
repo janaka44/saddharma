@@ -3,6 +3,15 @@
 {% load humanize %}
 {% load static %}
 <head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q8VLZ151XS"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-Q8VLZ151XS');
+	</script>
     <title>{% block page_title %}සද්ධර්ම : පෞරාණික ධර්ම ග්‍රන්ථ සංග්‍රහය{% endblock %}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,7 +59,7 @@
 							</div>
 						</div>
 					</div>
-				</div>		
+				</div>
 			</div>
 
 			<!-- Main Navigation -->
@@ -60,20 +69,14 @@
 					<div class="row">
 						<div class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container shadowfilter">
-								<div class="logo"><a href="/"><img src="/static/images/Saddharma_logo.png" width="320px" alt="Saddharma"></a></div>
+								<div class="logo"><a href="/"><img src="/static/images/Saddharma_logo.png" width="250px" alt="Saddharma Logo"></a></div>
 							</div>
 							<div class="main_nav_container ml-auto">
 								<ul class="main_nav_list">
 									{% comment %} <li class="main_nav_item"><a href="/static/#">සොයන්න</a></li> {% endcomment %}
-									<li class="main_nav_item"><a href="/search/?search=">ග්‍රන්ථ නාමාවලිය</a></li>
-									<li class="main_nav_item"><a href="/#about-us">අප ගැන</a></li>
-<!--									{% comment %} <li class="main_nav_item"><a href="/static/about.html">චිනය</a></li>-->
-<!--									<li class="main_nav_item"><a href="/static/offers.html">සූත්‍ර</a></li>-->
-<!--									<li class="main_nav_item"><a href="/static/blog.html">අභි ධම්‌ම</a></li> {% endcomment %}-->
-<!--									<li class="main_nav_item"><a href="/search/?category_L1=L1_C1,L1_C2,L1_C3">ත්‍රිපිටකය</a></li>-->
-<!--									<li class="main_nav_item"><a href="/search/?category_L1=L1_C4">ධම්‌ම සංග්‍රහ පොත්‌</a></li>-->
-<!--									<li class="main_nav_item"><a href="/search/?category_L1=L1_C5">පාලි ව්‍යාකරණ</a></li>-->
-									<li class="main_nav_item"><a href="/#contact">සම්‌භන්‌ද වෙමු</a></li>
+									<li class="main_nav_item"><a href="/search/?search=" title="Book Index">ග්‍රන්ථ නාමාවලිය</a></li>
+									<li class="main_nav_item"><a href="/#about-us" title="About Us">අප ගැන</a></li>
+									<li class="main_nav_item"><a href="/#contact" title="Contact Us">සම්‌භන්‌ද වෙමු</a></li>
 								</ul>
 							</div>
 							{% comment %} <div class="content_search ml-lg-0 ml-auto">
