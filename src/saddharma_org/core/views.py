@@ -135,6 +135,10 @@ def book_search(request):
     category_L1 = request.GET.get('category_L1', "")
     category_L2 = request.GET.get('category_L2', "")
 
+    # Common params
+    page = request.GET.get('page', "1")
+    sort = request.GET.get('sort', "catalog_no")
+
     filters = Q()
     if search_query:
         filters &= Q(title__contains=search_query) | Q(catalog_no=search_query)
@@ -163,7 +167,7 @@ def book_search(request):
 
     print(request.get_full_path())
     print(f'filters = {filters}')
-    rows = Book.objects.filter(filters).order_by('catalog_no')
+    rows = Book.objects.filter(filters).order_by(sort)
     for row in rows:
         # convert KB into MB without decimals
         if row.size is not None:
@@ -184,9 +188,11 @@ def book_search(request):
         page_obj = paginator.page(paginator.num_pages)
     # --
 
+    fullpath = request.build_absolute_uri(f"/search/?search={search_query}&sort={sort}")
+
     context = {
         'rows': page_obj,
-        'fullpath': request.get_full_path(),
+        'fullpath': fullpath,
     }
     print(f'row count = {len(rows)}')
 
@@ -454,7 +460,7 @@ def import_books(request):
             continue
 
         b.pages = b.pages if b.pages is not None else -1
-        b.published_year = b.published_year if b.published_year is not None else datetime.datetime(1700, 1, 1)
+        b.published_year = b.published_year if b.published_year is not None else datetime.datetime(1000, 1, 1)
         # print(f'>> Excel {n} catalog_no={b.catalog_no}, title = {b.title}, author={b.author_name}, pages={b.pages}, year=' + str(b.published_year.strftime('%Y')))
         # print(f'>> Excel {n} catalog_no={b.catalog_no}')
 

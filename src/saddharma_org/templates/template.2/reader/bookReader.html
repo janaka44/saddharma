@@ -4,12 +4,12 @@
 
 <div class="intro_items" style="margin-top: 150px">
     <div class="mt-2 d-flex bd-highlight">
-      <div class="p-2 col-9 bd-highlight " style="border:1px solid red;">
+      <div class="p-2 col-9 bd-highlight " style="border:0px solid red;">
           <embed src="{{ row.book_url }}/{{ row.book.storage_link }}" type="application/pdf" height="800px" width="100%">
       </div>
-      <div class="p-2 col-3 flex-shrink-1 bd-highlight" style="border:1px solid green;">
-          <h4 class="font-weight-bold">{{ row.book.title }}</h4>
-          <h7 class=""><a href="">{{ row.book.author }}</a></h7>
+      <div class="p-2 col-3 flex-shrink-1 bd-highlight" style="border:0px solid green;">
+          <span class="h6 row pl-1 font-weight-bold">{{ row.book.title }} ( <a href="">{{ row.book.author }}</a>)</span>
+          <span class="h7 row pl-2 ">වර්ෂය: {{ row.book.published_year|date:"Y" }} | පිටු: {{ row.book.pages }}</span>
           <div class="mt-2">Comments</div>
           {% for comment_row in row.comments %}
           <div class="d-flex justify-content-between ">

@@ -10,7 +10,7 @@
 			<div class="col-8 text-right font-weight-bold h6">
 				<!-- Pagination : ------------- START -->
 				{% if rows.has_previous %}
-				  <a href="{{ fullpath }}&page={{ rows.previous_page_number }}">« Previous page</a>
+				  <a href="{{ fullpath }}&page={{ rows.previous_page_number }}">◄ Previous</a>
 
 				  {% if rows.number > 3 %}
 					<a href="{{ fullpath }}&page=1">1</a>
@@ -22,7 +22,7 @@
 
 				{% for num in rows.paginator.page_range %}
 				  {% if rows.number == num %}
-					<a href="{{ fullpath }}&page={{ num }}">{{ num }}</a>
+					<span style="background-color:#883812; color:white; border:1px solid black; border-radius:10px; padding:3px;" class="">{{ num }}</span>
 				  {% elif num > rows.number|add:'-3' and num < rows.number|add:'3' %}
 					<a href="{{ fullpath }}&page={{ num }}">{{ num }}</a>
 				  {% endif %}
@@ -36,7 +36,7 @@
 					<a href="{{ fullpath }}&page={{ rows.paginator.num_pages }}">{{ rows.paginator.num_pages }}</a>
 				  {% endif %}
 
-				  <a href="{{ fullpath }}&page={{ rows.next_page_number }}">Next Page »</a>
+				  <a href="{{ fullpath }}&page={{ rows.next_page_number }}">Next ►</a>
 				{% endif %}
 				<!-- Pagination : ------------- END -->
 			</div>
@@ -45,29 +45,29 @@
 		<div class="row justify-content-center align-items-center">
 			<table style="padding:10px" class="p-2 grid" cellpadding="2px" cellspacing="10px" >
 				<thead>
-					<th>Catalog No</th>
-					<th>Book Title</th>
-					<th>Volume</th>
-					<th>Author</th>
-					<th>Language</th>
-					<th>Pages</th>
-					<th>Size</th>
-					<th>Year</th>
-					<th>Main Category</th>
-					<th>Sub Category</th>
+					<th><a href="{{ fullpath }}&sort=catalog_no">Catalog No</a></th>
+					<th><a href="{{ fullpath }}&sort=title">Book Title</a></th>
+					<th><a href="{{ fullpath }}&sort=volume">Volume</a></th>
+					<th><a href="{{ fullpath }}&sort=author__author">Author</a></th>
+					<th><a href="{{ fullpath }}&sort=language">Language</a></th>
+					<th><a href="{{ fullpath }}&sort=pages">Pages</a></th>
+					<th><a href="{{ fullpath }}&sort=size">Size</a></th>
+					<th><a href="{{ fullpath }}&sort=published_year">Year</a></th>
+					<th><a href="{{ fullpath }}&sort=category_L1">Main Category</a></th>
+					<th><a href="{{ fullpath }}&sort=category_L2">Sub Category</a></th>
 				</thead>
 				<tbody>
 					<tr class="grid">
-						<th>නාමාවලි අංකය</th>
-						<th>නම </th>
-						<th>වෙළුම</th>
-						<th>කතෘ </th>
-						<th>භාෂාව</th>
-						<th>පිටු ගණන</th>
-						<th>ප්‍රමාණය</th>
-						<th>වසර</th>
-						<th>ප්‍රධාන වර්ගීකරණය</th>
-						<th>වෙනත් වර්ගීකරණය</th>
+						<th><a href="{{ fullpath }}&sort=catalog_no">නාමාවලි අංකය</a></th>
+						<th><a href="{{ fullpath }}&sort=title">නම</a></th>
+						<th><a href="{{ fullpath }}&sort=volume">වෙළුම</a></th>
+						<th><a href="{{ fullpath }}&sort=author__author">කතෘ</a></th>
+						<th><a href="{{ fullpath }}&sort=language">භාෂාව</a></th>
+						<th><a href="{{ fullpath }}&sort=pages">පිටු ගණන</a></th>
+						<th><a href="{{ fullpath }}&sort=size">ප්‍රමාණය</a></th>
+						<th><a href="{{ fullpath }}&sort=published_year">වසර</a></th>
+						<th><a href="{{ fullpath }}&sort=category_L1">ප්‍රධාන වර්ගීකරණය</a></th>
+						<th><a href="{{ fullpath }}&sort=category_L2">වෙනත් වර්ගීකරණය</a></th>
 					</tr>
 					{% for row in rows %}
 						<tr class="{% cycle 'odd' 'even' %}">
@@ -78,7 +78,11 @@
 							<td>{{ row.get_language_display }}</td>
 							<td>{{ row.pages }}</td>
 							<td>{{ row.book_size }} </td>
-							<td>{{ row.published_year|date:"Y" }}</td>
+							{% if row.published_year|date:"Y" == "1700" %}
+								<td>-</td>
+							{% else %}
+								<td>{{ row.published_year|date:"Y" }}</td>
+							{% endif %}
 							<td>{{ row.get_category_L1_display }}</td>
 							<td>{{ row.get_category_L2_display }}</td>
 						</tr>

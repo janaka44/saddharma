@@ -113,13 +113,18 @@ p a
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-a, a:hover, a:visited, a:active, a:link
+a, a:visited, a:active, a:link
 {
+    color: #883812;
 	text-decoration: none;
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	/* text-shadow: rgb(94 23 0) 0 0 5px; */
 }
+a:hover{
+	color: red;
+}
+
 p a:active
 {
 	position: relative;
@@ -2329,7 +2334,7 @@ table.grid {
 }
 
 .tag-link {
-    color:#cdcdcd;
+    color:#cdcdcd !important;
     text-decoration: underline;
     border:1px solid #fa9e1c;
     border-radius:5px;
