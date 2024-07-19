@@ -2253,15 +2253,16 @@ input#search:focus {
 {
 	height: 52px;
 }
-.copyright_content div
+.copyright
 {
+    background-image: linear-gradient(to bottom right, #5e1700, #000000);
 	font-size: 12px;
 	font-weight: 600;
-	color: #685677;
+	color: white;
 }
 .footer_nav_container
 {
-	height: 52px;
+	height: 40px;
 }
 .footer_nav
 {
@@ -2270,6 +2271,7 @@ input#search:focus {
 .footer_nav_list
 {
 	font-size: 0px;
+
 }
 .footer_nav_item
 {
@@ -2280,7 +2282,7 @@ input#search:focus {
 {
 	font-size: 12px;
 	font-weight: 600;
-	color: #685677;
+	color: white;
 	text-transform: uppercase;
 	line-height: 2;
 	-webkit-transition: all 200ms ease;
@@ -2324,6 +2326,11 @@ th, td {
     border: 2px solid white;
 }
 
+th a, td a{
+    display:block;
+    padding:2px;
+}
+
 table.grid {
     border: 1px solid black;
 }
@@ -2344,6 +2351,8 @@ table.grid {
 a.tag-link:hover {
     color:#fa9e1c;
 }
+
+
 
 
 

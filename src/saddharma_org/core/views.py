@@ -192,6 +192,7 @@ def book_search(request):
 
     context = {
         'rows': page_obj,
+        'search_query': search_query,
         'fullpath': fullpath,
     }
     print(f'row count = {len(rows)}')
