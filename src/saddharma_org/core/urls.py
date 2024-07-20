@@ -14,6 +14,7 @@ urlpatterns = [
     path('',                views.home_view,        name='home'),
     path('search/',         views.book_search,      name='search'),
     path('read/<catalog_no>',   views.book_reader_view, name='book_reader'),
+    path('preview/<catalog_no>',   views.book_preview, name='book_preview'),
 
     path('import-books/',   views.import_books,     name='import_books'),
     path('import_sources/', views.import_sources,   name='import_sources'),

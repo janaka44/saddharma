@@ -186,19 +186,23 @@ def book_search(request):
     except EmptyPage:
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
-    # --
 
-    fullpath = request.build_absolute_uri(f"/search/?search={search_query}&sort={sort}")
+
+    # fullpath = request.build_absolute_uri(f"/search/?search={search_query}&sort={sort}")
+    fullpath = request.get_full_path()
 
     context = {
         'rows': page_obj,
+        'start_row': page_obj.start_index(),
+        'end_row': page_obj.end_index(),
         'search_query': search_query,
+        'book_url': f'https://books.saddharma.org',
         'fullpath': fullpath,
     }
     print(f'row count = {len(rows)}')
 
     # context.update(set_base_content(request))
-    return render(request, "template.2/search/book-index.html", context)
+    return render(request, "template.2/search/search-results.html", context)
 
 
 def search_view(request):
@@ -218,7 +222,7 @@ def book_reader_view(request, catalog_no):
         filters &= Q(catalog_no=catalog_no)
     book = Book.objects.get(filters)
     comments = Comments.objects.filter(book=book.id)
-    print(comments)
+    # print(comments)
     context = {
         'header_view': 'scrolled',
         'row': {
@@ -226,13 +230,32 @@ def book_reader_view(request, catalog_no):
             # TODO: move this link to a setting parameter: Book CDN base URL
             'book_url': f'https://books.saddharma.org',
             'comments': comments,
-
         },
     }
-    # 'book_url': 'https://tipitaka.sgp1.digitaloceanspaces.com/library/අභිධර්ම%7B1%7D/අභිධර්ම%20චන්ද්%E2%80%8Dරිකාව%20-%20මාතර%20ධර්මවංශ%20හිමි%5Bscanned%5D%7B12%7D.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=DO00W6TA6TFMRGYL3VCD%2F20240105%2Funused%2Fs3%2Faws4_request&X-Amz-Date=20240105T023224Z&X-Amz-Expires=3600&X-Amz-Signature=818fe73a61419b83047e1ca73b722615b13cccbe113a17be723fb4ca6273f2db&X-Amz-SignedHeaders=host&x-id=GetObject',
 
     context.update(set_base_content(request))
     return render(request, "template.2/reader/bookReader.html", context)
+
+
+def book_preview(request, catalog_no):
+    from django.http import FileResponse, Http404
+    filters = Q()
+    if catalog_no:
+        filters &= Q(catalog_no=catalog_no)
+    book = Book.objects.get(filters)
+    comments = Comments.objects.filter(book=book.id)
+    # print(comments)
+    context = {
+        'header_view': 'scrolled',
+        'row': {
+            'book': book,
+            # TODO: move this link to a setting parameter: Book CDN base URL
+            'book_url': f'https://books.saddharma.org',
+            'comments': comments,
+        },
+    }
+    context.update(set_base_content(request))
+    return render(request, "template.2/reader/bookPreview.html", context)
 
 
 # @login_required

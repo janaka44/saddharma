@@ -11,7 +11,8 @@
 						   class="border border border-secondary rounded destination search_input"></h3>
 			</div>
 			<div class="col-1 d-flex justify-content-end">
-				<input type="submit" value="සොයන්න" title="Search" class=" btn btn-danger ml-3" style="height: 45px;">
+				<input type="submit" value="සොයන්න" title="Search" class=" btn ml-3"
+					   style="color:white; background-color: #5e1700; height: 45px; cursor:pointer;">
 			</div>
 		</div>
 	</form>
@@ -19,14 +20,14 @@
 	<!-- Book Search result summary -->
 	<div class="container" style="padding:10px 20px 0 20px;">
 		<div class="row">
-			<div class="col-4 h6">
+			<div class="col-8 h6">
+				<span class="english">Showing {{ start_row }}-{{ end_row }} of {{ rows.paginator.count }} books
 				{% if search_query != "" %}
-					<span class="">{{ rows.paginator.count }} books found for "{{ search_query }}".</span>
-				{% else %}
-					<span class="">{{ rows.paginator.count }} books found.</span>
+					for search: "{{ search_query }}"
 				{% endif %}
+				</span>
 			</div>
-			<div class="col-8 text-right font-weight-bold h6">
+			<div class="col-4 text-right font-weight-bold h6">
 				<!-- Pagination : ------------- START -->
 				{% if rows.has_previous %}
 				  <a href="{{ fullpath }}&page={{ rows.previous_page_number }}">◄ Previous</a>
@@ -64,37 +65,39 @@
 		<!-- Book results grid -->
 		<div class="row justify-content-center align-items-center">
 			<table style="padding:10px" class="p-2 grid" cellpadding="2px" cellspacing="10px" >
-				<thead>
-					<th><a href="{{ fullpath }}&sort=catalog_no">Catalog No</a></th>
-					<th><a href="{{ fullpath }}&sort=title">Book Title</a></th>
-					<th><a href="{{ fullpath }}&sort=volume">Volume</a></th>
-					<th><a href="{{ fullpath }}&sort=author__author">Author</a></th>
-					<th><a href="{{ fullpath }}&sort=language">Language</a></th>
-					<th><a href="{{ fullpath }}&sort=pages">Pages</a></th>
-					<th><a href="{{ fullpath }}&sort=size">Size</a></th>
-					<th><a href="{{ fullpath }}&sort=published_year">Year</a></th>
-					<th><a href="{{ fullpath }}&sort=category_L1">Main Category</a></th>
-					<th><a href="{{ fullpath }}&sort=category_L2">Sub Category</a></th>
+				<thead class="text-center">
+					<th><a href="{{ fullpath }}&sort=catalog_no" title="Catalog No">Catalog No</a></th>
+					<th><a href="{{ fullpath }}&sort=title" title="Book Title">Book Title</a></th>
+					<th><a href="{{ fullpath }}&sort=volume" title="Volume">Volume</a></th>
+					<th><a href="{{ fullpath }}&sort=author__author" title="Author">Author</a></th>
+					<th><a href="{{ fullpath }}&sort=language" title="Language">Language</a></th>
+					<th><a href="{{ fullpath }}&sort=pages" title="Pages">Pages</a></th>
+					<th><a href="{{ fullpath }}&sort=size" title="Size">Size</a></th>
+					<th><a href="{{ fullpath }}&sort=published_year" title="Year">Year</a></th>
+					<th><a href="{{ fullpath }}&sort=category_L1" title="Main Category">Main Category</a></th>
+					<th><a href="{{ fullpath }}&sort=category_L2" title="Sub Category">Sub Category</a></th>
+					<th title="Download">Download</th>
 				</thead>
 				<tbody>
-					<tr class="grid">
-						<th><a href="{{ fullpath }}&sort=catalog_no">නාමාවලි අංකය</a></th>
-						<th><a href="{{ fullpath }}&sort=title">නම</a></th>
-						<th><a href="{{ fullpath }}&sort=volume">වෙළුම</a></th>
-						<th><a href="{{ fullpath }}&sort=author__author">කතෘ</a></th>
-						<th><a href="{{ fullpath }}&sort=language">භාෂාව</a></th>
-						<th><a href="{{ fullpath }}&sort=pages">පිටු ගණන</a></th>
-						<th><a href="{{ fullpath }}&sort=size">ප්‍රමාණය</a></th>
-						<th><a href="{{ fullpath }}&sort=published_year">වසර</a></th>
-						<th><a href="{{ fullpath }}&sort=category_L1">ප්‍රධාන වර්ගීකරණය</a></th>
-						<th><a href="{{ fullpath }}&sort=category_L2">වෙනත් වර්ගීකරණය</a></th>
+					<tr class="text-center grid">
+						<th><a href="{{ fullpath }}&sort=catalog_no" title="නාමාවලි අංකය">නාමාවලි අංකය</a></th>
+						<th><a href="{{ fullpath }}&sort=title" title="නම">නම</a></th>
+						<th><a href="{{ fullpath }}&sort=volume" title="වෙළුම">වෙළුම</a></th>
+						<th><a href="{{ fullpath }}&sort=author__author" title="කතෘ">කතෘ</a></th>
+						<th><a href="{{ fullpath }}&sort=language" title="භාෂාව">භාෂාව</a></th>
+						<th><a href="{{ fullpath }}&sort=pages" title="පිටු ගණන">පිටු ගණන</a></th>
+						<th><a href="{{ fullpath }}&sort=size" title="ප්‍රමාණය">ප්‍රමාණය</a></th>
+						<th><a href="{{ fullpath }}&sort=published_year" title="වසර">වසර</a></th>
+						<th><a href="{{ fullpath }}&sort=category_L1" title="ප්‍රධාන වර්ගීකරණය">ප්‍රධාන වර්ගීකරණය</a></th>
+						<th><a href="{{ fullpath }}&sort=category_L2" title="වෙනත් වර්ගීකරණය">වෙනත් වර්ගීකරණය</a></th>
+						<th title="භාගත කිරීම">භාගත කිරීම</th>
 					</tr>
 					{% for row in rows %}
 						<tr class="{% cycle 'odd' 'even' %}">
 							<td>{{ row.catalog_no }}</td>
 							<td><a href="/read/{{ row.catalog_no }}"> {{ row.title }}</a></td>
 							<td>{{ row.volume }}</td>
-							<td>{{ row.author }}
+							<td>{{ row.author }}</td>
 							<td>{{ row.get_language_display }}</td>
 							<td>{{ row.pages }}</td>
 							<td>{{ row.book_size }} </td>
@@ -105,6 +108,9 @@
 							{% endif %}
 							<td>{{ row.get_category_L1_display }}</td>
 							<td>{{ row.get_category_L2_display }}</td>
+							<td class="text-center"><a href="{{ book_url }}/{{ row.storage_link }}" title="Download book ({{ row.book_size }})" target=”_blank”>
+								<i class="fa fa-lg fa-download" aria-hidden="true"></i>
+							</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>
