@@ -108,7 +108,7 @@
 							{% endif %}
 							<td>{{ row.get_category_L1_display }}</td>
 							<td>{{ row.get_category_L2_display }}</td>
-							<td class="text-center"><a href="{{ book_url }}/{{ row.storage_link }}" title="Download book ({{ row.book_size }})" target=”_blank”>
+							<td class="text-center"><a href="{{ book_url }}/{{ row.storage_link }}" title="Download book ({{ row.book_size }}). {{ row.view_count	 }} Downloads" target=”_blank”>
 								<i class="fa fa-lg fa-download" aria-hidden="true"></i>
 							</a></td>
 						</tr>

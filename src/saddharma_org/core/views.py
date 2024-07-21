@@ -107,12 +107,21 @@ def home_view(request):
             new_cat['title'] = [item for item in BOOK_CATEGORIES_L2 if item[0] == row['category_L2']][0][1]
             book_category_2_rows[f'row{i}'] = new_cat
 
+    most_read_book_rows = Book.objects.order_by('-view_count')[:8]
+    for book in most_read_book_rows:
+        book.book_size = convert_size_to_book_size(book.size)
+        if book.published_year.strftime('%Y') == "1700":
+            book.year = ""
+        else:
+            book.year = book.published_year.strftime('%Y')
+
     context = {
         'section_home_page_about_header': _('HOME_PAGE_ABOUT_HEADER'),
         'section_home_page_about_description': _('HOME_PAGE_ABOUT_DESCRIPTION'),
         'language_rows': language_rows,
         'category1_rows': category1_rows,
         'category2_rows': category2_rows,
+        'most_read_books': most_read_book_rows,
         'book_category_rows': book_category_rows,
         'book_category_2_rows': book_category_2_rows,
         'total_books': book_category_data_rows.aggregate(Sum('count')),
@@ -170,11 +179,7 @@ def book_search(request):
     rows = Book.objects.filter(filters).order_by(sort)
     for row in rows:
         # convert KB into MB without decimals
-        if row.size is not None:
-            if (row.size/1024) < 1:
-                row.book_size = f"{int(row.size)} KB"
-            else:
-                row.book_size = f"{int(row.size/1024)} MB"
+        row.book_size = convert_size_to_book_size(row.size)
 
     paginator = Paginator(rows, ROWS_PER_PAGE)
 
@@ -205,6 +210,17 @@ def book_search(request):
     return render(request, "template.2/search/search-results.html", context)
 
 
+def convert_size_to_book_size(size_in_bytes):
+    if size_in_bytes is None:
+        return -1
+    else:
+        if (size_in_bytes / 1024) < 1:
+            book_size = f"{int(size_in_bytes)} KB"
+        else:
+            book_size = f"{int(size_in_bytes / 1024)} MB"
+    return book_size
+
+
 def search_view(request):
     rows = []
 
@@ -221,6 +237,9 @@ def book_reader_view(request, catalog_no):
     if catalog_no:
         filters &= Q(catalog_no=catalog_no)
     book = Book.objects.get(filters)
+    # update book view_count
+    book.view_count += 1
+    book.save()
     comments = Comments.objects.filter(book=book.id)
     # print(comments)
     context = {

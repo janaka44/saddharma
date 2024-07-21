@@ -143,6 +143,7 @@ class Book(models.Model):
     pages = models.IntegerField(default=0)
     language = models.CharField(choices=BOOK_CATEGORIES_L3, max_length=10, blank=True, null=True)
 
+    # TODO: manually link next_book for books with multiple volumes/editions
     next_book = models.ForeignKey("Book", on_delete=models.RESTRICT, null=True)
     source_library = models.ForeignKey(SourceLibrary, on_delete=models.RESTRICT, blank=True, null=True)
     publisher = models.ForeignKey(Publisher, on_delete=models.RESTRICT, blank=True, null=True)
@@ -154,6 +155,7 @@ class Book(models.Model):
     slug = models.SlugField()
     #image = models.ImageField()
     description = models.TextField(blank=True, null=True)
+    view_count = models.IntegerField(default=0)
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     uploaded_date = models.DateField(auto_now_add=True, blank=True, null=True)
     approved_by = models.TextField(blank=True, null=True)

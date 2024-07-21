@@ -1615,21 +1615,26 @@ input#search:focus {
 	padding-bottom: 43px;
 	background: #f3f6f9;
 }
+
 .offers_items
 {
-	margin-top: 90px;
+
 }
+
 .offers_col
 {
 	margin-bottom: 40px;
 }
-.offers_item
+
+.offers_item2
 {
+    margin-top: 30px;
 	min-height:245px;
 	background-color:white;
 	padding:10px;
 	filter: drop-shadow(0px 0px 16px #898989);
 }
+
 .offers_image_container
 {
 	width: 100%;
@@ -1651,40 +1656,44 @@ input#search:focus {
 }
 .offer_name
 {
-	position: absolute;
-	left: 0;
-	bottom: 27px;
-	width: 180px;
-	height: 33px;
+	width: 80%;
+	height: 25px;
 	background: #fa9e1b;
 	overflow: hidden;
+	border-radius:10px;
+	border:1px solid gray;
 }
 .offer_name a
 {
 	display: block;
-	font-size: 16px;
+	font-size: 14px;
 	color: #FFFFFF;
 	text-transform: uppercase;
-	line-height: 35px;
-	padding-left: 22px;
+
 }
 .offers_content
 {
-	
+    margin:5px 0 5px 0;
+	min-height:200px;
+	padding:10px;
+    background:#fff3d5;
+    border:1px solid #868e96;
+	border-radius:10px;
+	filter: drop-shadow(0px 0px 16px #898989);
 }
 .offers_price
 {
 	display: inline-block;
 	font-size: 20px;
 	font-weight: 700;
-	color: #eda84a;
+	color: #883812;
 	line-height: 25px;
 }
 .offers_price span
 {
 	font-size: 14px;
 	font-weight: 400;
-	color: #929191;
+	color: black;
 	margin-left: 12px;
 }
 .offers_rating
