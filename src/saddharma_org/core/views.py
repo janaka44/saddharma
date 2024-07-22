@@ -54,8 +54,6 @@ def set_base_content(request):
 
 def home_view(request):
     from django.db.models import Count, Sum
-    book_category_rows = {}
-    book_category_2_rows = {}
 
     # fetch lists for dropdowns in detail search area
     category1_rows = BOOK_CATEGORIES_L1
@@ -75,6 +73,29 @@ def home_view(request):
         .annotate(count=Count('category_L2')) \
         .order_by('category_L2')
 
+    # book languages
+    book_language_data_rows = Book.objects \
+        .values('language') \
+        .annotate(count=Count('language')) \
+        .order_by('language')
+
+    # books by year range
+    # books_in_range1800 = Count("book", filter=Q()
+    books_in_range1850 = Count("book", filter=Q(book__rating__gt=5))
+    # .filter(published_year__range=["1800-01-01", "1851-01-01"]) \
+    # .values('published_year') \
+    # .annotate(count=Count('published_year'))
+
+    filters = Q()
+    filters &= Q(published_year__range=["1800-01-01", "1851-01-01"])
+    # filters &= Q(book__published_year__lt='1850-01-01')
+
+    book_year_range_data_rows = Book.objects \
+        .annotate(count1800=Count('book', filters ))
+    print(book_year_range_data_rows.count())
+    # for row in book_year_range_data_rows:
+    #     print(row)
+
     category_images = {
         'L1_C1': 'candle-book.jpg',
         'L1_C2': 'banner1.jpg',
@@ -85,28 +106,19 @@ def home_view(request):
         'L1_C7': 'old_library.jpg',
     }
 
+    total_books = book_category_data_rows.aggregate(Sum('count'))
+
     # add category image to QuerySet
-    i = 0
-    for row in book_category_data_rows:
-        i = i + 1
-        if row['category_L1'] is not None:
-            new_cat = {}
-            new_cat['cat'] = row['category_L1']
-            new_cat['count'] = row['count']
-            new_cat['image'] = category_images[row['category_L1']]
-            new_cat['title'] = [item for item in BOOK_CATEGORIES_L1 if item[0] == row['category_L1']][0][1]
-            book_category_rows[f'row{i}'] = new_cat
+    book_category_rows = extract_category_count_list(total_books['count__sum'], BOOK_CATEGORIES_L1,
+                                                     book_category_data_rows, 'category_L1', category_images)
 
-    i = 0
-    for row in book_category_2_data_rows:
-        i = i + 1
-        if row['category_L2'] is not None:
-            new_cat = {}
-            new_cat['cat'] = row['category_L2']
-            new_cat['count'] = row['count']
-            new_cat['title'] = [item for item in BOOK_CATEGORIES_L2 if item[0] == row['category_L2']][0][1]
-            book_category_2_rows[f'row{i}'] = new_cat
+    book_category_2_rows = extract_category_count_list(total_books['count__sum'], BOOK_CATEGORIES_L2,
+                                                       book_category_2_data_rows, 'category_L2')
 
+    book_language_rows = extract_category_count_list(total_books['count__sum'], BOOK_CATEGORIES_L3,
+                                                     book_language_data_rows, 'language')
+
+    # most read 8 books
     most_read_book_rows = Book.objects.order_by('-view_count')[:8]
     for book in most_read_book_rows:
         book.book_size = convert_size_to_book_size(book.size)
@@ -124,11 +136,30 @@ def home_view(request):
         'most_read_books': most_read_book_rows,
         'book_category_rows': book_category_rows,
         'book_category_2_rows': book_category_2_rows,
-        'total_books': book_category_data_rows.aggregate(Sum('count')),
+        'book_language_rows': book_language_rows,
+        'total_books': total_books,
     }
 
     context.update(set_base_content(request))
     return render(request, "template.2/index.html", context)
+
+
+def extract_category_count_list(total_books, enum_list, book_category_data_rows, cat_col_name, category_images = {}):
+    list_sum = {}
+    i = 0
+    for row in book_category_data_rows:
+        i = i + 1
+        if row[cat_col_name] is not None:
+            new_cat = {}
+            new_cat['cat'] = row[cat_col_name]
+            if category_images:
+                new_cat['image'] = category_images[row[cat_col_name]]
+            new_cat['count'] = row['count']
+            new_cat['perc'] = round((row['count']/total_books)*100, 0)
+            new_cat['title'] = [item for item in enum_list if item[0] == row[cat_col_name]][0][1]
+            list_sum[f'row{i}'] = new_cat
+
+    return list_sum
 
 
 def book_search(request):
@@ -240,6 +271,10 @@ def book_reader_view(request, catalog_no):
     # update book view_count
     book.view_count += 1
     book.save()
+
+    # update currently read book
+    # request.session.set_cookie('cookie_name', 'cookie_value')
+
     comments = Comments.objects.filter(book=book.id)
     # print(comments)
     context = {

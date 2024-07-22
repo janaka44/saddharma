@@ -152,7 +152,7 @@
 			</div>
 			<div class="row intro_items">
 
-				<!-- Book catetory tile  -->
+				<!-- Book category tile  -->
 				{% for v,row in book_category_rows.items %}
 					<div class="col-lg-4 intro_col">
 						<div class="intro_item">
@@ -180,28 +180,71 @@
 			</div>
 
 			<div class="row intro_items d-flex justify-content-center">
-				<table style="padding:10px" class="p-2 grid" cellpadding="2px" cellspacing="10px" >
-					<thead>
-						<th>Sub Categories</th>
-						<th>Book Count</th>
-					</thead>
-					<tbody>
-						<tr class="grid">
-							<th>වෙනත් වර්ගීකරණ</th>
-							<th>පොත් ගණන</th>
-						</tr>
-						{% for v,row in book_category_2_rows.items %}
-							<tr class="{% cycle 'odd' 'even' %}">
-								<td><a class="" href="search/?category_L2={{ row.cat }}">{{ row.title }}</a></td>
-								<td>{{ row.count }}</td>
+				<!-- Book Counts by Sub Categories -->
+				<div class="col-7">
+					<table style="padding:10px" class="w-100 p-2 grid" cellpadding="2px" cellspacing="10px" >
+						<thead>
+							<th>Sub Categories</th>
+							<th class="text-center">Book Count</th>
+							<th class="text-center">%</th>
+						</thead>
+						<tbody>
+							<tr class="grid">
+								<th>වෙනත් වර්ගීකරණ</th>
+								<th class="text-center">පොත් ගණන</th>
+								<th></th>
 							</tr>
-						{% endfor %}
-					</tbody>
-					<tfoot>
-						<th>Total</th>
-						<th>{{ total_books.count__sum }}</th>
-					</tfoot>
-				</table>
+							{% for v,row in book_category_2_rows.items %}
+								<tr class="{% cycle 'odd' 'even' %}">
+									<td><a class="" href="search/?category_L2={{ row.cat }}">{{ row.title }}</a></td>
+									<td class="text-center">{{ row.count }}</td>
+									<td class="d-flex justify-content-start">
+										<span style="display:block; background-color:#bcbcbc; width:{{ row.perc }}px">&nbsp;</span>
+										<span class="pl-2">{{ row.perc }}%</span>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							<th>Total</th>
+							<th class="text-center">{{ total_books.count__sum }}</th>
+							<th></th>
+						</tfoot>
+					</table>
+				</div>
+
+				<!-- Book Counts by Languages -->
+				<div class="col-5">
+					<table style="padding:10px" class="w-100 p-2 grid" cellpadding="2px" cellspacing="10px" >
+						<thead>
+							<th>Language</th>
+							<th>Book Count</th>
+							<th class="text-center">%</th>
+						</thead>
+						<tbody>
+							<tr class="grid">
+								<th>භාෂාව</th>
+								<th>පොත් ගණන</th>
+								<th></th>
+							</tr>
+							{% for v,row in book_language_rows.items %}
+								<tr class="{% cycle 'odd' 'even' %}">
+									<td><a class="" href="search/?language={{ row.cat }}">{{ row.title }}</a></td>
+									<td  class="text-center">{{ row.count }}</td>
+									<td class="d-flex justify-content-start">
+										<div style="display:block; background-color:#bcbcbc; width:{{ row.perc }}px">&nbsp;</div>
+										<div class="pl-2">{{ row.perc }}%</div>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							<th>Total</th>
+							<th class="text-center">{{ total_books.count__sum }}</th>
+							<th></th>
+						</tfoot>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -366,30 +409,32 @@
 
 			<!-- Book Details -->
 
-			<div class="offers_item">
+			<div class="">
 				<div class="row">
 					{% for book in most_read_books %}
 					<div class="col-3 offers_content text-center ">
-						<div class="offers_price pt-1">{{ book.title }}<span><br>{{ book.author }}</span></div>
-						<p class="offers_text">වසර : {{ book.year }}<p>
-						<div class="d-none rating_r rating_r_4 offers_rating">
-							<i></i>
-							<i></i>
-							<i></i>
-							<i></i>
-							<i></i>
-						</div>
-						<p class="offers_text">File ප්‍රමාණය (size) : {{ book.book_size }}<br>
-						පිටු {{ book.pages }}</p>
-						<div class="offer_name mt-1"><a href="/read/{{ book.catalog_no }}">{{ book.view_count }} Downloads</a></div>
-						<div class="d-none offers_icons">
-							<ul class="offers_icons_list">
-								<li class="offers_icons_item"><img src="static/images/post.png" alt=""></li>
-								<li class="offers_icons_item"><img src="static/images/compass.png" alt=""></li>
-								<li class="offers_icons_item"><img src="static/images/bicycle.png" alt=""></li>
-								<li class="offers_icons_item"><img src="static/images/sailboat.png" alt=""></li>
-							</ul>
-						</div>
+						<a href="/read/{{ book.catalog_no }}">
+							<div class="offers_price pt-1">{{ book.title }}<span><br>{{ book.author }}</span></div>
+							<p class="offers_text">වසර : {{ book.year }}<p>
+							<div class="d-none rating_r rating_r_4 offers_rating">
+								<i></i>
+								<i></i>
+								<i></i>
+								<i></i>
+								<i></i>
+							</div>
+							<p class="offers_text">File ප්‍රමාණය (size) : {{ book.book_size }}<br>
+							පිටු {{ book.pages }}</p>
+							<div class="offer_name mt-1">{{ book.view_count }} Downloads</div>
+							<div class="d-none offers_icons">
+								<ul class="offers_icons_list">
+									<li class="offers_icons_item"><img src="static/images/post.png" alt=""></li>
+									<li class="offers_icons_item"><img src="static/images/compass.png" alt=""></li>
+									<li class="offers_icons_item"><img src="static/images/bicycle.png" alt=""></li>
+									<li class="offers_icons_item"><img src="static/images/sailboat.png" alt=""></li>
+								</ul>
+							</div>
+						</a>
 					</div>
 					{% endfor %}
 				</div>
@@ -418,7 +463,7 @@
 					<div class="test_slider_container">
 						<div class="owl-carousel owl-theme test_slider">
 							<!-- Testimonial Item -->
-							<div class="owl-item offers_item test_item">
+							<div class="owl-item offers_item test_item" style="">
 										
 								<h4 class="test_name">අභිධර්මාර්ථ ප්‍රදීපිකා 1</h4>
 								<p class="">ඇස නම් වූ මාංස පිණ්ඩය තුදුස් සම්භාරයකින් යුක්ත බව කියවේ. (විශුද්ධි මග්ග, අභිධර්මාර්ථ ප්‍රදීපිකා) 
@@ -542,10 +587,10 @@
 						<div class="contact_title">සම්‌භන්‌ද වෙමු</div>
 						<h5 class='text-shadow'>Contact Us</h5>
 						<form action="#" id="contact_form" class="contact_form">
-							<input type="text" id="contact_form_name" class="contact_form_name input_field" placeholder="නම" required="required" data-error="Name is required.">
-							<input type="text" id="contact_form_email" class="contact_form_email input_field" placeholder="ඊ-මේල් ලිපිනය" required="required" data-error="Email is required.">
-							<input type="text" id="contact_form_subject" class="contact_form_subject input_field" placeholder="මාතෘකාව" required="required" data-error="Subject is required.">
-							<textarea id="contact_form_message" class="text_field contact_form_message" name="message" rows="4" placeholder="පණිවිඩය" required="required" data-error="Please, write us a message."></textarea>
+							<input type="text" id="contact_form_name" class="contact_form_name input_field" placeholder="නම | name" required="required" data-error="Name is required.">
+							<input type="text" id="contact_form_email" class="contact_form_email input_field" placeholder="ඊ-මේල් ලිපිනය | email" required="required" data-error="Email is required.">
+							<input type="text" id="contact_form_subject" class="contact_form_subject input_field" placeholder="මාතෘකාව | subject" required="required" data-error="Subject is required.">
+							<textarea id="contact_form_message" class="text_field contact_form_message" name="message" rows="4" placeholder="පණිවිඩය | message" required="required" data-error="Please, write us a message."></textarea>
 							<button type="submit" id="form_submit_button" class=" button search_button">Send Message<span></span><span></span><span></span></button>
 						</form>
 					</div>
@@ -644,11 +689,11 @@
 							<ul class="contact_info_list">
 								<li class="contact_info_item d-flex flex-row">
 									<div><div class="contact_info_icon"><img src="/static/images/placeholder.svg" alt=""></div></div>
-									<div class="contact_info_text">123 Galle Road, Colombo 4</div>
+									<div class="contact_info_text">Stree No, Address, Sri Lanka.</div>
 								</li>
 								<li class="contact_info_item d-flex flex-row">
 									<div><div class="contact_info_icon"><img src="/static/images/phone-call.svg" alt=""></div></div>
-									<div class="contact_info_text">+94 011 234 567</div>
+									<div class="contact_info_text">+94 011 111 111</div>
 								</li>
 								<li class="contact_info_item d-flex flex-row">
 									<div><div class="contact_info_icon"><img src="/static/images/message.svg" alt=""></div></div>

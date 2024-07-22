@@ -72,7 +72,7 @@ class Author(models.Model):
     # author_en = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     year = models.DateField(blank=True, null=True)
-    #slug = models.SlugField()
+    #slug = models.SlgField()
     #image = models.ImageField()
 
     @classmethod
