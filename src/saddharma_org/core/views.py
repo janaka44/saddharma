@@ -150,7 +150,7 @@ def get_count_by_year_range(rownum, date_range_count_list, start_year, end_year,
     count_list['count'] = range_count
     count_list['date_range1'] = f"{start_year}-01-01"
     count_list['date_range2'] = f"{end_year}-01-01"
-    count_list['perc'] = round((range_count / total_books) * 100, 0)
+    count_list['perc'] = round((range_count / total_books) * 100)
     date_range_count_list[f'row{rownum}'] = count_list
     return date_range_count_list
 
@@ -166,7 +166,7 @@ def extract_category_count_list(total_books, enum_list, book_category_data_rows,
             if category_images:
                 new_cat['image'] = category_images[row[cat_col_name]]
             new_cat['count'] = row['count']
-            new_cat['perc'] = round((row['count']/total_books)*100, 0)
+            new_cat['perc'] = round((row['count']/total_books)*100)
             new_cat['title'] = [item for item in enum_list if item[0] == row[cat_col_name]][0][1]
             list_sum[f'row{i}'] = new_cat
 
