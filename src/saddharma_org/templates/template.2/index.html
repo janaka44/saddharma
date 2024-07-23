@@ -176,12 +176,21 @@
 				<div class="col">
 					<h2 class="intro_title text-center">වෙනත් ග්‍රන්ථ වර්ගීකරණ</h2>
 					<h5 class='text-dark text-center  font-weight-bold'>Sub Categories</h5>
+
+					<div class="alert alert-secondary" role="alert">
+						<h5 class='text-dark text-center mt-3'>පොත් ලැයිස්තුව බැලීමට එක් එක් කාණ්ඩය තෝරන්න(ක්ලික් කරන්න).</h5>
+						<h5 class='text-dark text-center'>Click each category to see the list of books.</h5>
+					</div>
+
 				</div>
 			</div>
 
 			<div class="row intro_items d-flex justify-content-center">
 				<!-- Book Counts by Sub Categories -->
+
 				<div class="col-7">
+					<h5 class='text-dark text-center  font-weight-bold'>උප කාණ්ඩ අනුව පොත් වර්ගීකරණය</h5>
+					<h5 class='text-dark text-center  font-weight-bold'>Books grouped by sub categories</h5>
 					<table style="padding:10px" class="w-100 p-2 grid" cellpadding="2px" cellspacing="10px" >
 						<thead>
 							<th>Sub Categories</th>
@@ -199,7 +208,7 @@
 									<td><a class="" href="search/?category_L2={{ row.cat }}">{{ row.title }}</a></td>
 									<td class="text-center">{{ row.count }}</td>
 									<td class="d-flex justify-content-start">
-										<span style="display:block; background-color:#bcbcbc; width:{{ row.perc }}px">&nbsp;</span>
+										<span class="bar_chart_bg" style=" width:{{ row.perc }}px">&nbsp;</span>
 										<span class="pl-2">{{ row.perc }}%</span>
 									</td>
 								</tr>
@@ -213,18 +222,21 @@
 					</table>
 				</div>
 
-				<!-- Book Counts by Languages -->
+
 				<div class="col-5">
+					<h5 class='text-dark text-center  font-weight-bold'>භාෂාව අනුව පොත් වර්ගීකරණය</h5>
+					<h5 class='text-dark text-center  font-weight-bold'>Books grouped by language</h5>
+					<!-- Book Counts by Languages -->
 					<table style="padding:10px" class="w-100 p-2 grid" cellpadding="2px" cellspacing="10px" >
 						<thead>
 							<th>Language</th>
-							<th>Book Count</th>
+							<th class="text-center">Book Count</th>
 							<th class="text-center">%</th>
 						</thead>
 						<tbody>
 							<tr class="grid">
 								<th>භාෂාව</th>
-								<th>පොත් ගණන</th>
+								<th class="text-center">පොත් ගණන</th>
 								<th></th>
 							</tr>
 							{% for v,row in book_language_rows.items %}
@@ -232,7 +244,41 @@
 									<td><a class="" href="search/?language={{ row.cat }}">{{ row.title }}</a></td>
 									<td  class="text-center">{{ row.count }}</td>
 									<td class="d-flex justify-content-start">
-										<div style="display:block; background-color:#bcbcbc; width:{{ row.perc }}px">&nbsp;</div>
+										<div class="bar_chart_bg" style="width:{{ row.perc }}px">&nbsp;</div>
+										<div class="pl-2">{{ row.perc }}%</div>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							<th>Total</th>
+							<th class="text-center">{{ total_books.count__sum }}</th>
+							<th></th>
+						</tfoot>
+					</table>
+
+					<!-- Book Counts by year range -->
+					<h5 class='text-dark text-center  font-weight-bold mt-5'>වර්ෂ අනුව පොත් වර්ගීකරණය</h5>
+					<h5 class='text-dark text-center  font-weight-bold'>Books grouped by published year range</h5>
+					<table style="padding:10px" class=" w-100 p-2 grid" cellpadding="2px" cellspacing="10px" >
+						<thead>
+							<th>Year Range</th>
+							<th class="text-center">Book Count</th>
+							<th class="text-center">%</th>
+						</thead>
+						<tbody>
+							<tr class="grid">
+								<th>වර්ෂ</th>
+								<th class="text-center">පොත් ගණන</th>
+								<th></th>
+							</tr>
+							{% for v,row in date_range_count_list.items %}
+								<tr class="{% cycle 'odd' 'even' %}">
+									<td><a class=""
+										   href="search/?date_range1={{ row.date_range1 }}&date_range2={{ row.date_range2 }}">{{ row.year_range }}</a></td>
+									<td  class="text-center">{{ row.count }}</td>
+									<td class="d-flex justify-content-start">
+										<div class="bar_chart_bg" style=" width:{{ row.perc }}px">&nbsp;</div>
 										<div class="pl-2">{{ row.perc }}%</div>
 									</td>
 								</tr>
@@ -245,6 +291,7 @@
 						</tfoot>
 					</table>
 				</div>
+
 			</div>
 		</div>
 	</div>

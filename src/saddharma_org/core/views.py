@@ -79,22 +79,25 @@ def home_view(request):
         .annotate(count=Count('language')) \
         .order_by('language')
 
+    total_books = book_category_data_rows.aggregate(Sum('count'))
+
     # books by year range
-    # books_in_range1800 = Count("book", filter=Q()
-    books_in_range1850 = Count("book", filter=Q(book__rating__gt=5))
-    # .filter(published_year__range=["1800-01-01", "1851-01-01"]) \
-    # .values('published_year') \
-    # .annotate(count=Count('published_year'))
+    date_range_count_list = {}
+    get_count_by_year_range(1, date_range_count_list, "1800", "1850", total_books['count__sum'])
+    get_count_by_year_range(2, date_range_count_list, "1851", "1900", total_books['count__sum'])
+    get_count_by_year_range(3, date_range_count_list, "1901", "1950", total_books['count__sum'])
+    get_count_by_year_range(4, date_range_count_list, "1951", "2000", total_books['count__sum'])
+    get_count_by_year_range(5, date_range_count_list, "2001", "2050", total_books['count__sum'])
+    get_count_by_year_range(6, date_range_count_list, "1700", "1700", total_books['count__sum'])
 
     filters = Q()
-    filters &= Q(published_year__range=["1800-01-01", "1851-01-01"])
-    # filters &= Q(book__published_year__lt='1850-01-01')
+    s1 = 'published_year__year__gte=1951'
+    s2 = 'published_year__year__lte=2000'
 
-    book_year_range_data_rows = Book.objects \
-        .annotate(count1800=Count('book', filters ))
-    print(book_year_range_data_rows.count())
-    # for row in book_year_range_data_rows:
-    #     print(row)
+    # filters &= Q(s1)
+    # filters &= Q(s2)
+    # r = Book.objects.filter(published_year__range=[f""])
+    # print(f'*** = {r}')
 
     category_images = {
         'L1_C1': 'candle-book.jpg',
@@ -105,8 +108,6 @@ def home_view(request):
         'L1_C6': 'library-2.jpg',
         'L1_C7': 'old_library.jpg',
     }
-
-    total_books = book_category_data_rows.aggregate(Sum('count'))
 
     # add category image to QuerySet
     book_category_rows = extract_category_count_list(total_books['count__sum'], BOOK_CATEGORIES_L1,
@@ -137,11 +138,30 @@ def home_view(request):
         'book_category_rows': book_category_rows,
         'book_category_2_rows': book_category_2_rows,
         'book_language_rows': book_language_rows,
+        'date_range_count_list': date_range_count_list,
         'total_books': total_books,
     }
 
     context.update(set_base_content(request))
     return render(request, "template.2/index.html", context)
+
+
+def get_count_by_year_range(rownum, date_range_count_list, start_year, end_year, total_books):
+    book_year_range_data_rows = Book.objects \
+        .filter(published_year__range=[f"{start_year}-01-01", f"{end_year}-01-01"])
+    range_count = int(book_year_range_data_rows.count())
+
+    count_list = {}
+    if start_year != '1700':
+        count_list['year_range'] = f'{start_year}-{end_year}'
+    else:
+        count_list['year_range'] = 'N/A'
+    count_list['count'] = range_count
+    count_list['date_range1'] = f"{start_year}-01-01"
+    count_list['date_range2'] = f"{end_year}-01-01"
+    count_list['perc'] = round((range_count / total_books) * 100, 0)
+    date_range_count_list[f'row{rownum}'] = count_list
+    return date_range_count_list
 
 
 def extract_category_count_list(total_books, enum_list, book_category_data_rows, cat_col_name, category_images = {}):
@@ -163,9 +183,13 @@ def extract_category_count_list(total_books, enum_list, book_category_data_rows,
 
 
 def book_search(request):
+    # Common search params
     page_num = request.GET.get('page', 1)
     search_query = request.GET.get('search', "")
+    date_range1 = request.GET.get('date_range1', "")
+    date_range2 = request.GET.get('date_range2', "")
 
+    # Column search params
     catalog_no = request.GET.get('catalog_no', "")
     title = request.GET.get('title', "")
     author = request.GET.get('author', "")
@@ -180,6 +204,8 @@ def book_search(request):
     sort = request.GET.get('sort', "catalog_no")
 
     filters = Q()
+    if date_range1 and date_range2:
+        filters &= Q(published_year__range=[f"{date_range1}", f"{date_range2}"])
     if search_query:
         filters &= Q(title__contains=search_query) | Q(catalog_no=search_query)
     if catalog_no:
@@ -205,7 +231,7 @@ def book_search(request):
         for value in value_list:
             filters |= Q(category_L2=value)
 
-    print(request.get_full_path())
+    # print(request.get_full_path())
     print(f'filters = {filters}')
     rows = Book.objects.filter(filters).order_by(sort)
     for row in rows:

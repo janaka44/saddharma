@@ -2465,6 +2465,10 @@ PDF Viewer
   direction: ltr;
 }
 
+.bar_chart_bg {
+    display:block;
+    background: linear-gradient(to top right, #fa9e1c, #5e1700);
+}
 
 
 
