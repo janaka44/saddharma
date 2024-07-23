@@ -90,15 +90,6 @@ def home_view(request):
     get_count_by_year_range(5, date_range_count_list, "2001", "2050", total_books['count__sum'])
     get_count_by_year_range(6, date_range_count_list, "1700", "1700", total_books['count__sum'])
 
-    filters = Q()
-    s1 = 'published_year__year__gte=1951'
-    s2 = 'published_year__year__lte=2000'
-
-    # filters &= Q(s1)
-    # filters &= Q(s2)
-    # r = Book.objects.filter(published_year__range=[f""])
-    # print(f'*** = {r}')
-
     category_images = {
         'L1_C1': 'candle-book.jpg',
         'L1_C2': 'banner1.jpg',
